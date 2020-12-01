@@ -1,6 +1,6 @@
 Fakultet: Fakulet Informatike u Puli: https://fipu.unipu.hr/
-Kolegij: Programsko Inženjerstvo  ntankovic.unipu.hr/pi
-Mentori: doc. dr. sc. Nikola Tanković (ntankovic.unipu.hr) i Toni Starčić, univ. bacc. inf.
+Kolegij: Programsko Inženjerstvo  https://ntankovic.unipu.hr/pi
+Mentori: doc. dr. sc. Nikola Tanković (https://ntankovic.unipu.hr) i Toni Starčić, univ. bacc. inf.
 
 # GrowOPG
 In this repository, You can find all the available documents that were needed to create GrowOPG, a WebApp made by a team of students as our project for our Software Design class
