@@ -1,4 +1,4 @@
-Fakultet: Fakulet Informatike u Puli: https://fipu.unipu.hr/
+<p> Fakultet: Fakulet Informatike u Puli: https://fipu.unipu.hr/ </p>
 Kolegij: Programsko Inženjerstvo  https://ntankovic.unipu.hr/pi
 Mentori: doc. dr. sc. Nikola Tanković (https://ntankovic.unipu.hr) i Toni Starčić, univ. bacc. inf.
 
