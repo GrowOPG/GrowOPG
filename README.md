@@ -13,3 +13,10 @@ Our WebApp is made for local businesses that want to increase their presence onl
 <b>https://xd.adobe.com/view/0220d1ee-922d-47f8-8f4e-d5e38efefaa6-5773/</b>
 
 <h2>Who's doing what</h2>
+<h3>Gabriel Mikulaco <b>https://github.com/GM543210</b></h3>
+
+<h3>David Kostić <b>https://github.com/david-kostic</b></h3>
+
+<h3>Marin Maurovic <b>https://github.com/Rrrovik</b></h3>
+
+<h3>David Maglica <b>https://github.com/DavidMaglica</b> </h3>
