@@ -2,7 +2,7 @@
 <p>Kolegij: Programsko Inženjerstvo  <strong>https://ntankovic.unipu.hr/pi</strong></p>
 <p>Mentori: doc. dr. sc. Nikola Tanković (<strong>https://ntankovic.unipu.hr</strong>) i Toni Starčić, univ. bacc. inf.</p>
 
-# GrowOPG
+<h1>GrowOPG</h1>
 In this repository, You can find all the available documents that were needed to create GrowOPG, a WebApp made by a team of students as our project for our Software Design class
 
 
