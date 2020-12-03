@@ -15,22 +15,30 @@ Our WebApp is made for local businesses that want to increase their presence onl
 <ul>
 <h3>Gabriel Mikulaco - Profile link: <strong>https://github.com/GM543210</strong></h3>
 <strong>Roles: </strong>
-   <li>Quality Assurance (QA)</li>
-   <li>Developer (HTML, CSS, JS, Vue.JS)</li>
+   <ul>
+      <li>Quality Assurance (QA)</li>
+      <li>Developer (HTML, CSS, JS, Vue.JS)</li>
+   </ul>
 
 <h3>David Kostić - Profile link: <strong>https://github.com/david-kostic</strong></h3>
 <strong>Roles: </strong>
-   <li>Quality Assurance (QA)</li>
-   <li>Designer (visual assets, editing)</li>
-   <li>Developer (HTML, CSS, JS, Vue.JS)</li>
+   <ul>
+      <li>Quality Assurance (QA)</li>
+      <li>Designer (visual assets, editing)</li>
+      <li>Developer (HTML, CSS, JS, Vue.JS)</li>
+   </ul>
+
 
 <h3>Marin Maurovic - Profile link: <strong>https://github.com/Rrrovik</strong></h3>
 <strong>Roles: </strong>
-   <li>Designer (visual assets, editing)</li>
-   <li>Developer (HTML, CSS, JS, Vue.JS)</li>
-
+   <ul>
+      <li>Designer (visual assets, editing)</li>
+      <li>Developer (HTML, CSS, JS, Vue.JS)</li>
+   </ul>
+   
 <h3>David Maglica - Profile link: <strong>https://github.com/DavidMaglica</strong></h3>
 <strong>Roles: </strong>
-  <li>Developer (HTML, CSS, JS, Vue.JS)</li>
-  <li>DevOPS</li>
-</ul>
+   <ul>
+      <li>Developer (HTML, CSS, JS, Vue.JS)</li>
+      <li>DevOPS</li>
+   </ul>
