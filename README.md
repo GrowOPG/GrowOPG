@@ -1,5 +1,5 @@
 <h1>GrowOPG</h1>
-<p>In this repository, You can find all the available documents that were needed to create GrowOPG, a WebApp made by a team of students as our project for our Software Design class</p>
+<p>In this repository, You can find all the available documents that were needed to create GrowOPG, a WebApp made by a team of four students (David Kostić, David Maglica, Gabriel Mikulaco and Marin Maurovic) as our project for our Software Design class</p>
 
 <p><strong>Fakultet:</strong> Fakulet Informatike u Puli (<strong>https://fipu.unipu.hr/</strong>)</p>
 <p><strong>Kolegij:</strong> Programsko Inženjerstvo (<strong>https://ntankovic.unipu.hr/pi</strong>)</p>
