@@ -12,14 +12,25 @@ Our WebApp is made for local businesses that want to increase their presence onl
 <strong>https://xd.adobe.com/view/0220d1ee-922d-47f8-8f4e-d5e38efefaa6-5773/</strong>
 
 <h2>Who's doing what</h2>
-<h3>Gabriel Mikulaco - Profile link: <strong>https://github.com/GM543210</strong></h3>
-<p><strong>Roles: </strong></p>
+<ul>
+  <li><h3>Gabriel Mikulaco - Profile link: <strong>https://github.com/GM543210</strong></h3></li>
+<li><strong>Roles: </strong></li>
+   <li>Quality Assurance (QA)</li>
+   <li>Developer (HTML, CSS, JS, Vue.JS)</li>
 
-<h3>David Kostić - Profile link: <strong>https://github.com/david-kostic</strong></h3>
-<p><strong>Roles: </strong>Quality assurance (QA),...</p>
+<h3>David Kostić - Profile link: <strong>https://github.com/david-kostic</strong></h3></li>
+<li><strong>Roles: </strong></li>
+   <li>Quality Assurance (QA)</li>
+   <li>Designer (visual assets, editing)</li>
+   <li>Developer (HTML, CSS, JS, Vue.JS)</li>
 
-<h3>Marin Maurovic - Profile link: <strong>https://github.com/Rrrovik</strong></h3>
-<p><strong>Roles: </strong></p>
+<li><h3>Marin Maurovic - Profile link: <strong>https://github.com/Rrrovik</strong></h3></li>
+<li><strong>Roles: </strong></li>
+   <li>Designer (visual assets, editing)</li>
+   <li>Developer (HTML, CSS, JS, Vue.JS)</li>
 
-<h3>David Maglica - Profile link: <strong>https://github.com/DavidMaglica</strong></h3>
-<p><strong>Roles: </strong></p>
+<li><h3>David Maglica - Profile link: <strong>https://github.com/DavidMaglica</strong></h3></li>
+<li><strong>Roles: </strong></li>
+  <li>Developer (HTML, CSS, JS, Vue.JS)</li>
+  <li>DevOPS</li>
+</ul>
