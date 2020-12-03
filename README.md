@@ -12,13 +12,6 @@
 <strong>https://xd.adobe.com/view/0220d1ee-922d-47f8-8f4e-d5e38efefaa6-5773/</strong>
 
 <h2>Who's doing what</h2>
-<ul>
-<h3>Gabriel Mikulaco - Profile link: <strong>https://github.com/GM543210</strong></h3>
-<strong>Roles: </strong>
-   <ul>
-      <li>Quality Assurance (QA)</li>
-      <li>Developer (HTML, CSS, JS, Vue.JS)</li>
-   </ul>
 
 <h3>David Kostić - Profile link: <strong>https://github.com/david-kostic</strong></h3>
 <strong>Roles: </strong>
@@ -27,18 +20,23 @@
       <li>Designer (visual assets, editing)</li>
       <li>Developer (HTML, CSS, JS, Vue.JS)</li>
    </ul>
-
+<h3>David Maglica - Profile link: <strong>https://github.com/DavidMaglica</strong></h3>
+<strong>Roles: </strong>
+   <ul>
+      <li>Developer (HTML, CSS, JS, Vue.JS)</li>
+      <li>DevOPS</li>
+   </ul>
+   
+<h3>Gabriel Mikulaco - Profile link: <strong>https://github.com/GM543210</strong></h3>
+<strong>Roles: </strong>
+   <ul>
+      <li>Quality Assurance (QA)</li>
+      <li>Developer (HTML, CSS, JS, Vue.JS)</li>
+   </ul>
 
 <h3>Marin Maurovic - Profile link: <strong>https://github.com/Rrrovik</strong></h3>
 <strong>Roles: </strong>
    <ul>
       <li>Designer (visual assets, editing)</li>
       <li>Developer (HTML, CSS, JS, Vue.JS)</li>
-   </ul>
-   
-<h3>David Maglica - Profile link: <strong>https://github.com/DavidMaglica</strong></h3>
-<strong>Roles: </strong>
-   <ul>
-      <li>Developer (HTML, CSS, JS, Vue.JS)</li>
-      <li>DevOPS</li>
    </ul>
