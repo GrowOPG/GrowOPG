@@ -62,7 +62,7 @@
         padding-right: 25px;
     }
     #button span:after {
-        content: '\00bb';
+        content: '\00bb'; /*Little arrow things!!!*/ 
         position: absolute;
         opacity: 0;
         top: 0;
