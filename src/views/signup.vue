@@ -28,6 +28,7 @@
             </div>
         </div>
     </div>
+    <Footer />
     </div>
 
 </template>
@@ -126,3 +127,12 @@ body, html {
     /* border-radius: 10px; rounded */
 }
 </style>
+<script>
+import Footer from '@/components/Footer.vue';
+export default {
+   name: 'signup',
+   components: {
+       Footer
+   }
+};
+</script>

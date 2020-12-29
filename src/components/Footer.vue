@@ -1,5 +1,5 @@
 <template>
-    <div class="mt-5 pt-5 pb-5 footer">
+    <div class="mt-5 pt-5 pb-2 footer">
     <div class="container">
     <div class="row">
         <div class="col-lg-5 col-xs-12 about-company">
@@ -36,7 +36,7 @@
 
 <style lang="scss">
 .footer {
-  background: #152F4F;
+  background: #2D2D2D;
   color:white;
 }
 .links {

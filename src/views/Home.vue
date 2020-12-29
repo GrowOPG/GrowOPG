@@ -13,9 +13,7 @@
 
             <div class="col-6">
 
-                <router-link to="/register">
-                    <img src="@/assets/wood-bg.jpg" style="width: 100%; height: 100vh;" >
-                </router-link>
+                <img src="@/assets/wood-bg.jpg" style="width: 100%; height: 100vh;" >
 
                 <div class="logo"> 
                     <img class="resize" src="@/assets/grow-opg-logo.png">
@@ -31,7 +29,7 @@
             </div>
 
             <div class="col-3">
-                <router-link to="/register">
+                <router-link to="/signup">
                     <img src="@/assets/grey-bg.jpg" style="width: 100%; height: 100vh;">
                 </router-link>
                                    

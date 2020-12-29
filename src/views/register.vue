@@ -72,27 +72,7 @@
         </div>
         </div>
     </div>
-    
-    <footer class="footer mt-auto">
-        <div class="container">
-            <div class="row no-gutter">
-                <div class="col-4 text-left">
-                    <img src="@/assets/grow-opg-logo.png" class="img resize"> GrowOPG <br>
-                    info about GrowOPG
-                </div>
-
-                <div class="col-4 text-center">
-                    contact info
-                </div>
-
-                <div class="col-4 text-right">
-                    <ul class="links">
-                        links
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <Footer />
     </div>
 </body>
 </template>
@@ -123,6 +103,17 @@ export default {
         }
     }
 }
+
+</script>
+
+<script>
+import Footer from '@/components/Footer.vue';
+export default {
+   name: 'register',
+   components: {
+       Footer
+   }
+};
 </script>
 
 <style scoped>
@@ -130,7 +121,7 @@ body {
 min-height: 100vh;
 position: relative;
 margin: 0;
-padding-bottom: 100px; /*height of the footer*/
+/*padding-bottom: 100px; height of the footer*/
 box-sizing: border-box;
 }
 
