@@ -1,5 +1,25 @@
 <template>
-  <div class="cart">
-    <h1>This is our cart page</h1>
-  </div>
+    <div class="bg">
+    <Header />
+
+
+    <Footer />
+    </div>
 </template>
+
+<style scoped>
+
+</style>
+
+<script>
+import Header from '@/components/Header.vue';
+import Footer from '@/components/Footer.vue';
+
+export default {
+   name: 'cart',
+   components: {
+       Footer,
+       Header
+   }
+};
+</script>
