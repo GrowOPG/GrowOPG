@@ -42,6 +42,7 @@ body, html {
 
 img.resize{ 
      display: block;
+     margin-top: 80px;
      margin-left: auto;
      margin-right: auto;
      width: 15%;  
