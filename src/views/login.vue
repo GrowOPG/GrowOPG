@@ -1,60 +1,44 @@
 <template>
     <div class="bg">
-      <!-- <img src="@/assets/wood-bg.jpg" style="height:100vh; width:100%;"> -->
-      <!-- <div></div> -->
-
-      <div class="container">
-        <div class="row no-gutter">
-            <span class="header col-12">
-               <strong>GrowOPG</strong>
-                <div class="dropdown-divider"></div>
-            </span>
-            <div class="mx-auto">
-            <div class= "form-box">
-                <div class = "form-header"><strong>Login</strong></div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                        <p id="passwordHelpBlock" class="form-text text-muted">
-                                Your password must be atleast 6 characters long.
+        <div class="container">
+            <div class="row no-gutter">
+            <Header />
+                <div class="mx-auto">
+                <div class= "form-box">
+                    <div class = "form-header"><strong>Login</strong></div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Email address</label>
+                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Password</label>
+                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                            <p id="passwordHelpBlock" class="form-text text-muted">
+                                Your password must be at least 6 long.
                             </p>
-                    </div>
-                    <div class="checkbox mb-3 text-center">
-                        <label><input type="checkbox" value="remember-me"> Remember me</label>
-                    </div>
-                    <div class="text-center">
-                        <button type="submit" class="button" ><span>Submit</span></button>
-                        <p class="low-text mt-4 mb-3 ">Don't have an account? Register <router-link to="/register">here</router-link>.</p>
-                        <p class="low-text "><a href="">Forgot your password?</a></p>
-                    </div>
+                        </div>
+                        <div class="checkbox mb-3 text-center">
+                            <label><input type="checkbox" value="remember-me"> Remember me</label>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="button"><span>Submit</span></button>
+                            <p class="low-text mt-4 mb-3 ">Don't have an account? Register<router-link to="/register"> here</router-link>.</p>
+                            <p class="low-text "><a href="">Forgot your password?</a></p>
+                        </div>
+                </div>
                 </div>
             </div>
-            </div>
-            
-            </div>
-            <Footer />
         </div>
-        
+        <Footer />
+     </div>
 </template>
 
 <style scoped>
 body, html {
     height: 100%;
 }
-.header{
-    text-align: center;    
-    font-size: 50px;
-    color:black;
-}
-.dropdown-divider {
-    height: 0;
-    margin: .5rem 0;
-    overflow: hidden;
-    border-top: 2px solid #2D2D2D;
+.container {
+    margin-bottom: 10%;
 }
 .row.no-gutter { /*no padding on the column/row -- found on stack-overflow*/
     margin-left: 0;
@@ -126,11 +110,14 @@ body, html {
 </style>
 
 <script>
+import Header from '@/components/Header.vue';
 import Footer from '@/components/Footer.vue';
+
 export default {
    name: 'login',
    components: {
-       Footer
+       Footer,
+       Header
    }
 };
 </script>
