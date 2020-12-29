@@ -8,21 +8,21 @@
                     <div class = "form-header"><strong>Login</strong></div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Email address</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                            <input type="email" v-model="email" class="form-control" id="email" placeholder="Enter email">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Password</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                            <input type="password" v-model="password" class="form-control" id="password" placeholder="Password">
                             <p id="passwordHelpBlock" class="form-text text-muted">
-                                Your password must be at least characters 6 long.
+                                Your password must be at least 6 characters long.
                             </p>
                         </div>
                         <div class="checkbox mb-3 text-center">
                             <label><input type="checkbox" value="remember-me"> Remember me</label>
                         </div>
                         <div class="text-center">
-                            <button type="submit" class="button"><span>Submit</span></button>
-                            <p class="low-text mt-4 mb-3 ">Don't have an account? Register<router-link to="/signup"> here</router-link>.</p>
+                            <button type="button" class="button" @click="login"><span>Submit</span></button>
+                            <p class="low-text mt-4 mb-3 ">Don't have an account? Register<router-link to="/register"> here</router-link>.</p>
                             <p class="low-text "><a href="">Forgot your password?</a></p>
                         </div>
                 </div>
@@ -110,6 +110,7 @@ body, html {
 </style>
 
 <script>
+import firebase from '@/firebase';
 import Header from '@/components/Header.vue';
 import Footer from '@/components/Footer.vue';
 
@@ -118,6 +119,26 @@ export default {
    components: {
        Footer,
        Header
+   },
+   data() {
+       return {
+           email: '',
+           password: ''
+       }
+   },
+   methods: {
+       login() {
+           console.log('login...' + this.email)
+           firebase.auth()
+           .signInWithEmailAndPassword(this.email, this.password)
+           .then((result) => {
+               console.log('Uspješna prijava', result);
+
+               this.$router.replace({name: 'main-page'}) //.replace instead of .push so we cant go back to or login page
+           }).catch(function(e) {
+               console.error('greska', e);
+           })
+       }
    }
 };
 </script>
