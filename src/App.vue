@@ -45,5 +45,5 @@ export default {
             }); 
         }*/
     }
-}
-</script>
+} /* Ako vam ne sljaka i nis ne vidite to je do ove skripte ibacite ju u comm */
+</script> 
