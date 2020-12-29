@@ -9,7 +9,7 @@
                     <form class="form-signin">
                         <div class="custom-control custom-checkbox mb-3"> <input type="checkbox" class="custom-control-input" id="customCheck1"> </div> 
                         <router-link to="/succ_reg">
-                        <button type="button" class="button" ><span>Sign up with e-mail</span></button> 
+                        <router-link to="/register"><button type="button" class="button" ><span>Sign up with e-mail</span></button></router-link>
                         </router-link> 
                         <br>
                         <button type="button" class="button btn-google" ><span><i class="fab fa-google mr-2"></i> Sign up with Google </span></button>
