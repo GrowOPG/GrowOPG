@@ -25,7 +25,7 @@ firebase.auth().onAuthStateChanged((user) => {
   else {
     // User is not signed in
     store.currentUser = null;
-    // if the user is not signed in as is not on our 'Home' he will be redirected there
+    // if the user is not signed in and is not on our 'Home' he will be redirected there
     if (router.name !== "home"){
         router.push({name:'home'})
     }
