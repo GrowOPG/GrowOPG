@@ -2,7 +2,7 @@
     <div class="container no-gutters no-padding">
         <div class="row no-gutters justify-content-around">
             <div class="col-3 no-padding">
-                <router-link to="/signup">
+                <router-link to="/login">
                     <img src="@/assets/black-bg.jpg" style="width: 100%; height: 100vh;">
                 </router-link>
                     
@@ -29,7 +29,7 @@
             </div>
 
             <div class="col-3">
-                <router-link to="/signup">
+                <router-link to="/login">
                     <img src="@/assets/grey-bg.jpg" style="width: 100%; height: 100vh;">
                 </router-link>
                                    
