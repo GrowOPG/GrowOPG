@@ -14,7 +14,7 @@
                             <label for="exampleInputPassword1">Password</label>
                             <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
                             <p id="passwordHelpBlock" class="form-text text-muted">
-                                Your password must be at least 6 long.
+                                Your password must be at least characters 6 long.
                             </p>
                         </div>
                         <div class="checkbox mb-3 text-center">
