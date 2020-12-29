@@ -42,7 +42,23 @@ const routes = [
     path: '/cart',
     name: 'Cart',
     component: () => import(/* webpackChunkName: "about" */ '../views/cart.vue')
+  },
+  {
+    path: '/successfuly-signed-out',
+    name: 'Successfuly-signed-out',
+    component: () => import(/* webpackChunkName: "about" */ '../views/successfuly-signed-out.vue')
+  },
+  {
+    path: '/forgot-password',
+    name: 'Forgot-password',
+    component: () => import(/* webpackChunkName: "about" */ '../views/forgot-password.vue')
+  },
+  {
+    path: '/create-new-password',
+    name: 'Create-new-password',
+    component: () => import(/* webpackChunkName: "about" */ '../views/create-new-password.vue')
   }
+]
 ]
 
 const router = new VueRouter({
