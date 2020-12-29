@@ -22,7 +22,7 @@
                         </div>
                         <div class="text-center">
                             <button type="submit" class="button"><span>Submit</span></button>
-                            <p class="low-text mt-4 mb-3 ">Don't have an account? Register<router-link to="/register"> here</router-link>.</p>
+                            <p class="low-text mt-4 mb-3 ">Don't have an account? Register<router-link to="/signup"> here</router-link>.</p>
                             <p class="low-text "><a href="">Forgot your password?</a></p>
                         </div>
                 </div>
