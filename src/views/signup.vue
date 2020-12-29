@@ -1,35 +1,27 @@
 <template>
     <div class="bg">
-        <div class="container">
-            <div class="row no-gutter">
-            <Header />
-                <div class="mx-auto">
-                <div class= "form-box">
-                    <div class = "form-header"><strong>Sign up</strong></div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Email address</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Password</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                            <p id="passwordHelpBlock" class="form-text text-muted">
-                                Your password must be at least 6 long.
-                            </p>
-                        </div>
-                        <div class="checkbox mb-3 text-center">
-                            <label><input type="checkbox" value="remember-me"> Remember me</label>
-                        </div>
-                        <div class="text-center">
-                            <button type="submit" class="button"><span>Submit</span></button>
-                            <p class="low-text mt-4 mb-3 ">Don't have an account? Register<router-link to="/register"> here</router-link>.</p>
-                            <p class="low-text "><a href="">Forgot your password?</a></p>
-                        </div>
-                </div>
-                </div>
+    <div class="container">
+        <div class="row no-gutter">
+        <Header />
+            <div class="mx-auto">
+            <div class= "form-box">
+                <div class = "form-header"><strong>Sign Up</strong></div>                   
+                    <form class="form-signin">
+                        <div class="custom-control custom-checkbox mb-3"> <input type="checkbox" class="custom-control-input" id="customCheck1"> </div> 
+                        <router-link to="/succ_reg">
+                        <button type="button" class="button" ><span>Sign up with e-mail</span></button> 
+                        </router-link> 
+                        <br>
+                        <button type="button" class="button btn-google" ><span><i class="fab fa-google mr-2"></i> Sign up with Google </span></button>
+                    <div class="text-center">
+                         <p class="low-text mt-4 mb-3 ">Already have an account? Login <router-link to="/Login">here</router-link>.</p>
+                    </div>
+                    </form>
+            </div>
             </div>
         </div>
-        <Footer />
+    </div>
+    <Footer />
     </div>
 </template>
 
@@ -37,19 +29,31 @@
 body, html {
     height: 100%;
 }
-.container {
+
+.container{
     margin-bottom: 10%;
 }
+
+.dropdown-divider {
+    height: 0;
+    margin: .5rem 0;
+    overflow: hidden;
+    border-top: 2px solid #2D2D2D;
+}
+
 .row.no-gutter { /*no padding on the column/row -- found on stack-overflow*/
     margin-left: 0;
     margin-right: 0;
 }
+
 .form-header{
     padding-top: 15px;
     padding-bottom: 20px;
+    margin-bottom: -45px;
     font-size: 25px;
     text-align: center;
 }
+
 .form-box {
     margin-top: 50px;
     border-radius: 10px;
@@ -57,20 +61,16 @@ body, html {
     padding-top: 20px;
     padding-left: 30px;
     padding-right: 30px;
-    width: 500px;
-    height: 500px;   
+    width: inherit;
+    height: 330px;   
 }
-.text-center {
-    text-align: center!important;
-}
-.low-text {
-    font-size: 15px
-}
+
 .button { /*the styling for our button*/
     
-	width: 150px;
+	width: 350px;
 	border-radius: 10px; /*rounded*/
-	padding: 5px; 
+	padding: 12px; 
+    margin-top: 25px;
 
 	background-color: #2D2D2D;
 	color: white;
@@ -106,17 +106,26 @@ body, html {
 	opacity: 1;
 	right: 0;
 }
+
+.low-text {
+    margin-top: 15px;
+}
+
+.btn-google {
+    color: white;
+    background-color: #ea4335;
+    /* border-radius: 10px; rounded */
+}
 </style>
 
 <script>
 import Header from '@/components/Header.vue';
 import Footer from '@/components/Footer.vue';
-
 export default {
    name: 'login',
    components: {
-       Footer,
-       Header
+       Header,
+       Footer
    }
 };
 </script>
