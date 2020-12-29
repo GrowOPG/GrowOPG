@@ -18,7 +18,7 @@
                 </router-link>
 
                 <div class="logo"> 
-                    <img class="resize" src="@/assets/blank-logo.png">
+                    <img class="resize" src="@/assets/grow-opg-logo.png">
                 </div>
 
                 <div class="desc"> 
@@ -31,7 +31,7 @@
             </div>
 
             <div class="col-3">
-                <router-link to="/Login">
+                <router-link to="/register">
                     <img src="@/assets/grey-bg.jpg" style="width: 100%; height: 100vh;">
                 </router-link>
                                    
