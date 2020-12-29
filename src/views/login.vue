@@ -31,12 +31,12 @@
                         <p class="low-text mt-4 mb-3 ">Don't have an account? Register <router-link to="/register">here</router-link>.</p>
                         <p class="low-text "><a href="">Forgot your password?</a></p>
                     </div>
+            	</div>
             </div>
-            </div>
-            
             </div>
         </div>
      </div>
+     <Footer />
 </template>
 
 <style scoped>
