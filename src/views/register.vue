@@ -4,14 +4,9 @@
     <div class="signup">
         <div class="container">
             <div class="row no-gutter">
-                <span class="header col-12">
-                    <strong>GrowOPG</strong>
-                    <div class="dropdown-divider"></div>
-                </span>
+                <Header />
             </div>
         </div>
-        
-        
         <div class="container">
             <div class= "form-box">
             <div class="row">
@@ -69,74 +64,28 @@
                 <button type="button" class="button" @click="register"><span>Register now</span></button>
                 </div>
             </div>
+            </div>
         </div>
-        </div>
+    </div>
     </div>
     <Footer />
-    </div>
 </body>
 </template>
 
-<script>
-import firebase from '@/firebase';
-
-export default {
-    name: "Register",
-    data() {
-        return{
-            fullname: '',
-            mail: '',
-            password: '',
-            passwordrepeat: '',
-        }
-    },
-    methods: {
-        register() {
-            firebase.auth()
-            .createUserWithEmailAndPassword(this.mail, this.password)
-            .then(function() {
-                console.log('Uspješna Registracija');
-                })
-            .catch(function(error) {
-                console.error('Došlo je do greške', error);
-            })
-        }
-    }
-}
-
-</script>
-
-<script>
-import Footer from '@/components/Footer.vue';
-export default {
-   name: 'register',
-   components: {
-       Footer
-   }
-};
-</script>
-
 <style scoped>
 body {
-min-height: 100vh;
+min-height: 100%;
 position: relative;
 margin: 0;
-/*padding-bottom: 100px; height of the footer*/
+/* padding-bottom: 100px; height of the footer */
 box-sizing: border-box;
 }
-
-.container{
+.container {
     margin-bottom: 50px;
 }
-
 .row.no-gutter { /*no padding on the column/row -- found on stack-overflow*/
     margin-left: 0;
     margin-right: 0;
-}
-.header{
-    text-align: center;
-    font-size: 50px;
-    color:black;
 }
 .form-box {
     margin-top: 50px;
@@ -148,21 +97,6 @@ box-sizing: border-box;
     width: inherit;
     height: 640px;   
 }
-footer {
-position: absolute;
-bottom: 0;
-padding-top: 20px;
-height: 100px;
-width: 100%;
-color: white;
-background-color: #2d2d2d;
-}
-.dropdown-divider {
-    height: 0;
-    margin: .5rem 0;
-    overflow: hidden;
-    border-top: 2px solid #2D2D2D;
-} 
 #form {
     position: absolute;
     width: inherit;
@@ -216,10 +150,40 @@ label { /*label text*/
 	opacity: 1;
 	right: 0;
 }
-
-img.resize { /*needed to resize logo*/
-    width: 10%;
-    height: 50%;
-}
-
 </style>
+
+<script>
+import firebase from '@/firebase';
+
+import Header from '@/components/Header.vue';
+import Footer from '@/components/Footer.vue';
+
+export default {
+    name: "Register",
+    components: {
+        Header,
+        Footer
+    },
+    data() {
+        return{
+            fullname: '',
+            mail: '',
+            password: '',
+            passwordrepeat: '',
+        }
+    },
+    methods: {
+        register() {
+            firebase.auth()
+            .createUserWithEmailAndPassword(this.mail, this.password)
+            .then(function() {
+                console.log('Uspješna Registracija');
+                })
+            .catch(function(error) {
+                console.error('Došlo je do greške', error);
+            })
+        }
+    }
+    
+}
+</script>
