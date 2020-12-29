@@ -34,13 +34,6 @@ body, html {
     margin-bottom: 10%;
 }
 
-.dropdown-divider {
-    height: 0;
-    margin: .5rem 0;
-    overflow: hidden;
-    border-top: 2px solid #2D2D2D;
-}
-
 .row.no-gutter { /*no padding on the column/row -- found on stack-overflow*/
     margin-left: 0;
     margin-right: 0;
