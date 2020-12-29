@@ -122,7 +122,7 @@ body, html {
 import Header from '@/components/Header.vue';
 import Footer from '@/components/Footer.vue';
 export default {
-   name: 'login',
+   name: 'signup',
    components: {
        Header,
        Footer
