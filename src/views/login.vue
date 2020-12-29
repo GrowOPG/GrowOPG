@@ -122,8 +122,13 @@ body, html {
 	right: 0;
 }
 </style>
+
 <script>
+import Footer from '@/components/Footer.vue';
 export default {
-   
+   name: 'login',
+   components: {
+       Footer
+   }
 };
 </script>
