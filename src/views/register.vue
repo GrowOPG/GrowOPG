@@ -77,7 +77,7 @@
         <div class="container">
             <div class="row no-gutter">
                 <div class="col-4 text-left">
-                    <img src="@/assets/white-logo25.png"> GrowOPG <br>
+                    <img src="@/assets/grow-opg-logo.png" class="img resize"> GrowOPG <br>
                     info about GrowOPG
                 </div>
 
@@ -133,6 +133,11 @@ margin: 0;
 padding-bottom: 100px; /*height of the footer*/
 box-sizing: border-box;
 }
+
+.container{
+    margin-bottom: 50px;
+}
+
 .row.no-gutter { /*no padding on the column/row -- found on stack-overflow*/
     margin-left: 0;
     margin-right: 0;
@@ -155,6 +160,7 @@ box-sizing: border-box;
 footer {
 position: absolute;
 bottom: 0;
+padding-top: 20px;
 height: 100px;
 width: 100%;
 color: white;
@@ -219,4 +225,10 @@ label { /*label text*/
 	opacity: 1;
 	right: 0;
 }
+
+img.resize { /*needed to resize logo*/
+    width: 10%;
+    height: 50%;
+}
+
 </style>

@@ -21,7 +21,7 @@
                         <br>
                         <button type="button" class="button btn-google" ><span><i class="fab fa-google mr-2"></i> Sign up with Google </span></button>
                     <div class="text-center">
-                         <p class="low-text mt-4 mb-3 ">Already have an account? Login <a href="">here</a>.</p>
+                         <p class="low-text mt-4 mb-3 ">Already have an account? Login <router-link to="/Login">here</router-link>.</p>
                     </div>
                     </form>
             </div>
@@ -122,6 +122,7 @@ body, html {
 
 .btn-google {
     color: white;
-    background-color: #ea4335
+    background-color: #ea4335;
+    /* border-radius: 10px; rounded */
 }
 </style>

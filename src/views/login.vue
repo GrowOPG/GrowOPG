@@ -20,7 +20,7 @@
                         <label for="exampleInputPassword1">Password</label>
                         <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
                         <p id="passwordHelpBlock" class="form-text text-muted">
-                                Your password must be atleast 6 long.
+                                Your password must be atleast 6 characters long.
                             </p>
                     </div>
                     <div class="checkbox mb-3 text-center">
@@ -28,7 +28,7 @@
                     </div>
                     <div class="text-center">
                         <button type="submit" class="button" ><span>Submit</span></button>
-                        <p class="low-text mt-4 mb-3 ">Don't have an account? Register <a href="">here</a>.</p>
+                        <p class="low-text mt-4 mb-3 ">Don't have an account? Register <router-link to="/register">here</router-link>.</p>
                         <p class="low-text "><a href="">Forgot your password?</a></p>
                     </div>
             </div>
