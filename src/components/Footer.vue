@@ -2,12 +2,12 @@
     <div class="mt-5 pt-5 pb-2 footer">
     <div class="container">
     <div class="row">
-        <div class="col-lg-5 col-xs-12 about-company">
+        <div class="col-lg-5 col-xs-12 text-left about-company">
         <h2>GrowOPG</h2>
         <p class="pr-5 text-white-50">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ac ante mollis quam tristique convallis </p>
         <p><a href="#"><i class="fa fa-facebook-square mr-1"></i></a><a href="#"><i class="fa fa-linkedin-square"></i></a></p>
         </div>
-        <div class="col-lg-3 col-xs-12 links">
+        <div class="col-lg-3 col-xs-12 text-center links">
         <h4 class="mt-lg-0 mt-sm-3">Links</h4>
             <ul class="m-0 p-0">
             <li><router-link to="/">Home</router-link></li>
@@ -18,7 +18,7 @@
             <li><router-link to="/main_page">Main Page</router-link></li>
             </ul>
         </div>
-        <div class="col-lg-4 col-xs-12 location">
+        <div class="col-lg-4 col-xs-12 text-right location">
         <h4 class="mt-lg-0 mt-sm-4">Location</h4>
         <p>22, Lorem ipsum dolor, consectetur adipiscing</p>
         <p class="mb-0"><i class="fa fa-phone mr-3"></i>(541) 754-3010</p>
