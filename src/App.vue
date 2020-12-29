@@ -1,26 +1,49 @@
 <template>
+
     <router-view/>
+    
 </template>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2d2d2d;
-}
 
-#nav {
-  padding: 20px;
-  background-color: #2d2d2d;
-  a {
-    font-weight: bold;
-    color: white;
+</style>
 
-    &.router-link-exact-active {
-      color: olivedrab;
+<script>
+import store from '@/store';
+import router from '@/router';
+import firebase from '@/firebase';
+
+firebase.auth().onAuthStateChanged((user) => {
+  if (user) {
+    // User is signed in.
+    console.log(user.email);
+    store.currentUser = user.email;
+  }
+  else {
+    // User is not signed in
+    store.currentUser = null;
+    // if the user is not signed in as is not on our 'Home' he will be redirected there
+    if (router.name !== "home"){
+        router.push({name:'home'})
     }
   }
+});
+
+export default {
+    name:'app',
+    data(){
+        return {
+            store,
+        };
+    },
+    methods: {
+       /* logout() { //this is going to be needed when we'll do the log out option
+            firebase.auth()
+            .signOut()
+            .then(() => {
+                this.$router.push({name: 'login'})
+            }); */
+        }
+    }
 }
-</style>
+</script>
