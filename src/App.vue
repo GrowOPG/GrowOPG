@@ -42,8 +42,8 @@ export default {
             .signOut()
             .then(() => {
                 this.$router.push({name: 'login'})
-            }); */
-        }
+            }); 
+        }*/
     }
 }
 </script>
