@@ -23,7 +23,7 @@
                         <div class="text-center">
                             <button type="button" class="button" @click="login"><span>Submit</span></button>
                             <p class="low-text mt-4 mb-3 ">Don't have an account? Register<router-link to="/register"> here</router-link>.</p>
-                            <p class="low-text "><a href="">Forgot your password?</a></p>
+                             <p class="low-text "><router-link to="/forgot-password">Forgot your password?</router-link></p>
                         </div>
                 </div>
                 </div>
