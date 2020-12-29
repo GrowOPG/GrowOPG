@@ -61,7 +61,7 @@
                         <input type="text" class="form-control" placeholder="eg. 52100" />
                     </div>
 
-                <button type="button" class="button" @click="register"><span>Register now</span></button>
+                <router-link to="/successful-registration"><button type="button" class="button" @click="register"><span>Register now</span></button></router-link>
                 </div>
             </div>
             </div>
