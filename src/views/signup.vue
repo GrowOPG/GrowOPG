@@ -8,7 +8,6 @@
                 <div class = "form-header"><strong>Sign Up</strong></div>                   
                     <form class="form-signin">
                         <div class="custom-control custom-checkbox mb-3"> <input type="checkbox" class="custom-control-input" id="customCheck1"> </div> 
-                        <router-link to="/succ_reg">
                         <router-link to="/register"><button type="button" class="button" ><span>Sign up with e-mail</span></button></router-link>
                         </router-link> 
                         <br>
