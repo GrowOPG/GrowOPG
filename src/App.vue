@@ -13,7 +13,7 @@
 import store from '@/store';
 import router from '@/router';
 import firebase from '@/firebase';
-
+/*
 firebase.auth().onAuthStateChanged((user) => {
   if (user) {
     // User is signed in.
@@ -29,7 +29,7 @@ firebase.auth().onAuthStateChanged((user) => {
     }
   }
 });
-
+*/
 export default {
     name:'app',
     data(){
