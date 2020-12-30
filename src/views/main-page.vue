@@ -15,7 +15,7 @@
 import app from '@/App';
 import store from '@/store';
 import Footer from '../components/Footer.vue';
-
+/*
 firebase.auth().onAuthStateChanged((user) => {
   if (user) {
     // User is signed in.
@@ -31,7 +31,7 @@ firebase.auth().onAuthStateChanged((user) => {
     }
   }
 });
-
+*/
 export default {
    name: 'main-page',
    components: {
