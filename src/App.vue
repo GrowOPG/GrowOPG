@@ -8,6 +8,7 @@
 
 </style>
 
+/*
 <script>
 import store from '@/store';
 import router from '@/router';
@@ -47,3 +48,4 @@ export default {
     }
 } /* Ako vam ne sljaka i nis ne vidite to je do ove skripte ibacite ju u comm */
 </script> 
+*/
