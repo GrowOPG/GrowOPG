@@ -18,8 +18,8 @@
                         </div>
 
                         <div class="sgp-form">
-                            <label for="mail"> Email</label>
-                            <input type="email" v-model="mail" class="form-control" id="mail" placeholder="eg. tommylee@gmail.com" />
+                            <label for="email"> Email</label>
+                            <input type="email" v-model="email" class="form-control" id="mail" placeholder="eg. tommylee@gmail.com" />
                         </div>
 
                         <div class="sgp-form">
@@ -28,21 +28,21 @@
                         </div>
 
                         <div class="sgp-form">
-                            <label for="City">City</label>
-                            <input type="text" v-model="City" class="form-control" id="City" placeholder="eg. Pula" />
+                            <label for="city">City</label>
+                            <input type="text" v-model="city" class="form-control" id="city" placeholder="eg. Pula" />
                         </div>
 
                         <div class="sgp-form">
-                            <label for="pass">Password</label>
-                            <input type="password" v-model="password" class="form-control" id="pass" placeholder="Enter your password" />
+                            <label for="password">Password</label>
+                            <input type="password" v-model="password" class="form-control" id="password" placeholder="Enter your password" />
                             <p id="passwordHelpBlock" class="form-text text-muted">
                                 Your password must be at least 6 characters long.
                             </p>
                         </div>
 
                         <div class="sgp-form">
-                            <label for="rpass" >Repeat password</label>
-                            <input type="password" v-model="passwordrepeat" class="form-control" id="repeatPass" placeholder="Retype your password" />
+                            <label for="repeatpassword" >Repeat password</label>
+                            <input type="password" v-model="passwordrepeat" class="form-control" id="repeatpassword" placeholder="Retype your password" />
                             <p id="passwordHelpBlock" class="form-text text-muted">
                                 Passwords must match.
                             </p>
@@ -53,12 +53,12 @@
                 <div class="col-4">
                     <div class="sgp-form">
                         <label for="DoB" class="input">Date of birth</label>
-                        <input type="date" class="form-control" placeholder="mm-dd-yyyy" id="DoB" />
+                        <input type="date" v-model="DoB" class="form-control" placeholder="mm-dd-yyyy" id="DoB" />
                     </div>
 
                     <div class="sgp-form"  style="margin-top: 85px;">
                         <label for="zip" class="input" >Zip code</label>
-                        <input type="text" class="form-control" placeholder="eg. 52100" />
+                        <input type="text" v-model="zip" class="form-control" placeholder="eg. 52100" />
                     </div>
 
                 <router-link to="/successful-registration"><button type="button" class="button" @click="register"><span>Register now</span></button></router-link>
@@ -155,11 +155,11 @@ label { /*label text*/
 <script>
 import firebase from '@/firebase';
 
-import Header from '@/components/Header.vue';
-import Footer from '@/components/Footer.vue';
+import Header from '@/components/Header.vue'; //imported Header
+import Footer from '@/components/Footer.vue'; //imported Footer
 
 export default {
-    name: "Register",
+    name: "register",
     components: {
         Header,
         Footer
@@ -167,7 +167,11 @@ export default {
     data() {
         return{
             fullname: '',
-            mail: '',
+            email: '',
+            address: '',
+            city: '',
+            zip: '',
+            DoB: '',
             password: '',
             passwordrepeat: '',
         }
@@ -175,7 +179,7 @@ export default {
     methods: {
         register() {
             firebase.auth()
-            .createUserWithEmailAndPassword(this.mail, this.password)
+            .createUserWithEmailAndPassword(this.email, this.password)
             .then(function() {
                 console.log('Uspješna Registracija');
                 })
@@ -183,7 +187,6 @@ export default {
                 console.error('Došlo je do greške', error);
             })
         }
-    }
-    
+    } 
 }
 </script>
