@@ -8,10 +8,11 @@
                 <div class = "form-header"><strong>Sign Up</strong></div>                   
                     <form class="form-signin">
                         <div class="custom-control custom-checkbox mb-3"> <input type="checkbox" class="custom-control-input" id="customCheck1"> </div> 
-                        <router-link to="/register"><button type="button" class="button" ><span>Sign up with e-mail</span></button></router-link>
+                        <router-link to="/register">
+                        <button type="button" class="button" ><span>Sign up with e-mail</span></button> 
                         </router-link> 
                         <br>
-                        <button type="button" class="button btn-google" ><span><i class="fab fa-google mr-2"></i> Sign up with Google </span></button>
+                        <button type="button" @click="googleSignUp" class="button btn-google" ><span><i class="fab fa-google mr-2"></i> Sign up with Google </span></button>
                     <div class="text-center">
                          <p class="low-text mt-4 mb-3 ">Already have an account? Login <router-link to="/Login">here</router-link>.</p>
                     </div>
@@ -31,6 +32,13 @@ body, html {
 
 .container{
     margin-bottom: 10%;
+}
+
+.dropdown-divider {
+    height: 0;
+    margin: .5rem 0;
+    overflow: hidden;
+    border-top: 2px solid #2D2D2D;
 }
 
 .row.no-gutter { /*no padding on the column/row -- found on stack-overflow*/
@@ -111,13 +119,47 @@ body, html {
 </style>
 
 <script>
+import firebase from '@/firebase';
 import Header from '@/components/Header.vue';
 import Footer from '@/components/Footer.vue';
+
 export default {
    name: 'signup',
    components: {
        Header,
        Footer
+   },
+   methods: {
+       googleSignUp() {
+            var provider = new firebase.auth.GoogleAuthProvider();
+            firebase.auth()
+            .signInWithPopup(provider)
+            .then((result) => {
+                /** @type {firebase.auth.OAuthCredential} */
+                var credential = result.credential;
+
+                // This gives you a Google Access Token. You can use it to access the Google API.
+                var token = credential.accessToken;
+                // The signed-in user info.
+                var user = result.user;
+                // firebase.auth()
+                // .signInWithEmailAndPassword(this.email, this.password)
+                // .then((result) => {
+                //     console.log('OK')
+                //     this.$router.replace({name: "main-page"}) //.replace instead of .push so we cant go back to or login page
+                // }).catch(function(e) {
+                //     console.error('greska', e);
+                // })
+            }).catch((error) => {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                // The email of the user's account used.
+                var email = error.email;
+                // The firebase.auth.AuthCredential type that was used.
+                var credential = error.credential;
+            });
+       }
    }
 };
 </script>
