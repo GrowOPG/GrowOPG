@@ -33,7 +33,7 @@ firebase.auth().onAuthStateChanged((user) => {
 });
 
 export default {
-   name: 'main_page',
+   name: 'main-page',
    components: {
       Footer
    }
