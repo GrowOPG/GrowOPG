@@ -1,4 +1,5 @@
-<template>
+<template> 
+<!-- found this header on Bootstrap -->
     <div class="mt-5 pt-5 pb-2 footer">
     <div class="container">
     <div class="row">
@@ -14,7 +15,9 @@
             <li><router-link to="/login">Login</router-link></li>
             <li><router-link to="/register">Register</router-link></li>
             <li><router-link to="/cart">Cart</router-link></li>
-            <li><router-link to="/main_page">Main Page</router-link></li>
+            <li><router-link to="/create-new-password">Create New Password</router-link></li>
+            <li><router-link to="/forgot-password">Forgot Password</router-link></li>
+            <li><router-link to="/successfuly-signed-out">successfuly signed out</router-link></li>
             </ul>
         </div>
         <div class="col-lg-4 col-xs-12 text-right location">
