@@ -54,7 +54,6 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/forgot-password.vue')
   }
 ]
-]
 
 const router = new VueRouter({
   mode: 'history',
