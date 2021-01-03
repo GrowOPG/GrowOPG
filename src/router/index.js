@@ -11,8 +11,8 @@ const routes = [
     component: Home
   },
   {
-    path: '/main_page',
-    name: 'Main Page',
+    path: '/main-page',
+    name: 'main-page',
     component: () => import(/* webpackChunkName: "about" */ '../views/main_page.vue')
   },
   {
