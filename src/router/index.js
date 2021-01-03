@@ -52,11 +52,6 @@ const routes = [
     path: '/forgot-password',
     name: 'Forgot-password',
     component: () => import(/* webpackChunkName: "about" */ '../views/forgot-password.vue')
-  },
-  {
-    path: '/create-new-password',
-    name: 'Create-new-password',
-    component: () => import(/* webpackChunkName: "about" */ '../views/create-new-password.vue')
   }
 ]
 ]
