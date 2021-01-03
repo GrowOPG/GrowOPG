@@ -15,7 +15,6 @@
             <li><router-link to="/login">Login</router-link></li>
             <li><router-link to="/register">Register</router-link></li>
             <li><router-link to="/cart">Cart</router-link></li>
-            <li><router-link to="/create-new-password">Create New Password</router-link></li>
             <li><router-link to="/forgot-password">Forgot Password</router-link></li>
             <li><router-link to="/successfuly-signed-out">successfuly signed out</router-link></li>
             </ul>
