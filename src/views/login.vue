@@ -135,7 +135,7 @@ export default {
            .then((result) => {
                console.log('Uspješna prijava', result);
 
-               this.$router.replace({name: "Main Page"}) //.replace instead of .push so the user can't go back to login page (since he just logged in)
+               this.$router.replace({name: "main-page"}) //.replace instead of .push so the user can't go back to login page (since he just logged in)
            })
 	   .catch(function(e) {
                console.error('greska', e);
