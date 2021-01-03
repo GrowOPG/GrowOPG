@@ -5,16 +5,32 @@
             <Header />
                 <div class="mx-auto">
                 <div class= "form-box">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="116" height="116" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16">
-                        <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/>
-                    </svg>
-                    <div class = "form-header"><strong>Forgot Password?</strong></div>
-                        <div class="form-group text-center">
-                            <label for="low-text mt-4 mb-3">You can reset your password here.</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                    <div class="text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="116" height="116" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16">
+                            <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/>
+                        </svg></div>
+                    <div class ="form-header text-center"><strong>Forgot Password?</strong></div>
+                    <div class="text-center"><label for=" text-center low-text mt-4 mb-3">You can reset your password here.</label></div>
+                        <div class="form-group">
+                            <label for="low-text mt-4 mb-3">Recovery E-mail</label>
+                            <input type="email" v-model="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter e-mail">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">New Password</label>
+                            <input type="password" v-model="new_password" class="form-control" id="new_password" placeholder="Enter new password">
+                            <p id="passwordHelpBlock" class="form-text text-muted">
+                                Your password must be at least characters 6 long.
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Repeat New Password</label>
+                            <input type="password" v-model="new_password_repeat" class="form-control" id="new_password_repeat" placeholder="Retype new password">
+                            <p id="passwordHelpBlock" class="form-text text-muted">
+                                Your passwords must match.
+                            </p>
                         </div>
                         <div class="text-center">
-                            <button type="button" class="button"><span><router-link to="/create-new-password">Reset your password</router-link></span></button>
+                            <button type="button" class="button" @click="forgot_pass()"><span><router-link to="/login">Reset your password</router-link></span></button>
                         </div>
                 </div>
                 </div>
@@ -40,11 +56,11 @@ a { /*css ne mijenja link color u blue nego odrzi color parent elementa*/
 }
 .form-header{
     padding-top: 15px;
-    padding-bottom: 20px;
+    /* padding-bottom: 20px; */
     font-size: 25px;
 }
 .form-box {
-    text-align: center;
+    /* text-align: center; */
     margin-top: 50px;
     border-radius: 10px;
     background: rgb(18,18,18,0.05);
@@ -52,7 +68,7 @@ a { /*css ne mijenja link color u blue nego odrzi color parent elementa*/
     padding-left: 30px;
     padding-right: 30px;
     width: 500px;
-    height: 500px;
+    height: 650px;
     
 }
 .text-center {
@@ -105,6 +121,7 @@ a { /*css ne mijenja link color u blue nego odrzi color parent elementa*/
 </style>
 
 <script>
+import firebase from '@/firebase';
 import Header from '@/components/Header.vue';
 import Footer from '@/components/Footer.vue';
 
@@ -113,6 +130,33 @@ export default {
    components: {
        Footer,
        Header
+   },
+   data() {
+       return {
+           email: '',
+           new_password: '',
+           new_password_repeat: ''
+       }
+   },
+   methods:{
+       forgot_pass() {
+           console.log('login...' + this.email + this.new_password);
+
+           const userEmail = this.email;
+
+           firebase
+           .auth()
+           .sendPasswordResetEmail(
+               userEmail)
+            .then((success) => {
+                // Password reset email sent.
+                console.log('Uspješno poslan mail', );
+            })
+            .catch(function(error) {
+                // Error occurred. Inspect error.code.
+            });
+       }
    }
 };
 </script>
+
