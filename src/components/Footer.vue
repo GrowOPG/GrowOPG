@@ -3,32 +3,40 @@
     <div class="mt-5 pt-5 pb-2 footer">
     <div class="container">
     <div class="row">
-        <div class="col-lg-5 col-xs-12 text-left about-company">
+        <div class="about-company col-lg-5 col-xs-12 text-left">
         <h2>GrowOPG</h2>
-        <p class="pr-5 text-white-50">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ac ante mollis quam tristique convallis </p>
+          
+          <table class="smlinks m-0 p-0">
+            <tr>
+              <td><a href="#"><img alt="tw_logo" src="@/assets/twitter-logo.png"></a></td>
+              <td><a href="#"><img alt="tw_logo" src="@/assets/instagram-logo.png"></a></td>
+            </tr>
+            <tr>
+              <td><a href="#"><img alt="tw_logo" src="@/assets/facebook-logo.png"></a></td>
+              <td><a href="#"><img alt="tw_logo" src="@/assets/gh-logo.png"></a></td>
+            </tr>
+          </table>
+          
         </div>
-        <div class="col-lg-3 col-xs-12 text-center links">
-        <h4 class="mt-lg-0 mt-sm-3">Links</h4>
+        <div class="links col-lg-3 col-xs-12 text-center">
+        <!-- <h4 class="mt-lg-0 mt-sm-3">Links</h4>
             <ul class="m-0 p-0">
             <li><router-link to="/">Home</router-link></li>
             <li><router-link to="/signup">Signup</router-link></li>
-            <li><router-link to="/login">Login</router-link></li>
             <li><router-link to="/register">Register</router-link></li>
-            <li><router-link to="/cart">Cart</router-link></li>
+            <li><router-link to="/login">Login</router-link></li>
+            <li><router-link to="/create-new-password">Create New Password</router-link></li>
             <li><router-link to="/forgot-password">Forgot Password</router-link></li>
-            <li><router-link to="/successfuly-signed-out">successfuly signed out</router-link></li>
-            </ul>
+            <li><router-link to="/successfuly-signed-out">Successfuly Signed Out</router-link></li>
+            <li><router-link to="/main-page">Main Page</router-link></li>
+            <li><router-link to="/cart">Cart</router-link></li>
+            </ul> -->
         </div>
-        <div class="col-lg-4 col-xs-12 text-right location">
-        <h4 class="mt-lg-0 mt-sm-4">Location</h4>
-        <p>22, Lorem ipsum dolor, consectetur adipiscing</p>
-        <p class="mb-0"><i class="fa fa-phone mr-3"></i>(541) 754-3010</p>
-        <p><i class="fa fa-envelope-o mr-3"></i>info@hsdf.com</p>
-        </div>
-    </div>
-    <div class="row mt-5">
-        <div class="col copyright">
-        <p class=""><small class="text-white-50">© 2020. All Rights Reserved.</small></p>
+        <div class="contact col-lg-4 col-xs-12 text-right">
+        <h4 class="mt-lg-0 mt-sm-4">Contact</h4>
+          <p><i class="fa fa-phone mr-0">(052) 431-growopg</i></p>
+          <p><i class="fa fa-envelope-o mr-0">growopg@gmail.com</i></p>
+          <p class="copyright"><small class="text-white-50">© 2020. All Rights Reserved.</small></p>
         </div>
     </div>
     </div>
@@ -44,33 +52,53 @@
   ul {
     list-style-type: none;
   }
-  li a {
+  li {
     color: white;
+    text-decoration:none;
     transition: color .2s;
     :hover{
       text-decoration:none;
-      color:#4180CB;
+      color: olivedrab;
     }
   }
 }  
 .about-company {
-  i{font-size: 25px;}
-  a{
+  i {
+    font-size: 25px;
+  }
+  a {
     color:white;
     transition: color .2s;
-    &:hover{color:#4180CB}
+    &:hover{color:white}
   }
 } 
-.location {
-  i{font-size: 18px;}
+.contact {
+  h4 {
+    margin-bottom: 30px;
+  }
+  p {
+    margin-top: 20px;
+    font-size: 20px;
+  }
 }
-.copyright p {
-  border-top:1px solid rgba(255,255,255,.1);
+p.copyright {
+  border-top: 2px solid rgba(255,255,255,.1);
 }
+table {
+  width: 150px;
+  height: 100px;
+}
+.smlinks {
+  td {
+    margin-top: 10px;
+    margin-left: 5px;
+  }
+}
+
 </style>
 
 <script>
 export default {
-  name: 'Footer',
+  name: 'Footer'
 }
 </script>
