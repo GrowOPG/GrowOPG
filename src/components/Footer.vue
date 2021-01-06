@@ -75,6 +75,7 @@
 .contact {
   h4 {
     margin-bottom: 30px;
+    margin-top: 0.45rem!important;
   }
   p {
     margin-top: 20px;
