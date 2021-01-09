@@ -1,9 +1,9 @@
 <template>
     <div class="bg">
-    <Header />
+        <MainHeader />
 
 
-    <Footer />
+        <Footer />
     </div>
 </template>
 
@@ -12,14 +12,14 @@
 </style>
 
 <script>
-import Header from '@/components/Header.vue';
+import MainHeader from '@/components/Main-Header.vue';
 import Footer from '@/components/Footer.vue';
 
 export default {
    name: 'cart',
    components: {
-       Footer,
-       Header
+        MainHeader,
+        Footer
    }
 };
 </script>
