@@ -13,7 +13,7 @@ const routes = [
   {
     path: '/main-page',
     name: 'main-page',
-    component: () => import(/* webpackChunkName: "about" */ '../views/main_page.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/main-page.vue')
   },
   {
     path: '/login',
