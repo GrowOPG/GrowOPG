@@ -14,43 +14,47 @@
                     <form id="form">
                         <div class="sgp-form">
                             <label for="fullname">Full name</label>
-                            <input type="text" v-model="fullname" class="form-control" id="fullname" placeholder="eg. Tommy Lee" />
+                            <input type="text" v-model="fullname" class="form-control" id="fullname" required placeholder="eg. Tommy Lee" />
                         </div>
 
                         <div class="sgp-form">
                             <label for="email"> Email</label>
-                            <input type="email" v-model="email" class="form-control" id="mail" placeholder="eg. tommylee@gmail.com" />
+                            <input 
+                                 type="email" 
+                                 v-model="email" 
+                                 class="form-control" 
+                                 id="mail" 
+                                 required 
+                                 aria-describedby="emailHelp"
+                                 placeholder="eg. tommylee@gmail.com" />
                         </div>
 
                         <div class="sgp-form">
                             <label for="address">Address</label>
-                            <input type="text" v-model="address" class="form-control" id="address" placeholder="eg. Jeretova 46" />
+                            <input type="text" v-model="address" class="form-control" id="address" required placeholder="eg. Jeretova 46" />
                         </div>
 
                         <div class="sgp-form">
                             <label for="city">City</label>
-                            <input type="text" v-model="city" class="form-control" id="city" placeholder="eg. Pula" />
+                            <input type="text" v-model="city" class="form-control" id="city" required placeholder="eg. Pula" />
                         </div>
 
                         <div class="sgp-form">
                             <label for="password">Password</label>
-                            <input type="password" v-model="password" class="form-control" id="password" placeholder="Enter your password" />
-                            <p id="passwordHelpBlock" class="form-text text-muted">
-                                Your password must be at least 6 characters long.
-                            </p>
+                            <input type="password" v-model="password" class="form-control" id="password" required placeholder="Enter your password" />
+                            <div v-if="password.length > 1 && password.length < 6" class="text-danger">Your password must be at least 6 characters long.</div>
                         </div>
 
                         <div class="sgp-form">
                             <label for="repeatpassword" >Repeat password</label>
-                            <input type="password" v-model="passwordrepeat" class="form-control" id="repeatpassword" placeholder="Retype your password" />
-                            <p id="passwordHelpBlock" class="form-text text-muted">
-                                Passwords must match.
-                            </p>
+                            <input type="password" v-model="passwordrepeat" class="form-control" id="repeatpassword" required placeholder="Retype your password" />
+                            <div v-if="password != passwordrepeat" class="text-danger">Passwords don't match!</div>
                         </div>
                     </form>
                 </div>
                 <div class="col-2" />
                 <div class="col-4">
+                    <form>
                     <div class="sgp-form">
                         <label for="DoB" class="input">Date of birth</label>
                         <input type="date" v-model="DoB" class="form-control" placeholder="mm-dd-yyyy" id="DoB" />
@@ -58,10 +62,11 @@
 
                     <div class="sgp-form"  style="margin-top: 85px;">
                         <label for="zip" class="input" >Zip code</label>
-                        <input type="text" v-model="zip" class="form-control" placeholder="eg. 52100" />
+                        <input type="text" v-model="zip" class="form-control" required placeholder="eg. 52100" />
                     </div>
 
-                <router-link to="/successful-registration"><button type="button" class="button" @click="register"><span>Register now</span></button></router-link>
+                <button type="button" class="button" @click="register"><span>Register now</span></button>
+                </form>
                 </div>
             </div>
             </div>
@@ -182,7 +187,8 @@ export default {
             .createUserWithEmailAndPassword(this.email, this.password)
             .then(function() {
                 console.log('Uspješna Registracija');
-                })
+                // this.$router.push({name: "main-page"})
+            })
             .catch(function(error) {
                 console.error('Došlo je do greške', error);
             })

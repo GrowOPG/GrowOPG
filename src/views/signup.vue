@@ -142,14 +142,9 @@ export default {
                 var token = credential.accessToken;
                 // The signed-in user info.
                 var user = result.user;
-                // firebase.auth()
-                // .signInWithEmailAndPassword(this.email, this.password)
-                // .then((result) => {
-                //     console.log('OK')
-                //     this.$router.replace({name: "main-page"}) //.replace instead of .push so we cant go back to or login page
-                // }).catch(function(e) {
-                //     console.error('greska', e);
-                // })
+                
+                this.$router.replace({name: "main-page"}) //.replace instead of .push so we cant go back to or login page
+                
             }).catch((error) => {
                 // Handle Errors here.
                 var errorCode = error.code;

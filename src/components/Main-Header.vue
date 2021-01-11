@@ -1,6 +1,6 @@
 <template>
-    <div class="container-fluid">
-    <div class="row">
+    <div class="container-fluid ">
+    <div class="row no-padding no-gutter">
         <div class="header text-left col-6">
             <div class="header-n-logo">
                 <strong>GrowOPG</strong>
@@ -9,11 +9,11 @@
         </div>
         <div class="col-3" />
         <div class="header-small text-right col-3">
-            <form class="d-flex">
+            <form class="d-flex ">
                 <input class="button form-control me-2" type="search" placeholder="Search">
                 
                 <div class="dropdown">
-                    <img class="resized" alt="user-settings" onclick="showdrop()" src="@/assets/user.png">
+                    <img class="resized" alt="user-settings" @click="showdrop()" src="@/assets/user.png">
                     <div class="dropdown-content">
                         <div class="user text-left">
                             Logo here 25x25 | Username + Seller/Buyer<br>
@@ -23,7 +23,7 @@
 
                         <div class="options">
                             <router-link to="/" class="dropdown-item" href="#">User Settings</router-link>
-                            <a class="dropdown-item" @click="logout">Log out</a>
+                            <button type="button" class="button dropdown-item" @click="logout"><span>Log out</span></button>
                         </div>
                     </div>
                 </div>
@@ -36,9 +36,21 @@
 </template>
 
 <style lang='scss'>
+.no-padding { /*no padding on the column/row -- found on stack-overflow*/
+    padding-left: 0;
+    padding-right: 0;
+}
+.row.no-gutter { /*no margin on the column/row -- found on stack-overflow*/
+    margin-left: 0;
+    margin-right: 0;
+}
 .header-small {
     text-align: right;
     text-decoration: none;
+    margin-top: auto;
+}
+.d-flex {
+    float: right;
 }
 .dropdown-divider {
     height: 0;
@@ -52,16 +64,13 @@
     font-size: 50px;
     color:black;    
 }
-.header-small{
-    margin-top: auto;
-}
 .dropdown {
   position: relative;
   display: inline-block;
 }
 .dropdown-content {
     right: 0;
-    margin-top: 20px;
+    // margin-top: 20px;
     display: none;
     position: absolute;
     height: 150px;
@@ -110,6 +119,7 @@ img.resized { /*resized the user settings and cart icons*/
 </style>
 
 <script>
+import firebase from '@/firebase'
 /* When the user clicks on the button, 
 toggle between hiding and showing the dropdown content */
 function showdrop() {
@@ -128,7 +138,19 @@ window.onclick = function(event) {
     }
   }
 }
+
 export default {
   name: 'MainHeader',
+  methods: {
+      logout() {
+        firebase
+            .auth()
+            .signOut()
+            .then(() => {
+                console.log("user " + this.email + " signed out");
+                this.$router.push({name: 'Login'})
+            });
+      }
+  }
 }
 </script>

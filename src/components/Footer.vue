@@ -19,7 +19,7 @@
           
         </div>
         <div class="links col-lg-3 col-xs-12 text-center">
-        <!-- <h4 class="mt-lg-0 mt-sm-3">Links</h4>
+        <h4 class="mt-lg-0 mt-sm-3">Links</h4>
             <ul class="m-0 p-0">
             <li><router-link to="/">Home</router-link></li>
             <li><router-link to="/signup">Signup</router-link></li>
@@ -30,7 +30,7 @@
             <li><router-link to="/successfuly-signed-out">Successfuly Signed Out</router-link></li>
             <li><router-link to="/main-page">Main Page</router-link></li>
             <li><router-link to="/cart">Cart</router-link></li>
-            </ul> -->
+            </ul>
         </div>
         <div class="contact col-lg-4 col-xs-12 text-right">
         <h4 class="mt-lg-0 mt-sm-4">Contact</h4>
