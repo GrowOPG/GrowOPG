@@ -67,6 +67,7 @@
 
                 <button type="button" class="button" @click="register"><span>Register now</span></button>
                 </form>
+
                 </div>
             </div>
             </div>
@@ -165,10 +166,6 @@ import Footer from '@/components/Footer.vue'; //imported Footer
 
 export default {
     name: "register",
-    components: {
-        Header,
-        Footer
-    },
     data() {
         return{
             fullname: '',
@@ -180,6 +177,10 @@ export default {
             password: '',
             passwordrepeat: '',
         }
+    },
+     components: {
+        Header,
+        Footer
     },
     methods: {
         register() {
