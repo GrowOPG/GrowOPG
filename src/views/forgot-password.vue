@@ -15,7 +15,7 @@
                             <label for="low-text mt-4 mb-3">Recovery E-mail</label>
                             <input type="email" v-model="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter e-mail">
                         </div>
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label for="exampleInputEmail1">New Password</label>
                             <input type="password" v-model="new_password" class="form-control" id="new_password" placeholder="Enter new password">
                             <p id="passwordHelpBlock" class="form-text text-muted">
@@ -28,7 +28,7 @@
                             <p id="passwordHelpBlock" class="form-text text-muted">
                                 Your passwords must match.
                             </p>
-                        </div>
+                        </div> -->
                         <div class="text-center">
                             <button type="button" class="button" @click="forgot_pass()"><span><router-link to="/login">Reset your password</router-link></span></button>
                         </div>
@@ -59,6 +59,12 @@ a { /*css ne mijenja link color u blue nego odrzi color parent elementa*/
     /* padding-bottom: 20px; */
     font-size: 25px;
 }
+
+.form-group {
+    margin-bottom: 1.5rem;
+    margin-top: 1.5rem;
+}
+
 .form-box {
     /* text-align: center; */
     margin-top: 50px;
@@ -68,7 +74,7 @@ a { /*css ne mijenja link color u blue nego odrzi color parent elementa*/
     padding-left: 30px;
     padding-right: 30px;
     width: 500px;
-    height: 650px;
+    height: 475px;
     
 }
 .text-center {
@@ -133,14 +139,14 @@ export default {
    },
    data() {
        return {
-           email: '',
-           new_password: '',
-           new_password_repeat: ''
+           email: ''
+        //    new_password: '',
+        //    new_password_repeat: ''
        }
    },
    methods:{
        forgot_pass() {
-           console.log('login...' + this.email + this.new_password);
+           console.log('login...' + this.email); // + this.new_password
 
            const userEmail = this.email;
 
@@ -150,7 +156,7 @@ export default {
                userEmail)
             .then((success) => {
                 // Password reset email sent.
-                console.log('Uspješno poslan mail', );
+                console.log('Uspjesno poslan mail', );
             })
             .catch(function(error) {
                 // Error occurred. Inspect error.code.
@@ -159,4 +165,3 @@ export default {
    }
 };
 </script>
-
