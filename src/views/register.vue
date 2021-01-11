@@ -54,6 +54,7 @@
                 </div>
                 <div class="col-2" />
                 <div class="col-4">
+                    <form>
                     <div class="sgp-form">
                         <label for="DoB" class="input">Date of birth</label>
                         <input type="date" v-model="DoB" class="form-control" placeholder="mm-dd-yyyy" id="DoB" />
@@ -65,6 +66,8 @@
                     </div>
 
                 <button type="button" class="button" @click="register"><span>Register now</span></button>
+                </form>
+
                 </div>
             </div>
             </div>
@@ -184,8 +187,9 @@ export default {
             firebase.auth()
             .createUserWithEmailAndPassword(this.email, this.password)
             .then(function() {
-                console.log('Uspješna Registracija');  
-                })
+                console.log('Uspješna Registracija');
+                // this.$router.push({name: "main-page"})
+            })
             .catch(function(error) {
                 console.error('Došlo je do greške', error);
             })

@@ -128,16 +128,17 @@ export default {
    },
    methods: {
        login() {
-           console.log('login...' + this.email)
-           firebase
-	   .auth()
+        console.log('logging in user -> ' + this.email)
+        
+        firebase
+	    .auth()
            .signInWithEmailAndPassword(this.email, this.password)
            .then((result) => {
                console.log('Uspješna prijava', result);
 
-               this.$router.replace({name: "main-page"}) //.replace instead of .push so the user can't go back to login page (since he just logged in)
+               this.$router.push({name: "main-page"}) //.replace instead of .push so the user can't go back to login page (since he just logged in)
            })
-	   .catch(function(e) {
+	   .catch((e) => {
                console.error('greska', e);
            })
        }
