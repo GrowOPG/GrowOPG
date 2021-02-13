@@ -10,8 +10,7 @@
         <div class="col-3" />
         <div class="header-small text-right col-3">
             <form class="d-flex ">
-                <input class="button form-control me-2" type="search" placeholder="Search">
-                
+                <input v-model="store.searchTerm" class="button form-control me-2" type="search" placeholder="Search">
                 <div class="dropdown">
                     <img class="resized" alt="user-settings" @click="showdrop()" src="@/assets/user.png">
                     <div class="dropdown-content">
@@ -119,6 +118,7 @@ img.resized { /*resized the user settings and cart icons*/
 </style>
 
 <script>
+import store from '@/store';
 import firebase from '@/firebase'
 /* When the user clicks on the button, 
 toggle between hiding and showing the dropdown content */
@@ -141,6 +141,11 @@ window.onclick = function(event) {
 
 export default {
   name: 'MainHeader',
+  data(){
+      return{
+      store,
+     }
+  },
   methods: {
       logout() {
         firebase
