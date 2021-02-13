@@ -14,7 +14,7 @@
 
                     <div class="category-filter">
                         <img class="resize" src="@/assets/egg.png">
-                        <span class="caption">Egg</span>
+                        <span class="caption">Eggs</span>
                     </div>
 
                     <div class="category-filter">
