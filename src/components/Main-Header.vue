@@ -166,7 +166,7 @@ export default {
             .signOut()
             .then(() => {
                 console.log("user " + this.email + " signed out");
-                this.$router.push({name: 'Login'})
+                this.$router.push({name: 'Successfuly-signed-out'}) //need to add replace before predaja profu
             });
       }
   }

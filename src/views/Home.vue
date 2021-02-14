@@ -26,9 +26,9 @@
 
                 <div class="text-box-centered"> 
                    <h1 class="main-title">Welcome to GrowOPG</h1>
-                   <p class="excerpt">GrowOPG is a platform/web-app connecting farmers and customers 
-                       who value quality of fresh, homemade or locally grown produce. On our platform you can choose
-                       wether you're a seller or a buyer. A seller is a person who..</p>
+                   <p class="excerpt">GrowOPG is a platform/web-app connecting agriculturists and customers 
+                       who value quality of fresh, homemade or locally grown produce. Here you can choose
+                       wether you're the seller or a buyer. A seller is a person who is..</p>
                 </div>
 
                     
