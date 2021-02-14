@@ -45,7 +45,8 @@ img.resize{
      margin-top: 80px;
      margin-left: auto;
      margin-right: auto;
-     width: 15%;  
+     width: 15%;
+     height: auto;  
 }
 
 .text{
@@ -62,6 +63,10 @@ export default {
    components: {
        Header,
        Footer
-   }
+   },
+    mounted(){
+        // const self = this;
+        setTimeout( () => this.$router.push({name: 'Login'}), 5000);
+    }
 };
 </script>
