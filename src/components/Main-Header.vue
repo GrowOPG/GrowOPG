@@ -143,9 +143,22 @@ export default {
   name: 'MainHeader',
   data(){
       return{
-      store,
+        store,
      }
   },
+//   computed: {
+//       filtriranaKomponenta(){
+//           let termin = this.store.searchTerm;
+//           let newKomp = [] //recimo da je array producta
+
+//           for (let product of this.komponenta koju cemo izbuildat) {
+//               if (product.description.indexOf(termin) >= 0){
+//                   newKomp.push(product);
+//               }
+//           }
+//       }
+//   },
+//Sluzi za search producta
   methods: {
       logout() {
         firebase
