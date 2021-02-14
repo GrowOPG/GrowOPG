@@ -184,11 +184,13 @@ export default {
     },
     methods: {
         register() {
+            const self = this;
             firebase.auth()
             .createUserWithEmailAndPassword(this.email, this.password)
             .then(function() {
                 console.log('Uspješna Registracija');
-                // this.$router.push({name: "main-page"})
+                
+                self.$router.push({name: 'Successful-registration'});
             })
             .catch(function(error) {
                 console.error('Došlo je do greške', error);
