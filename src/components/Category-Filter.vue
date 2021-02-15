@@ -1,8 +1,8 @@
 <template>
 
 <div class="category-filter">
-    <img class="resize" :src="image">
-    <span class="caption">Cheese</span>
+    <img class="resize" :src="cat.img">
+    <span class="caption">{{ cat.caption }}</span>
 </div>
     
 </template>
@@ -11,8 +11,9 @@
 
 export default {
   name: 'Category-Filter',
-  props: ['image']
+  props: ['cat',]   
 }
+
 </script>
 
 <style scoped lang="scss">

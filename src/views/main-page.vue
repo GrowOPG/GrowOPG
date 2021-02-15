@@ -7,7 +7,7 @@
             <div class="flex-container">
 
                 <div class="centered">
-                    <CategoryFilter v-for="image in CategoryImages" :key="image" :image="image"/>
+                    <CategoryFilter v-for="cat in CategoryImages" :key="cat" :cat="cat" />
                 </div>
 
             </div>
@@ -50,30 +50,20 @@ import CategoryFilter from '../components/Category-Filter';
 // });
 
 let CategoryImages = [
-    '@/assets/cheese.png',
-    '@/assets/egg.png',
-    '@/assets/fruits.png',
-    '@/assets/honey.png',
-    '@/assets/olive-oil.png',
-    '@/assets/vegetables.png',
-    '@/assets/wine.png',
-]
-
-let CategoryNames = [
-    "Cheese",
-    "Egg",
-    "Fruits",
-    "Honey",
-    "Olive Oil",
-    "Vegetables",
-    "Wine",
+    { 'img':"https://i.imgur.com/DZMlcsS.png", 'caption': "Cheese" },
+    { 'img':"https://i.imgur.com/c06zXhX.png", 'caption': "Eggs" },
+    { 'img':"https://i.imgur.com/q4cOSdh.png", 'caption': "Fruit" },
+    { 'img':"https://i.imgur.com/JP7zwv0.png", 'caption': "Honey" },
+    { 'img':"https://i.imgur.com/8e5N4x2.png", 'caption': "Olive Oil" },
+    { 'img':"https://i.imgur.com/d2BUVSk.png", 'caption': "Vegetables" },
+    { 'img':"https://i.imgur.com/qRQuc3U.png", 'caption': "Wine" },
 ]
 
 export default {
    name: 'main-page',
    data: function() {
        return {
-           CategoryImages: CategoryImages, CategoryNames: CategoryNames,
+           CategoryImages: CategoryImages,
        }
    },
    components: {
