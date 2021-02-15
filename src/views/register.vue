@@ -42,7 +42,7 @@
                         <div class="sgp-form">
                             <label for="password">Password</label>
                             <input type="password" v-model="password" class="form-control" id="password" required placeholder="Enter your password" />
-                            <div v-if="password.length > 1 && password.length < 6" class="text-danger">Your password must be at least 6 characters long.</div>
+                            <div v-if="password.length < 6" class="text-danger">Your password must be at least 6 characters long.</div>
                         </div>
 
                         <div class="sgp-form">
