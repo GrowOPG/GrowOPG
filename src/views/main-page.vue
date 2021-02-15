@@ -7,40 +7,7 @@
             <div class="flex-container">
 
                 <div class="centered">
-                    <div class="category-filter">
-                        <img class="resize" src="@/assets/cheese.png">
-                        <span class="caption">Cheese</span>
-                    </div>
-
-                    <div class="category-filter">
-                        <img class="resize" src="@/assets/egg.png">
-                        <span class="caption">Eggs</span>
-                    </div>
-
-                    <div class="category-filter">
-                        <img class="resize" src="@/assets/fruits.png">
-                        <span class="caption">Fruits</span>
-                    </div>
-
-                    <div class="category-filter">
-                        <img class="resize" src="@/assets/honey.png">
-                        <span class="caption">Honey</span>
-                    </div>
-
-                    <div class="category-filter">
-                        <img class="resize" src="@/assets/olive-oil.png">
-                        <span class="caption">Olive Oil</span>
-                    </div>
-
-                    <div class="category-filter">
-                        <img class="resize" src="@/assets/vegetables.png">
-                        <span class="caption">Vegetables</span>
-                    </div>
-
-                    <div class="category-filter">
-                        <img class="resize" src="@/assets/wine.png">
-                        <span class="caption">Wine</span>
-                    </div>
+                    <CategoryFilter v-for="cat in CategoryImages" :key="cat" :cat="cat" />
                 </div>
 
             </div>
@@ -53,23 +20,11 @@
 
 <style scoped>
 
-.category-filter {
-    vertical-align: top;
-    display: inline-block;
-    text-align: center;
-    margin-right: 3%;
-}
-
-.caption {
-    display: block;
-    margin-top: 2px;
-    font-weight: bold;
-}
-
 .centered {
     text-align: center;
     margin-top: 5%;
 }
+
 </style>
 
 <script>
@@ -77,6 +32,7 @@ import app from '@/App';
 import store from '@/store';
 import MainHeader from '../components/Main-Header';
 import Footer from '../components/Footer';
+import CategoryFilter from '../components/Category-Filter';
 
 // firebase.auth().onAuthStateChanged((user) => {
 //   if (user) {
@@ -93,11 +49,27 @@ import Footer from '../components/Footer';
 //   }
 // });
 
+let CategoryImages = [
+    { 'img':"https://i.imgur.com/DZMlcsS.png", 'caption': "Cheese" },
+    { 'img':"https://i.imgur.com/c06zXhX.png", 'caption': "Eggs" },
+    { 'img':"https://i.imgur.com/q4cOSdh.png", 'caption': "Fruit" },
+    { 'img':"https://i.imgur.com/JP7zwv0.png", 'caption': "Honey" },
+    { 'img':"https://i.imgur.com/8e5N4x2.png", 'caption': "Olive Oil" },
+    { 'img':"https://i.imgur.com/d2BUVSk.png", 'caption': "Vegetables" },
+    { 'img':"https://i.imgur.com/qRQuc3U.png", 'caption': "Wine" },
+]
+
 export default {
    name: 'main-page',
+   data: function() {
+       return {
+           CategoryImages: CategoryImages,
+       }
+   },
    components: {
         MainHeader,
-        Footer
+        Footer,
+        CategoryFilter
    }
 };
 </script>
