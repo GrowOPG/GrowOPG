@@ -13,7 +13,7 @@
 import store from '@/store';
 import router from '@/router';
 import firebase from '@/firebase';
-/*
+
 firebase.auth().onAuthStateChanged((user) => {
    // we're setting a const of the currentRoute we're on
    const currentRoute = router.currentRoute;
@@ -25,6 +25,7 @@ firebase.auth().onAuthStateChanged((user) => {
     }
     else {
     // User is not signed in
+        console.log('*** No user');
         store.currentUser = null;
     // if the user is not signed in on the pages we require to be signed in he will be redirected to 'home'
         if (currentRoute.meta.needsUser){
@@ -32,7 +33,7 @@ firebase.auth().onAuthStateChanged((user) => {
         }
     }
 });
-*/
+
 export default {
     name:'app',
     data(){

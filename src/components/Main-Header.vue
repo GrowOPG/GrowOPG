@@ -15,13 +15,14 @@
                     <img class="resized" alt="user-settings" @click="showdrop()" src="@/assets/user.png">
                     <div class="dropdown-content">
                         <div class="user text-left">
-                            Logo here 25x25 | Username + Seller/Buyer<br>
+                            {{email}}<br>
+                            Seller/Buyer
                         </div>
 
                         <div class="dropdown-divider"></div>
 
                         <div class="options">
-                            <router-link to="/" class="dropdown-item" href="#">User Settings</router-link>
+                            <button type="button" class="button dropdown-item" @click="changeUserSettings"><span>User settings</span></button>
                             <button type="button" class="button dropdown-item" @click="logout"><span>Log out</span></button>
                         </div>
                     </div>
@@ -144,6 +145,7 @@ export default {
   data(){
       return{
         store,
+        email:null
      }
   },
 //   computed: {
@@ -166,9 +168,16 @@ export default {
             .signOut()
             .then(() => {
                 console.log("user " + this.email + " signed out");
-                this.$router.push({name: 'Successfuly-signed-out'}) //need to add replace before predaja profu
+                this.$router.push({name: 'Successfuly-signed-out'}) //need to add replace umjesto push before predaja profu
             });
+      },
+      changeUserSettings() {
+          this.$router.push({name: 'settings-page'})
       }
+  },
+  created(){
+      var user = firebase.auth().currentUser;
+      this.email = user.email;
   }
 }
 </script>

@@ -1,53 +1,36 @@
 <template>
     <div class="container-fluid no-gutters no-padding">
         <div class="row no-gutters justify-content-around">
-            
-            
             <div class="col-lg-4 choice">
                 <router-link to="/login">
                     <img src="@/assets/HP1-img.jpg" style="width: 100%; height: 100vh;">
-                
                     <div class="side-text">
                         <strong class="smaller-title">I am a</strong>
                         <h2 class="small-title">BUYER</h2>
                     </div>
-
                 </router-link>
             </div>
-            
-
             <div class="col-lg-4">
-
                 <img src="@/assets/HP2-img.jpg" style="width: 100%; height: 100vh;" >
-
                 <div class="logo"> 
                     <img class="resize" src="@/assets/logo.png">
                 </div>
-
                 <div class="text-box-centered"> 
                    <h1 class="main-title">Welcome to GrowOPG</h1>
                    <p class="excerpt">GrowOPG is a platform/web-app connecting agriculturists and customers 
                        who value quality of fresh, homemade or locally grown produce. Here you can choose
                        wether you're the seller or a buyer. A seller is a person who is..</p>
-                </div>
-
-                    
-
+                </div>                    
             </div>
-
-            
             <div class="col-lg-4 choice">
                 <router-link to="/login">
                     <img src="@/assets/HP3-img.jpg" style="width: 100%; height: 100vh;">
-
-                <div class="side-text">
+                    <div class="side-text">
                         <strong class="smaller-title">I am a</strong>
                         <h2 class="small-title">SELLER</h2>
                     </div>
-
                 </router-link>
             </div>
-            
         </div>       
     </div>
 </template>
@@ -124,6 +107,5 @@ img.resize { /*needed to resize logo*/
 </style>
 
 <script>
-
 
 </script>
