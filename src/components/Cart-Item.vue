@@ -16,6 +16,7 @@
     border: 3px solid #2d2d2d;
     border-left: 0;
 }
+
 .caption {
     display: inline-block;
     margin-top: 2px;
