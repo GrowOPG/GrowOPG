@@ -31,6 +31,7 @@
             <li><router-link to="/successfuly-signed-out">Successfuly Signed Out</router-link></li>
             <li><router-link to="/main-page">Main Page</router-link></li>
             <li><router-link to="/cart">Cart</router-link></li>
+            <li><router-link to="/settings-page">Settings Page</router-link></li>
             </ul>
         </div>
         <div class="contact col-lg-4 col-xs-12 text-right">
