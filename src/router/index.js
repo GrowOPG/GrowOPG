@@ -8,12 +8,18 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
+    meta: {
+      needsUser: false
+    }
   },
   {
     path: '/main-page',
     name: 'main-page',
-    component: () => import(/* webpackChunkName: "about" */ '../views/main-page.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/main-page.vue'),
+    // meta: {
+    //   needsUser: true
+    // }
   },
   {
     path: '/login',
@@ -21,37 +27,58 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/login.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/login.vue'),
+    meta: {
+      needsUser: false
+    }
   },
   {
     path: '/signup',
     name: 'Signup',
-    component: () => import(/* webpackChunkName: "about" */ '../views/signup.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/signup.vue'),
+    meta: {
+      needsUser: false
+    }
   },
   {
     path: '/register',
     name: 'Register',
-    component: () => import(/* webpackChunkName: "about" */ '../views/register.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/register.vue'),
+    meta: {
+      needsUser: false
+    }
   },
   {
     path: '/successful-registration',
     name: 'Successful-registration',
-    component: () => import(/* webpackChunkName: "about" */ '../views/successful-registration.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/successful-registration.vue'),
+    meta: {
+      needsUser: false
+    }
   },
   {
     path: '/cart',
     name: 'Cart',
-    component: () => import(/* webpackChunkName: "about" */ '../views/cart.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/cart.vue'),
+    // meta: {
+    //   needsUser: true
+    // }
   },
   {
     path: '/successfuly-signed-out',
     name: 'Successfuly-signed-out',
-    component: () => import(/* webpackChunkName: "about" */ '../views/successfuly-signed-out.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/successfuly-signed-out.vue'),
+    meta: {
+      needsUser: false
+    }
   },
   {
     path: '/forgot-password',
     name: 'Forgot-password',
-    component: () => import(/* webpackChunkName: "about" */ '../views/forgot-password.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/forgot-password.vue'),
+    meta: {
+      needsUser: false
+    }
   }
 ]
 
@@ -60,5 +87,9 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+// router.beforeEach ((to, from, next) => {
+  
+// });
 
 export default router

@@ -1,10 +1,8 @@
 <template>
-
 <div class="category-filter">
     <img class="resize" :src="cat.img">
     <span class="caption">{{ cat.caption }}</span>
 </div>
-    
 </template>
 
 <script>
@@ -30,5 +28,6 @@ export default {
     margin-top: 2px;
     font-weight: bold;
 }
+
 
 </style>

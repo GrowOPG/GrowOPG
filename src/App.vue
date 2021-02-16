@@ -8,26 +8,29 @@
 
 </style>
 
-/*
+
 <script>
 import store from '@/store';
 import router from '@/router';
 import firebase from '@/firebase';
 /*
 firebase.auth().onAuthStateChanged((user) => {
-  if (user) {
+   // we're setting a const of the currentRoute we're on
+   const currentRoute = router.currentRoute;
+
+    if (user) {
     // User is signed in.
-    console.log(user.email);
-    store.currentUser = user.email;
-  }
-  else {
-    // User is not signed in
-    store.currentUser = null;
-    // if the user is not signed in as is not on our 'Home' he will be redirected there
-    if (router.name !== "home"){
-        router.push({name:'home'})
+        console.log(user.email);
+        store.currentUser = user.email;
     }
-  }
+    else {
+    // User is not signed in
+        store.currentUser = null;
+    // if the user is not signed in on the pages we require to be signed in he will be redirected to 'home'
+        if (currentRoute.meta.needsUser){
+            router.push({name:'home'})
+        }
+    }
 });
 */
 export default {
