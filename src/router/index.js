@@ -79,6 +79,14 @@ const routes = [
     meta: {
       needsUser: false
     }
+  },
+  {
+    path: '/settings-page',
+    name: 'settings-page',
+    component: () => import(/* webpackChunkName: "about" */ '../views/settings-page.vue'),
+    meta: {
+      needsUser: false
+    }
   }
 ]
 

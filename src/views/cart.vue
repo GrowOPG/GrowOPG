@@ -78,7 +78,6 @@
     overflow: hidden;
     border-top: 2px solid #2D2D2D;
 }
-
 .CartList {
     /* border: 2px solid red; */
     margin-top: 50px;
@@ -92,7 +91,6 @@
     border: 3px solid #2d2d2d;
     border-left: 0;
 }
-
 .Receipt {
     margin-top: 50px;
     height: 400px;
@@ -113,7 +111,6 @@
     float: right;
     vertical-align: baseline;
 }
-
 .CheckoutBtn {
     margin-top: 50px;
     margin-left: 35%;
@@ -123,10 +120,8 @@
 	width: 150px;
 	border-radius: 10px; /*rounded*/
 	padding: 5px; 
-
 	background-color: #556b2f;
 	color: white;
-
 	font-size: 16px;
 	text-align: center;
 	
@@ -164,7 +159,6 @@
 import MainHeader from '@/components/Main-Header.vue';
 import Footer from '@/components/Footer.vue';
 import CartItem from '@/components/Cart-Item.vue';
-
 export default {
    name: 'cart',
    components: {

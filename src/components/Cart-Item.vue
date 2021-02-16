@@ -25,8 +25,6 @@
 </style>
 
 <script>
-
-
 export default {
     name: "CartItem",
     props: ['CartItem'],
