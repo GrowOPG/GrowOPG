@@ -22,8 +22,10 @@
                         <div class="dropdown-divider"></div>
 
                         <div class="options">
-                            <button type="button" class="button dropdown-item" @click="changeUserSettings"><span>User settings</span></button>
-                            <button type="button" class="button dropdown-item" @click="logout"><span>Log out</span></button>
+                            <button type="button" class="ButtonItem" @click="changeUserSettings"><span class="BtnTxt">User settings</span></button>
+                            <br>
+                            <div class="dropdown-divider2"></div>
+                            <button type="button" class="ButtonItem" @click="logout"><span class="BtnTxt">Log out</span></button>
                         </div>
                     </div>
                 </div>
@@ -58,11 +60,31 @@
     overflow: hidden;
     border-top: 2px solid #2D2D2D;
 }
+.dropdown-divider2 {
+    height: 0;
+    margin: .5rem 0;
+    margin-left: 5%;
+    width: 260px;
+    overflow: hidden;
+    border-top: 1px solid #556b2f;
+}
 .header-n-logo {
     position: inherit;
     // text-align: center;    
     font-size: 50px;
     color:black;    
+}
+
+.ButtonItem {
+    max-width: inherit;
+    width: 200px;
+    float: left;
+    // margin-left: 8%;
+    background-color: transparent;
+    border: none;
+}
+.BtnTxt {
+    float:left;
 }
 .dropdown {
   position: relative;
@@ -94,9 +116,9 @@
 }
 .options {
     text-align: left;
-    height: 50px;
+    width: 300px;
+    height: 100px;
     margin-top: 5px;
-    margin-left: -20px;
 }
 
 img.resize { /*needed to resize logo*/

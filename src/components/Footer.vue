@@ -1,5 +1,5 @@
 <template> 
-<!-- found this header on Bootstrap -->
+<!-- found this footer on Bootstrap -->
     <div class="mt-5 pt-5 pb-2 footer">
     <div class="container">
     <div class="row">

@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-    <MainHeader />
+    <div class="container-fluid">
+      <MainHeader />
       <div class="row gutters-sm">
         <div class="col-md-4 d-none d-md-block">
           <div class="card">
@@ -91,6 +91,7 @@
       </div>
     <Footer />
     </div>
+    
 </template>
 
 <style scoped>

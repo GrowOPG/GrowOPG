@@ -89,6 +89,7 @@
     height: 100px;
     margin-top: 20px;
     border: 3px solid #2d2d2d;
+    border-radius: 10px;
     border-left: 0;
 }
 .Receipt {
