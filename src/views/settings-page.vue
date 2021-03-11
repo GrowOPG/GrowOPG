@@ -1,8 +1,10 @@
 <template>
+ <div class=bg> 
     <div class="container-fluid">
       <MainHeader />
       <div class="row gutters-sm">
-        <div class="col-md-4 d-none d-md-block">
+        <div class="col-md-1"/>
+        <div class="col-md-3 d-none d-md-block">
           <div class="card">
             <div class="card-body">
               <nav class="nav flex-column nav-pills nav-gap-y-1">
@@ -19,7 +21,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-7">
           <div class="card">
             <div class="card-header border-bottom mb-3 d-flex d-md-none">
               <ul class="nav nav-tabs card-header-tabs nav-gap-x-1" role="tablist">
@@ -74,14 +76,18 @@
                 </form>
               </div>
               <div class="tab-pane" id="security">
-                <h6>SECURITY SETTINGS</h6>
+                <h6>CHANGE PASSWORD</h6>
                 <hr>
                 <form>
                   <div class="form-group">
-                    <label class="d-block">Change Password</label>
-                    <input type="text" class="form-control" placeholder="Enter your old password">
-                    <input type="text" class="form-control mt-1" placeholder="New password">
-                    <input type="text" class="form-control mt-1" placeholder="Confirm new password">
+                    <!-- <label class="d-block text-danger">Change Password</label> -->
+                    <input type="password" class="form-control" required placeholder="Enter your old password">
+                    <br> 
+                    <input type="password" v-model="password" class="form-control mt-1" id="password" required placeholder="New password" />
+                    <div v-if="password.length < 6" class="text-danger">Your password must be at least 6 characters long.</div>
+                    <br>
+                    <input type="password" v-model="passwordrepeat" class="form-control mt-1" id="repeatpassword" required placeholder="Confirm new password">
+                    <div v-if="password != passwordrepeat" class="text-danger">Passwords don't match!</div>
                   </div>
                 </form>
               </div>
@@ -89,8 +95,10 @@
           </div>
         </div>
       </div>
-    <Footer />
     </div>
+    <Footer />
+ </div>
+  
     
 </template>
 
@@ -151,6 +159,11 @@ export default {
    components: {
         MainHeader,
         Footer
+   },
+   data() {
+       return {
+           password: ''
+       }
    }
 };
 </script>
