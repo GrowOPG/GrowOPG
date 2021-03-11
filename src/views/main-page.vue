@@ -20,15 +20,34 @@
         <div class="row">
             <div class="col-4 PrListing">
                 <div class="centered">
-                    <Products v-for="product in ProductImages" :key="product" :product="product" />
+                    <Products v-for="product in ProductImages" :key="product" :product="product" />     
                 </div>
             </div>
 
             <div class="col-1" />
 
             <div class="col-7 pdp">
+                <button class="button" onclick="openPopUp()"><span>PDP PopUp</span></button>
+                <div class="form-popup" id="PdpPopUp">
+                    <div class="popup-container">
+                        <div class="row">
+                            <div class="col-4">
+                                <h1>Product Photo</h1>
+                            </div>
+                            <div class="col-4">
+                                Product name <br>
+                                Price <br>
+                                Description <br>
+                                <br><br><br><br>
+                                Quantity selection box
+                            </div>
+                            <div class="col-2" />
+                        </div>
+                    </div>
+                    <button type="button" class="button closebtn" onclick="closePopUp()"><span>Close</span></button>
+                </div>
+                
             </div>
-        
         </div>
         </div>
             
@@ -44,7 +63,6 @@
 .centered {
     text-align: center;
     margin-top: 5%;
-
 }
 
 .PrListing {
@@ -61,11 +79,75 @@
     border: 1px solid #2d2d2d;
     border-radius: 10px;
 }
+
 .dropdown-divider {
     height: 0;
     margin: .5rem 0;
     overflow: hidden;
     border-top: 2px solid #2D2D2D;
+}
+
+
+/* The popup form - hidden by default */
+/* .form-popup {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 15px;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+} */
+
+/* Add styles to the form container */
+.popup-container {
+  padding: 10px;
+  background-color: transparent;
+}
+
+.closebtn {
+    float: right;
+    bottom: 0;
+    /* position: fixed; */
+}
+
+.button { /*the styling for our button*/
+	width: 150px;
+	border-radius: 10px; /*rounded*/
+	padding: 5px; 
+
+	background-color: #2D2D2D;
+	color: white;
+
+	font-size: 16px;
+	text-align: center;
+	
+	transition: all 0.5s; /*the transition to span lasts 0.5s*/
+	cursor: pointer; /*sets our pointer as cursor to activate hover*/
+}
+.button:hover { /*styiling for a hovered button*/
+	background-color: white; /*we change the colors*/
+	color: #2D2D2D; 
+}
+.button span {
+	cursor: pointer;
+	display: inline-block; /*so it displays inline to our text*/
+	position: relative;
+	transition: 0.5s;
+}
+.button:hover span {
+	padding-right: 25px; /*how far from the right border of our button*/
+}
+.button span:after {
+	content: '\00bb'; /*those are the two lines that display*/
+	position: absolute;
+	opacity: 0;
+	top: 0;
+	right: -20px;
+	transition: 0.5s;
+}
+.button:hover span:after {
+	opacity: 1;
+	right: 0;
 }
 </style>
 
@@ -76,7 +158,6 @@ import MainHeader from '../components/Main-Header';
 import Footer from '../components/Footer';
 import CategoryFilter from '../components/Category-Filter';
 import Products from '../components/Products';
-
 
 // firebase.auth().onAuthStateChanged((user) => {
 //   if (user) {
@@ -113,12 +194,23 @@ let CategoryImages = [
     { 'img':"https://i.imgur.com/qRQuc3U.png", 'caption': "Wine" },
 ]
 
+function openPopUp() {
+    console.log("Radi");
+    document.getElementById("PdpPopUp").style.display = "block";
+}
+
+function closePopUp() {
+    document.getElementById("PdpPopUp").style.display = "none";
+}
+
 export default {
    name: 'main-page',
    data: function() {
        return {
            CategoryImages,
            ProductImages,
+           openPopUp,
+           closePopUp,
        }
    },
    components: {
