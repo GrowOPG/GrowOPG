@@ -19,6 +19,7 @@
                             <label><input type="checkbox" value="remember-me"> Remember me</label>
                         </div>
                         <div class="text-center">
+                            <div v-if="kriviUser==true" class="text-danger mt-3 mb-3">Incorrect Password or Email.</div>
                             <button type="button" class="button" @click="login"><span>Submit</span></button>
                             <p class="low-text mt-4 mb-3 ">Don't have an account? Register<router-link to="/signup"> here</router-link>.</p>
                             <p class="low-text "><router-link to="/forgot-password">Forgot your password?</router-link></p>
@@ -121,7 +122,8 @@ export default {
    data() {
        return {
            email: '',
-           password: ''
+           password: '',
+           kriviUser: ''
        }
    },
    methods: {
@@ -138,7 +140,9 @@ export default {
            })
 	   .catch((e) => {
                console.error('greska', e);
+               this.kriviUser=true;
            })
+        //return kriviUser;
        }
    }
 };
