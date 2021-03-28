@@ -13,14 +13,13 @@
                         <div class="form-group">
                             <label for="exampleInputPassword1">Password</label>
                             <input type="password" v-model="password" class="form-control" id="password" placeholder="Password">
-                            <p id="passwordHelpBlock" class="form-text text-muted">
-                                Your password must be at least 6 characters long.
-                            </p>
+                            <div v-if="password.length < 6" class="text-danger">Your password must be at least 6 characters long.</div>
                         </div>
                         <div class="checkbox mb-3 text-center">
                             <label><input type="checkbox" value="remember-me"> Remember me</label>
                         </div>
                         <div class="text-center">
+                            <div v-if="kriviUser==true" class="text-danger mt-3 mb-3">Incorrect Password or Email.</div>
                             <button type="button" class="button" @click="login"><span>Submit</span></button>
                             <p class="low-text mt-4 mb-3 ">Don't have an account? Register<router-link to="/signup"> here</router-link>.</p>
                             <p class="low-text "><router-link to="/forgot-password">Forgot your password?</router-link></p>
@@ -123,7 +122,8 @@ export default {
    data() {
        return {
            email: '',
-           password: ''
+           password: '',
+           kriviUser: ''
        }
    },
    methods: {
@@ -140,7 +140,9 @@ export default {
            })
 	   .catch((e) => {
                console.error('greska', e);
+               this.kriviUser=true;
            })
+        //return kriviUser;
        }
    }
 };
