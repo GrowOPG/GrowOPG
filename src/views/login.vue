@@ -13,9 +13,7 @@
                         <div class="form-group">
                             <label for="exampleInputPassword1">Password</label>
                             <input type="password" v-model="password" class="form-control" id="password" placeholder="Password">
-                            <p id="passwordHelpBlock" class="form-text text-muted">
-                                Your password must be at least 6 characters long.
-                            </p>
+                            <div v-if="password.length < 6" class="text-danger">Your password must be at least 6 characters long.</div>
                         </div>
                         <div class="checkbox mb-3 text-center">
                             <label><input type="checkbox" value="remember-me"> Remember me</label>
