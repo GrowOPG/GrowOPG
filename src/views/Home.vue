@@ -1,7 +1,7 @@
 <template>
     <div class="container-fluid no-gutters no-padding">
         <div class="row no-gutters justify-content-around">
-            <div class="col-lg-4 choice">
+            <div class="col-lg-4 choice" @click="IamBuyer">
                 <router-link to="/login">
                     <img src="@/assets/HP1-img.jpg" style="width: 100%; height: 100vh;">
                     <div class="side-text">
@@ -22,7 +22,7 @@
                        wether you're the seller or a buyer. A seller is a person who is..</p>
                 </div>                    
             </div>
-            <div class="col-lg-4 choice">
+            <div class="col-lg-4 choice" @click="IamSeller">
                 <router-link to="/login">
                     <img src="@/assets/HP3-img.jpg" style="width: 100%; height: 100vh;">
                     <div class="side-text">
@@ -107,5 +107,23 @@ img.resize { /*needed to resize logo*/
 </style>
 
 <script>
+import firebase from '@/firebase';
+import store from '@/store';
 
+export default {
+    name: 'IDtypeOfUser',
+    data(){
+        return {
+            store
+        };
+    },
+    methods: {
+        IamBuyer() {
+            store.userType='Buyer';
+        },
+        IamSeller() {
+            store.userType='Seller';
+        }
+    }
+}
 </script>
