@@ -11,6 +11,7 @@
                             <input type="email" v-model="email" class="form-control" id="email" placeholder="Enter email">
                         </div>
                         <div class="form-group">
+                            {{store.userType}}
                             <label for="exampleInputPassword1">Password</label>
                             <input type="password" v-model="password" class="form-control" id="password" placeholder="Password">
                             <div v-if="password.length < 6" class="text-danger">Your password must be at least 6 characters long.</div>
@@ -112,6 +113,7 @@ body, html {
 import firebase from '@/firebase';
 import Header from '@/components/Header.vue';
 import Footer from '@/components/Footer.vue';
+import store from '@/store';
 
 export default {
    name: 'login',
@@ -123,7 +125,8 @@ export default {
        return {
            email: '',
            password: '',
-           kriviUser: ''
+           kriviUser: '',
+           store
        }
    },
    methods: {
