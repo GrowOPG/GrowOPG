@@ -165,6 +165,20 @@ import store from '@/store';
 import Header from '@/components/Header.vue'; //imported Header
 import Footer from '@/components/Footer.vue'; //imported Footer
 
+/*function writeUserData(fullname, email, address, city, zip, DoB, password, passwordrepeat, store ) {
+  firebase.database().ref('users/' + userId).set({
+    FullName:fullname,
+    EMail: email,
+    Address: address,
+    City: city,
+    ZipCode: zip,
+    DateOfBirth: DoB,
+    Pass: password,
+    RepeatPass: passwordrepeat,
+    TypeOfUser: store.userType,
+  });
+} */
+
 export default {
     name: "register",
     data() {
@@ -177,6 +191,7 @@ export default {
             DoB: '',
             password: '',
             passwordrepeat: '',
+            store
         }
     },
      components: {
@@ -184,19 +199,65 @@ export default {
         Footer
     },
     methods: {
+        savedata() {
+            alert('fml');
+        },
         register() {
             const self = this;
             firebase.auth()
             .createUserWithEmailAndPassword(this.email, this.password)
             .then(function() {
                 console.log('Uspješna Registracija');
-                
+                self.savedata();
                 self.$router.push({name: 'Successful-registration'});
             })
             .catch(function(error) {
                 console.error('Došlo je do greške', error);
             })
-        }
+        }  
     } 
 }
+/*
+register() {
+            const self = this;
+            firebase.auth()
+            .createUserWithEmailAndPassword(this.email, this.password)
+            .then(function() {
+                console.log('Uspješna Registracija');
+
+                
+                
+                //self.$router.push({name: 'Successful-registration'});
+            })
+            .catch(function(error) {
+                console.error('Došlo je do greške', error);
+            })
+        }
+
+//iznad je og kod
+
+            var user = firebase.auth().currentUser;
+            var cijeloIme;
+                user.updateProfile({
+                    FullName:fullname,
+                    EMail: email,
+                    Address: address,
+                    City: city,
+                    ZipCode: zip,
+                    DateOfBirth: DoB,
+                    Pass: password,
+                    RepeatPass: passwordrepeat,
+                    TypeOfUser: store.userType,
+                    
+                }).then(function() {
+                    if (user != null) {
+                        cijeloIme = user.FullName;
+                    }
+                    console.log("Pozdrav"+cijeloIme)
+                // Update successful.
+                }).catch(function(error) {
+                    console.log("Greska")
+                // An error happened.
+                });
+*/
 </script>
