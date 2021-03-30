@@ -8,12 +8,12 @@
           
           <table class="smlinks m-0 p-0">
             <tr>
-              <td><a href="#"><img alt="tw_logo" src="@/assets/twitter-logo.png"></a></td>
-              <td><a href="#"><img alt="tw_logo" src="@/assets/instagram-logo.png"></a></td>
+              <td><a href="#"><img alt="tw_logo" src="@/assets/SML/twitter-logo.png"></a></td>
+              <td><a href="#"><img alt="tw_logo" src="@/assets/SML/instagram-logo.png"></a></td>
             </tr>
             <tr>
-              <td><a href="#"><img alt="tw_logo" src="@/assets/facebook-logo.png"></a></td>
-              <td><a href="#"><img alt="tw_logo" src="@/assets/gh-logo.png"></a></td>
+              <td><a href="#"><img alt="tw_logo" src="@/assets/SML/facebook-logo.png"></a></td>
+              <td><a href="#"><img alt="tw_logo" src="@/assets/SML/gh-logo.png"></a></td>
             </tr>
           </table>
           

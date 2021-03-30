@@ -3,7 +3,7 @@
         <div class="row no-gutters justify-content-around">
             <div class="col-lg-4 choice" @click="IamBuyer">
                 <router-link to="/login">
-                    <img src="@/assets/HP1-img.jpg" style="width: 100%; height: 100vh;">
+                    <img src="@/assets/HP/HP1-img.jpg" style="width: 100%; height: 100vh;">
                     <div class="side-text">
                         <strong class="smaller-title">I am a</strong>
                         <h2 class="small-title">BUYER</h2>
@@ -11,7 +11,7 @@
                 </router-link>
             </div>
             <div class="col-lg-4">
-                <img src="@/assets/HP2-img.jpg" style="width: 100%; height: 100vh;" >
+                <img src="@/assets/HP/HP2-img.jpg" style="width: 100%; height: 100vh;" >
                 <div class="logo"> 
                     <img class="resize" src="@/assets/logo.png">
                 </div>
@@ -24,7 +24,7 @@
             </div>
             <div class="col-lg-4 choice" @click="IamSeller">
                 <router-link to="/login">
-                    <img src="@/assets/HP3-img.jpg" style="width: 100%; height: 100vh;">
+                    <img src="@/assets/HP/HP3-img.jpg" style="width: 100%; height: 100vh;">
                     <div class="side-text">
                         <strong class="smaller-title">I am a</strong>
                         <h2 class="small-title">SELLER</h2>
