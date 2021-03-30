@@ -120,6 +120,7 @@ body, html {
 
 <script>
 import firebase from '@/firebase';
+import store from '@/store';
 import Header from '@/components/Header.vue';
 import Footer from '@/components/Footer.vue';
 
