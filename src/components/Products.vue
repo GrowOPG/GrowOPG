@@ -3,32 +3,19 @@
 <div class="container">
     <div class="row">
         <div class="col-2">
-            <div class="products">
+            <div class="products" @click="openPopUp()">
                 <img class="resize" :src="product.img">
                 <span class="caption">{{ product.caption }}</span>
             </div>
         </div>
         <br>
         <div class="col-2">
-            <div class="products">
+            <div class="products" @click="openPopUp()">
                 <img class="resize" :src="product.img">
                 <span class="caption">{{ product.caption }}</span>
             </div>
         </div>
         <br>
-        <div class="col-2">
-            <div class="products">
-                <img class="resize" :src="product.img">
-                <span class="caption">{{ product.caption }}</span>
-            </div>
-        </div>
-        <br>
-        <div class="col-2">
-            <div class="products">
-                <img class="resize" :src="product.img">
-                <span class="caption">{{ product.caption }}</span>
-            </div>
-        </div>
 
     </div>
 </div>
@@ -37,15 +24,20 @@
 
 <script>
 export default {
-  name: 'Products',
-  props: ['product',]   
-}
+    name: 'Products',
+    props: ['product',],
+    methods: {
+        openPopUp() {
+            document.getElementById("PopUp").style.display = "block";
+        },
+    },
+};
+
 </script>
 
 <style>
 .resize {
     width: 5%;
-    
 }
 
 .col-2 {
