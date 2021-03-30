@@ -154,6 +154,8 @@ body{
 <script>
 import MainHeader from '../components/Main-Header';
 import Footer from '../components/Footer';
+import store from '@/store';
+
 export default {
    name: 'settings-page',
    components: {

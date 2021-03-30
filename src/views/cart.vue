@@ -160,6 +160,8 @@
 import MainHeader from '@/components/Main-Header.vue';
 import Footer from '@/components/Footer.vue';
 import CartItem from '@/components/Cart-Item.vue';
+import store from '@/store';
+
 export default {
    name: 'cart',
    components: {

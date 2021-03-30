@@ -160,6 +160,7 @@ label { /*label text*/
 
 <script>
 import firebase from '@/firebase';
+import store from '@/store';
 
 import Header from '@/components/Header.vue'; //imported Header
 import Footer from '@/components/Footer.vue'; //imported Footer
