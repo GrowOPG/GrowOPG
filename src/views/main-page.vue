@@ -1,57 +1,61 @@
 <template>
     <div class="bg">
 
-        <MainHeader />
+    <MainHeader />
 
-        <div class="row-fluid">
-            <div class="flex-container">
+    <div class="row-fluid">
+        <div class="flex-container">
 
-                <div class="centered">
-                    <CategoryFilter v-for="cat in CategoryImages" :key="cat" :cat="cat" />
-                </div>
-                
+            <div class="centered">
+                <CategoryFilter v-for="cat in CategoryImages" :key="cat" :cat="cat" />
             </div>
             
-        </div>
-        
-                
-        <div class="container">
-        <div class="dropdown-divider"></div>
-        <div class="row">
-            <div class="col-4 PrListing">
-                <div class="centered">
-                    <Products v-for="product in ProductImages" :key="product" :product="product" />     
-                </div>
+        </div> 
+    </div>
+    
+            
+    <div class="container">
+    <div class="dropdown-divider"></div>
+    <div class="row">
+
+        <div class="col-4 PrListing">
+            <div class="centered">
+                <Products v-for="product in ProductImages" :key="product" :product="product" />
             </div>
+        </div>
 
-            <div class="col-1" />
+        <div class="col-1">
+            <button class="button" @click="openPopUp()"><span>PDP PopUp</span></button>
+        </div>
 
-            <div class="col-7 pdp">
-                <button class="button" onclick="openPopUp()"><span>PDP PopUp</span></button>
-                <div class="form-popup" id="PdpPopUp">
-                    <div class="popup-container">
-                        <div class="row">
-                            <div class="col-4">
-                                <h1>Product Photo</h1>
-                            </div>
-                            <div class="col-4">
-                                Product name <br>
-                                Price <br>
-                                Description <br>
-                                <br><br><br><br>
-                                Quantity selection box
-                            </div>
-                            <div class="col-2" />
+        <div class="col-7 pdp" id="PopUp">
+            <div class="form-popup">
+
+                <div class="popup-container">
+                    <div class="row">
+
+                        <div class="col-4">
+                            <h1>Product Photo</h1>
                         </div>
+
+                        <div class="col-4">
+                            Product name <br>
+                            Price <br>
+                            Description <br>
+                            <br><br><br><br>
+                            Quantity selection box
+                        </div>
+
+                        <div class="col-2" />
+
                     </div>
-                    <button type="button" class="button closebtn" onclick="closePopUp()"><span>Close</span></button>
                 </div>
-                
+
+                <button type="button" class="button closebtn" @click="closePopUp()"><span>Close</span></button>
             </div>
         </div>
-        </div>
-            
-        
+    </div>
+    </div>
 
     <Footer />
 
@@ -78,6 +82,13 @@
     margin-top: 50px;
     border: 1px solid #2d2d2d;
     border-radius: 10px;
+
+    /* The popup form - hidden by default */
+    display: none;
+    bottom: 0;
+    right: 15px;
+    border: 3px solid #f1f1f1;
+    z-index: 9;
 }
 
 .dropdown-divider {
@@ -86,17 +97,6 @@
     overflow: hidden;
     border-top: 2px solid #2D2D2D;
 }
-
-
-/* The popup form - hidden by default */
-/* .form-popup {
-  display: none;
-  position: fixed;
-  bottom: 0;
-  right: 15px;
-  border: 3px solid #f1f1f1;
-  z-index: 9;
-} */
 
 /* Add styles to the form container */
 .popup-container {
@@ -194,30 +194,28 @@ let CategoryImages = [
     { 'img':"https://i.imgur.com/qRQuc3U.png", 'caption': "Wine" },
 ]
 
-function openPopUp() {
-    console.log("Radi");
-    document.getElementById("PdpPopUp").style.display = "block";
-}
-
-function closePopUp() {
-    document.getElementById("PdpPopUp").style.display = "none";
-}
-
 export default {
-   name: 'main-page',
-   data: function() {
-       return {
-           CategoryImages,
-           ProductImages,
-           openPopUp,
-           closePopUp,
-       }
-   },
-   components: {
-        MainHeader,
-        Footer,
-        CategoryFilter,
-        Products,
-   }
+    name: 'main-page',
+    data: function() {
+        return {
+            CategoryImages,
+            ProductImages,
+        }
+    },
+    methods: {
+        openPopUp() {
+            console.log("Radi");
+            document.getElementById("PopUp").style.display = "block";
+        },
+        closePopUp() {
+        document.getElementById("PopUp").style.display = "none";
+        },
+    },
+    components: {
+            MainHeader,
+            Footer,
+            CategoryFilter,
+            Products,
+    }
 };
 </script>
