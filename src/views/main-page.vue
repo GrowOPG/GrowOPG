@@ -33,15 +33,19 @@
                     <div class="row">
 
                         <div class="col-4">
-                            <h1>Product Photo</h1>
+                            PRODUCT IMAGE
+                            <!-- <img class="centered" :src="product.img" /> -->
                         </div>
 
                         <div class="col-4">
-                            Product name <br>
-                            Price <br>
-                            Description <br>
-                            <br><br><br><br>
-                            Quantity selection box
+                            name:
+                            <!-- <div class="ProductName" :src="product.caption" /> -->
+                            <br>
+                            desc:
+                            <!-- <div class="Description" :src="product.description" /> -->
+                            <br>
+                            price:
+                            <!-- <div class="ProductPrice" :src="product.price" /> -->
                         </div>
 
                         <div class="col-2" />
@@ -157,6 +161,7 @@ import Footer from '../components/Footer';
 import CategoryFilter from '../components/Category-Filter';
 import Products from '../components/Products';
 
+
 // firebase.auth().onAuthStateChanged((user) => {
 //   if (user) {
 //     // User is signed in.
@@ -173,13 +178,27 @@ import Products from '../components/Products';
 // });
 
 let ProductImages = [
-    { 'img':"https://i.imgur.com/DZMlcsS.png", 'caption': "Cheese" },
-    { 'img':"https://i.imgur.com/c06zXhX.png", 'caption': "Eggs" },
-    { 'img':"https://i.imgur.com/q4cOSdh.png", 'caption': "Fruit" },
-    { 'img':"https://i.imgur.com/JP7zwv0.png", 'caption': "Honey" },
-    { 'img':"https://i.imgur.com/8e5N4x2.png", 'caption': "Olive Oil" },
-    { 'img':"https://i.imgur.com/d2BUVSk.png", 'caption': "Vegetables" },
-    { 'img':"https://i.imgur.com/qRQuc3U.png", 'caption': "Wine" },
+    { 'img':"https://i.imgur.com/DZMlcsS.png", 'caption': "Cheese", 'price': "20 HRK/kg", 
+    'description': "Svježi domaći kravlji sir. Proizvodi: Tomo z Krnice" },
+
+    { 'img':"https://i.imgur.com/c06zXhX.png", 'caption': "Eggs",'price': "1,20 HRK/komad",
+    'description': "Svježa domaća jaja. Proizvodi: opg Iva" },
+
+    { 'img':"https://i.imgur.com/q4cOSdh.png", 'caption': "Fruit", 'price': "20 HRK/kg",
+    'description': "Svježe domaće voće. Proizvodi: Brkata" },
+
+    { 'img':"https://i.imgur.com/JP7zwv0.png", 'caption': "Honey", 'price': "80 HRK/kg",
+    'description': "Svježi domaći med. Proizvodi: opg DIDA Dadi  " },
+
+    { 'img':"https://i.imgur.com/8e5N4x2.png", 'caption': "Olive Oil", 'price': "120 HRK/l",
+    'description': "Svježe domaće maslinovo ulje. Proizvodi: opg Duilio i Tito" },
+
+    { 'img':"https://i.imgur.com/d2BUVSk.png", 'caption': "Vegetables", 'price': "20 HRK/kg",
+    'description': "Svježe domaće povrće. Proizvodi: Krekhed kod kazališta" },
+
+    { 'img':"https://i.imgur.com/qRQuc3U.png", 'caption': "Wine", 'price': "150 HRK/l",
+    'description': "Domaće prvoklasno vino. Proizvodi: opg Mane" },
+
 ]
 
 let CategoryImages = [
@@ -198,6 +217,7 @@ export default {
         return {
             CategoryImages,
             ProductImages,
+            Products
         }
     },
     methods: {
