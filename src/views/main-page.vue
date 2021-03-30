@@ -24,9 +24,7 @@
             </div>
         </div>
 
-        <div class="col-1">
-            <button class="button" @click="openPopUp()"><span>PDP PopUp</span></button>
-        </div>
+        <div class="col-1" />
 
         <div class="col-7 pdp" id="PopUp">
             <div class="form-popup">
@@ -87,7 +85,7 @@
     display: none;
     bottom: 0;
     right: 15px;
-    border: 3px solid #f1f1f1;
+    border: 3px solid #2d2d2d;
     z-index: 9;
 }
 
@@ -203,10 +201,6 @@ export default {
         }
     },
     methods: {
-        openPopUp() {
-            console.log("Radi");
-            document.getElementById("PopUp").style.display = "block";
-        },
         closePopUp() {
         document.getElementById("PopUp").style.display = "none";
         },
