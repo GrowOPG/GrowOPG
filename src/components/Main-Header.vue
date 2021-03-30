@@ -190,6 +190,7 @@ export default {
             .signOut()
             .then(() => {
                 console.log("user " + this.email + " signed out");
+                store.userType=null;
                 this.$router.push({name: 'Successfuly-signed-out'}) //need to add replace umjesto push before predaja profu
             });
       },
