@@ -165,20 +165,6 @@ import store from '@/store';
 import Header from '@/components/Header.vue'; //imported Header
 import Footer from '@/components/Footer.vue'; //imported Footer
 
-/*function writeUserData(fullname, email, address, city, zip, DoB, password, passwordrepeat, store ) {
-  firebase.database().ref('users/' + userId).set({
-    FullName:fullname,
-    EMail: email,
-    Address: address,
-    City: city,
-    ZipCode: zip,
-    DateOfBirth: DoB,
-    Pass: password,
-    RepeatPass: passwordrepeat,
-    TypeOfUser: store.userType,
-  });
-} */
-
 export default {
     name: "register",
     data() {
@@ -198,9 +184,26 @@ export default {
         Header,
         Footer
     },
+    computed:{
+        gibUserType(){
+            return this.store.userType;
+        }
+    },
     methods: {
         savedata() {
-            alert('fml');
+            //Ovdje spremamo u zasebne varijable sav info iz templatea koji user unosi
+            var FullName = this.fullname;
+            var Email = this.email;
+            var Address = this.address;
+            var City = this.city;
+            var ZipCode = this.zip;
+            var DateOfBirth = this.DoB;
+            var Pass = this.password;
+            var RepeatPass = this.passwordrepeat;
+            var TypeOfUser = this.gibUserType;
+            //ovdje ispod ce ic kod koji ce za currentUsera u njegov dokument u DB spremat podatke
+
+            console.log('Welcome, glad to have you as a ' + TypeOfUser) //ovo trenutno testira i baca u konzolu da si buyer ili seller
         },
         register() {
             const self = this;
@@ -209,7 +212,9 @@ export default {
             .then(function() {
                 console.log('Uspješna Registracija');
                 self.savedata();
-                self.$router.push({name: 'Successful-registration'});
+
+                //I dalje registrira ali ne redirecta odmah da mozemo dozivit Alert ili chekirat konzolu
+                //self.$router.push({name: 'Successful-registration'});
             })
             .catch(function(error) {
                 console.error('Došlo je do greške', error);
@@ -235,29 +240,5 @@ register() {
         }
 
 //iznad je og kod
-
-            var user = firebase.auth().currentUser;
-            var cijeloIme;
-                user.updateProfile({
-                    FullName:fullname,
-                    EMail: email,
-                    Address: address,
-                    City: city,
-                    ZipCode: zip,
-                    DateOfBirth: DoB,
-                    Pass: password,
-                    RepeatPass: passwordrepeat,
-                    TypeOfUser: store.userType,
-                    
-                }).then(function() {
-                    if (user != null) {
-                        cijeloIme = user.FullName;
-                    }
-                    console.log("Pozdrav"+cijeloIme)
-                // Update successful.
-                }).catch(function(error) {
-                    console.log("Greska")
-                // An error happened.
-                });
 */
 </script>
