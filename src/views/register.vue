@@ -165,6 +165,24 @@ import store from '@/store';
 import Header from '@/components/Header.vue'; //imported Header
 import Footer from '@/components/Footer.vue'; //imported Footer
 
+//SHTEK Overflow asinhrona
+// signupWithEmail: async (_, { fullname, email, address, city, zip,DoB, password, passwordrepeat }) => {
+//     var user = firebase.auth().createUserWithEmailAndPassword(email, 
+//     password).then(cred => {
+//         return firebase.firestore().collection('USERS').doc(cred.user.uid).set({ 
+//             fullname,
+//             email,
+//             address,
+//             city,
+//             zip,
+//             DoB,
+//             password,
+//             passwordrepeat    
+//         })
+//     })
+//     return { user }
+// };
+
 export default {
     name: "register",
     data() {
@@ -207,19 +225,61 @@ export default {
         },
         register() {
             const self = this;
+            
             firebase.auth()
             .createUserWithEmailAndPassword(this.email, this.password)
-            .then(function() {
-                console.log('Uspješna Registracija');
-                self.savedata();
+            .then(cred => {
+                firebase.firestore().collection('USERS').doc(cred.user.uid).set({ 
+                FullName : this.fullname,
+                Email : this.email,
+                Address : this.address,
+                City : this.city,
+                ZipCode : this.zip,
+                DateOfBirth : this.DoB,
+                Pass : this.password,
+                RepeatPass : this.passwordrepeat,
+                TypeOfUser : this.gibUserType
+               // console.log('Uspješna Registracija');
 
-                //I dalje registrira ali ne redirecta odmah da mozemo dozivit Alert ili chekirat konzolu
+                
+                
                 //self.$router.push({name: 'Successful-registration'});
+                })
+                self.$router.push({name: 'Successful-registration'});
             })
             .catch(function(error) {
                 console.error('Došlo je do greške', error);
             })
-        }  
+
+            //Demosica fcija
+        //     firebase.auth()
+        //     .createUserWithEmailAndPassword(this.email, this.password)
+        //      .then(() => {
+        //       let id = this.email;
+        //       ("Users")
+        //       .doc(id)
+        //       .set({
+        //        FullName: this.fullname,
+        //        Email: this.email,
+        //        Address: this.address,
+        //        City: this.city,
+        //        ZipCode: this.zip,
+        //        DateOfBirth: this.DoB,
+        //        Pass: this.password,
+        //        RepeatPass: this.passwordrepeat,
+        //        TypeOfUser: this.gibUserType
+        //       })
+        //       .then(function() {
+        //         console.log("Uspješno kreiran korisnik!");
+        //         }).catch(function(error) {
+        //             console.error("Greska: ", error);
+        //         });
+        // })
+        // .catch(error => {
+        //   console.error(error);
+        // });
+        
+        }  //kraj register
     } 
 }
 /*
