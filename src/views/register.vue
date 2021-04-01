@@ -165,24 +165,6 @@ import store from '@/store';
 import Header from '@/components/Header.vue'; //imported Header
 import Footer from '@/components/Footer.vue'; //imported Footer
 
-//SHTEK Overflow asinhrona
-// signupWithEmail: async (_, { fullname, email, address, city, zip,DoB, password, passwordrepeat }) => {
-//     var user = firebase.auth().createUserWithEmailAndPassword(email, 
-//     password).then(cred => {
-//         return firebase.firestore().collection('USERS').doc(cred.user.uid).set({ 
-//             fullname,
-//             email,
-//             address,
-//             city,
-//             zip,
-//             DoB,
-//             password,
-//             passwordrepeat    
-//         })
-//     })
-//     return { user }
-// };
-
 export default {
     name: "register",
     data() {
@@ -208,28 +190,28 @@ export default {
         }
     },
     methods: {
-        savedata() {
-            //Ovdje spremamo u zasebne varijable sav info iz templatea koji user unosi
-            var FullName = this.fullname;
-            var Email = this.email;
-            var Address = this.address;
-            var City = this.city;
-            var ZipCode = this.zip;
-            var DateOfBirth = this.DoB;
-            var Pass = this.password;
-            var RepeatPass = this.passwordrepeat;
-            var TypeOfUser = this.gibUserType;
-            //ovdje ispod ce ic kod koji ce za currentUsera u njegov dokument u DB spremat podatke
+        /* savedata() {
+        //     //Ovdje spremamo u zasebne varijable sav info iz templatea koji user unosi
+        //     var FullName = this.fullname;
+        //     var Email = this.email;
+        //     var Address = this.address;
+        //     var City = this.city;
+        //     var ZipCode = this.zip;
+        //     var DateOfBirth = this.DoB;
+        //     var Pass = this.password;
+        //     var RepeatPass = this.passwordrepeat;
+        //     var TypeOfUser = this.gibUserType;
+        //     //ovdje ispod ce ic kod koji ce za currentUsera u njegov dokument u DB spremat podatke
 
-            console.log('Welcome, glad to have you as a ' + TypeOfUser) //ovo trenutno testira i baca u konzolu da si buyer ili seller
-        },
+        //     console.log('Welcome, glad to have you as a ' + TypeOfUser) //ovo trenutno testira i baca u konzolu da si buyer ili seller
+        // }, */
         register() {
             const self = this;
             
             firebase.auth()
             .createUserWithEmailAndPassword(this.email, this.password)
             .then(cred => {
-                firebase.firestore().collection('USERS').doc(cred.user.uid).set({ 
+                firebase.firestore().collection('USERS').doc(cred.user.uid).set({ //uzimamo podatke s .get
                 FullName : this.fullname,
                 Email : this.email,
                 Address : this.address,
@@ -240,65 +222,14 @@ export default {
                 RepeatPass : this.passwordrepeat,
                 TypeOfUser : this.gibUserType
                // console.log('Uspješna Registracija');
-
-                
-                
-                //self.$router.push({name: 'Successful-registration'});
                 })
                 self.$router.push({name: 'Successful-registration'});
             })
             .catch(function(error) {
                 console.error('Došlo je do greške', error);
             })
-
-            //Demosica fcija
-        //     firebase.auth()
-        //     .createUserWithEmailAndPassword(this.email, this.password)
-        //      .then(() => {
-        //       let id = this.email;
-        //       ("Users")
-        //       .doc(id)
-        //       .set({
-        //        FullName: this.fullname,
-        //        Email: this.email,
-        //        Address: this.address,
-        //        City: this.city,
-        //        ZipCode: this.zip,
-        //        DateOfBirth: this.DoB,
-        //        Pass: this.password,
-        //        RepeatPass: this.passwordrepeat,
-        //        TypeOfUser: this.gibUserType
-        //       })
-        //       .then(function() {
-        //         console.log("Uspješno kreiran korisnik!");
-        //         }).catch(function(error) {
-        //             console.error("Greska: ", error);
-        //         });
-        // })
-        // .catch(error => {
-        //   console.error(error);
-        // });
         
         }  //kraj register
     } 
 }
-/*
-register() {
-            const self = this;
-            firebase.auth()
-            .createUserWithEmailAndPassword(this.email, this.password)
-            .then(function() {
-                console.log('Uspješna Registracija');
-
-                
-                
-                //self.$router.push({name: 'Successful-registration'});
-            })
-            .catch(function(error) {
-                console.error('Došlo je do greške', error);
-            })
-        }
-
-//iznad je og kod
-*/
 </script>

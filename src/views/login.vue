@@ -139,6 +139,15 @@ export default {
            .then((result) => {
                console.log('Uspješna prijava', result);
 
+               if (store.userType!='Buyer'){
+                   console.log('You are not a buyer, but a seller!')
+                   /*this.$router.replace({name: "main-page-seller"}) // ovako cemo napravit kad budemo imali gotov main page - pa ga kopirat za sellera i buyera*/
+
+               } 
+               else if(store.userType!='Seller'){
+                   console.log('You are not a seller, but a buyer!')
+                   /*this.$router.replace({name: "main-page-buyer"}) */
+               }
                this.$router.replace({name: "main-page"}) //.replace instead of .push so the user can't go back to login page (since he just logged in)
            })
 	   .catch((e) => {

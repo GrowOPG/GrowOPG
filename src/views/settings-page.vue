@@ -43,19 +43,28 @@
                 <form>
                   <div class="form-group">
                     <label for="fullName">Full Name</label>
+                      <div class="form-group small text-muted">Current:{{FullName}}</div>
                     <input type="text" class="form-control" id="fullName" aria-describedby="fullNameHelp" required placeholder="eg. John Doe">
                   </div>
                   <div class="form-group">
                     <label for="location">Adress</label>
+                      <div class="form-group small text-muted">Current:</div>
                     <input type="text" class="form-control" id="adress" required placeholder="eg. Jeretova 46">
                   </div>
                   <div class="form-group">
                     <label for="location">City</label>
+                      <div class="form-group small text-muted">Current:</div>
                     <input type="text" class="form-control" id="city" required placeholder="eg. Pula">
                   </div>
                   <div class="form-group">
                     <label for="location">Zip Code</label>
+                      <div class="form-group small text-muted">Current:</div>
                     <input type="text" class="form-control" id="zip" required placeholder="eg. 52100">
+                  </div>
+                  <div class="form-group">
+                   <label for="DoB" class="input">Date of birth</label>
+                    <div class="form-group small text-muted">Current:</div>
+                   <input type="date" v-model="DoB" class="form-control" placeholder="mm-dd-yyyy" id="DoB" />
                   </div>
                   <div class="form-group small text-muted">
                     All of the fields on this page are optional and can be deleted at any time, and by filling them out, you're giving us consent to share this data wherever your user profile appears.
@@ -166,6 +175,17 @@ export default {
        return {
            password: ''
        }
+   },
+   methods: {
+     gibName(){
+       var userUID = firebase.auth().currentUser.uid;
+       var name = firebase.firestore().collection('USERS').doc(userUID).get({ FullName }) //uzimamo podatke
+      // .then(() => {
+      //    return name = FullName;
+      //  });
+       return name;
+     }
+
    }
 };
 </script>
