@@ -16,7 +16,7 @@
                     <div class="dropdown-content">
                         <div class="user text-left">
                             {{email}}<br>
-                            Seller/Buyer
+                            {{store.userType}}
                         </div>
 
                         <div class="dropdown-divider"></div>
