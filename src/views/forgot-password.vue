@@ -148,7 +148,7 @@ export default {
        forgot_pass() {
            console.log('login...' + this.email); // + this.new_password
 
-           const userEmail = this.email;
+           const userEmail = this.email; // we store the users' email into userEmail so we can use it to send the password reset email
 
            firebase
            .auth()
