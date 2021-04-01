@@ -131,8 +131,9 @@ export default {
        Footer
    },
    methods: {
-       googleSignUp() {
+       googleSignUp() { // method used to sign in with google
             var provider = new firebase.auth.GoogleAuthProvider();
+            
             firebase.auth()
             .signInWithPopup(provider)
             .then((result) => {

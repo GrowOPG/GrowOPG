@@ -178,7 +178,7 @@ export default {
    },
    methods: {
      gibName(){
-       var userUID = firebase.auth().currentUser.uid;
+       var userUID = firebase.auth().currentUser.uid; 
        var name = firebase.firestore().collection('USERS').doc(userUID).get({ FullName }) //uzimamo podatke
       // .then(() => {
       //    return name = FullName;

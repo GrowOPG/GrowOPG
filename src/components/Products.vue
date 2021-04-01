@@ -27,7 +27,7 @@ export default {
     name: 'Products',
     props: ['product',],
     methods: {
-        openPopUp() {
+        openPopUp() { // method used to open our popup
             document.getElementById("PopUp").style.display = "block";
         },
     },
