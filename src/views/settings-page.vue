@@ -43,27 +43,28 @@
                 <form>
                   <div class="form-group">
                     <label for="fullName">Full Name</label>
-                      <div class="form-group small text-muted">Current:{{FullName}}</div>
+                      <div class="form-group small text-muted">Current: {{oldname}}
+                        </div>
                     <input type="text" class="form-control" id="fullName" aria-describedby="fullNameHelp" required placeholder="eg. John Doe">
                   </div>
                   <div class="form-group">
                     <label for="location">Adress</label>
-                      <div class="form-group small text-muted">Current:</div>
+                      <div class="form-group small text-muted">Current: {{oldadress}}</div>
                     <input type="text" class="form-control" id="adress" required placeholder="eg. Jeretova 46">
                   </div>
                   <div class="form-group">
                     <label for="location">City</label>
-                      <div class="form-group small text-muted">Current:</div>
+                      <div class="form-group small text-muted">Current: {{oldcity}}</div>
                     <input type="text" class="form-control" id="city" required placeholder="eg. Pula">
                   </div>
                   <div class="form-group">
                     <label for="location">Zip Code</label>
-                      <div class="form-group small text-muted">Current:</div>
+                      <div class="form-group small text-muted">Current: {{oldzip}}</div>
                     <input type="text" class="form-control" id="zip" required placeholder="eg. 52100">
                   </div>
                   <div class="form-group">
                    <label for="DoB" class="input">Date of birth</label>
-                    <div class="form-group small text-muted">Current:</div>
+                    <div class="form-group small text-muted">Current: {{oldDoB}}</div>
                    <input type="date" v-model="DoB" class="form-control" placeholder="mm-dd-yyyy" id="DoB" />
                   </div>
                   <div class="form-group small text-muted">
@@ -164,6 +165,37 @@ body{
 import MainHeader from '../components/Main-Header';
 import Footer from '../components/Footer';
 import store from '@/store';
+import firebase from '@/firebase';
+
+var userUID = firebase.auth().currentUser.uid;
+var docRef = firebase.firestore().collection('USERS').doc(userUID)
+
+// class User{
+//   constructor(fullname,email,address,city,zip,DoB){
+//     this.fullname = fullname;
+//     this.email = email;
+//     this.address = address;
+//     this.city = city;
+//     this.zip = zip;
+//     this.DoB = DoB;
+//     }
+// };
+// let punoime ;
+
+var getOptions = {
+    source: 'default'
+};
+//fcija koja vraca current user info
+// function gibCurrentUserInfo(){
+//   docRef.get(getOptions).then((doc) => { //fcija za citanje iz dokumenta iz db
+      
+//       //console.log(doc.data().FullName) //ovako citamo data iz FS doc-a
+//       punoime = doc.data().FullName;
+//       return alert(punoime); //ovdje dobro vraca
+//   }).catch((error) => {
+//       console.log("Error getting cached document:", error);
+//   });
+// }
 
 export default {
    name: 'settings-page',
@@ -173,19 +205,37 @@ export default {
    },
    data() {
        return {
-           password: ''
+           fullname: '',
+           password: '',
+           passwordrepeat: '',
+           DoB: '',
+           adress: '',
+           oldname: '',
+           oldadress: '',
+           oldcity: '',
+           oldzip: '',
+           oldDoB: '',
        }
    },
    methods: {
-     gibName(){
-       var userUID = firebase.auth().currentUser.uid;
-       var name = firebase.firestore().collection('USERS').doc(userUID).get({ FullName }) //uzimamo podatke
-      // .then(() => {
-      //    return name = FullName;
-      //  });
-       return name;
-     }
+     gibCurrentUserInfo(){
+        
+      docRef.get(getOptions).then((doc) => { //fcija za citanje iz dokumenta iz db
+        //console.log(doc.data().FullName) //ovako citamo data iz FS doc-a
+          this.oldname = doc.data().FullName;
+          this.oldadress = doc.data().Address;
+          this.oldcity = doc.data().City;
+          this.oldzip = doc.data().ZipCode;
+          this.oldDoB = doc.data().DateOfBirth;
+      }).catch((error) => {
+          console.log("Error getting cached document:", error);
+      });
+      }
 
+   },
+   mounted() {
+      this.gibCurrentUserInfo();
+     
    }
 };
 </script>
