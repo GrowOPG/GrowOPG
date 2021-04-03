@@ -38,39 +38,48 @@
             </div>
             <div class="card-body tab-content">
               <div class="tab-pane active" id="profile">
-                <h6>YOUR PROFILE INFORMATION</h6>
+                <h6>CHANGE YOUR PROFILE INFORMATION</h6>
                 <hr>
                 <form>
                   <div class="form-group">
                     <label for="fullName">Full Name</label>
-                      <div class="form-group small text-muted">Current: {{oldname}}
-                        </div>
-                    <input type="text" class="form-control" id="fullName" aria-describedby="fullNameHelp" required placeholder="eg. John Doe">
+                    <input type="text" v-model="fullname" class="form-control" id="fullName" aria-describedby="fullNameHelp" required placeholder="eg. John Doe">
+                    <div class="form-group small text-muted">Current: {{oldname}}</div>
+                  </div>
+                  <div class="form-group">
+                    <label for="email">Email</label>
+                      <input 
+                                 type="email" 
+                                 v-model="email" 
+                                 class="form-control" 
+                                 id="mail" 
+                                 required 
+                                 aria-describedby="emailHelp"
+                                 placeholder="eg. tommylee@gmail.com" />
+                      <div class="form-group small text-muted">Current: {{oldmail}}</div>
                   </div>
                   <div class="form-group">
                     <label for="location">Adress</label>
-                      <div class="form-group small text-muted">Current: {{oldadress}}</div>
-                    <input type="text" class="form-control" id="adress" required placeholder="eg. Jeretova 46">
+                    <input type="text" v-model="adress" class="form-control" id="adress" required placeholder="eg. Jeretova 46">
+                    <div class="form-group small text-muted">Current: {{oldadress}}</div>
                   </div>
                   <div class="form-group">
                     <label for="location">City</label>
-                      <div class="form-group small text-muted">Current: {{oldcity}}</div>
-                    <input type="text" class="form-control" id="city" required placeholder="eg. Pula">
+                    <input type="text" v-model="city" class="form-control" id="city" required placeholder="eg. Pula">
+                    <div class="form-group small text-muted">Current: {{oldcity}}</div>
                   </div>
                   <div class="form-group">
                     <label for="location">Zip Code</label>
-                      <div class="form-group small text-muted">Current: {{oldzip}}</div>
-                    <input type="text" class="form-control" id="zip" required placeholder="eg. 52100">
+                    <input type="text" v-model="zip" class="form-control" id="zip" required placeholder="eg. 52100">
+                    <div class="form-group small text-muted">Current: {{oldzip}}</div>
                   </div>
                   <div class="form-group">
                    <label for="DoB" class="input">Date of birth</label>
-                    <div class="form-group small text-muted">Current: {{oldDoB}}</div>
                    <input type="date" v-model="DoB" class="form-control" placeholder="mm-dd-yyyy" id="DoB" />
+                   <div class="form-group small text-muted">Current: {{oldDoB}}</div>
                   </div>
-                  <div class="form-group small text-muted">
-                    All of the fields on this page are optional and can be deleted at any time, and by filling them out, you're giving us consent to share this data wherever your user profile appears.
-                  </div>
-                  <button type="button" class="btn btn-primary">Update Profile</button>
+                  <!-- <div class="form-group small text-muted"></div> -->
+                  <button type="button" class="btn btn-primary" @click="saveNewUserInfo">Update Profile</button>
                   <button type="reset" class="btn btn-light">Reset Changes</button>
                 </form>
               </div>
@@ -80,7 +89,7 @@
                   <hr>
                   <div class="form-group">
                     <label class="d-block text-danger">Delete Account</label>
-                    <p class="text-muted font-size-sm">Once you delete your account, there is no going back. Please be certain.</p>
+                    <p class="text-muted font-size-sm">Once you delete your account, there is no going back. Please be certain before clicking the button.</p>
                   </div>
                   <button class="btn btn-danger" type="button">Delete Account</button>
                 </form>
@@ -158,7 +167,19 @@ body{
 .gutters-sm {
     margin-right: -8px;
     margin-left: -8px;
+    margin-top: 48px;
 }
+
+.btn.btn-primary{
+   background-color: #556b2f;
+   border-color: #2D2D2D;
+}
+
+.nav-link.active{
+  background-color:#2D2D2D
+}
+/* @import "/common.css";
+@import "/rotate.css"; */
 </style>
 
 <script>
@@ -167,35 +188,16 @@ import Footer from '../components/Footer';
 import store from '@/store';
 import firebase from '@/firebase';
 
-var userUID = firebase.auth().currentUser.uid;
-var docRef = firebase.firestore().collection('USERS').doc(userUID)
+// import Vodal from 'vodal';
 
-// class User{
-//   constructor(fullname,email,address,city,zip,DoB){
-//     this.fullname = fullname;
-//     this.email = email;
-//     this.address = address;
-//     this.city = city;
-//     this.zip = zip;
-//     this.DoB = DoB;
-//     }
-// };
-// let punoime ;
+// Vue.component(Vodal.name, Vodal);
+
+var userUID = firebase.auth().currentUser.uid;
+var docRef = firebase.firestore().collection('USERS').doc(userUID);
 
 var getOptions = {
     source: 'default'
 };
-//fcija koja vraca current user info
-// function gibCurrentUserInfo(){
-//   docRef.get(getOptions).then((doc) => { //fcija za citanje iz dokumenta iz db
-      
-//       //console.log(doc.data().FullName) //ovako citamo data iz FS doc-a
-//       punoime = doc.data().FullName;
-//       return alert(punoime); //ovdje dobro vraca
-//   }).catch((error) => {
-//       console.log("Error getting cached document:", error);
-//   });
-// }
 
 export default {
    name: 'settings-page',
@@ -208,13 +210,17 @@ export default {
            fullname: '',
            password: '',
            passwordrepeat: '',
+           email:'',
            DoB: '',
            adress: '',
+           city:'',
+           zip:'',
            oldname: '',
+           oldmail: '',
            oldadress: '',
            oldcity: '',
            oldzip: '',
-           oldDoB: '',
+           oldDoB: ''
        }
    },
    methods: {
@@ -223,6 +229,7 @@ export default {
       docRef.get(getOptions).then((doc) => { //fcija za citanje iz dokumenta iz db
         //console.log(doc.data().FullName) //ovako citamo data iz FS doc-a
           this.oldname = doc.data().FullName;
+          this.oldmail = doc.data().Email;
           this.oldadress = doc.data().Address;
           this.oldcity = doc.data().City;
           this.oldzip = doc.data().ZipCode;
@@ -230,6 +237,49 @@ export default {
       }).catch((error) => {
           console.log("Error getting cached document:", error);
       });
+    },
+      saveInfo(){
+        
+        docRef.set({ //radi
+          FullName : this.fullname,
+          Email : this.email,
+          Address : this.adress,
+          City : this.city,
+          ZipCode : this.zip,
+          DateOfBirth : this.DoB
+          
+        },{merge:true})
+        .then(() =>{
+          alert("User information updated")
+        })
+        .catch((error) =>{
+          console.log("Error in updating information")
+        })
+
+      },
+      saveNewUserInfo(){//koristimo .set za updateat info
+        
+          if (this.fullname == ''){
+            this.fullname = this.oldname;
+          };
+          if (this.email== ''){
+            this.email = this.oldmail;
+            // alert(this.fullname);
+          };
+          if (this.adress==''){
+            this.adress =  this.oldadress;
+          };
+          if (this.zip==''){
+            this.zip =  this.oldzip;
+          };
+          if (this.city==''){
+            this.city =  this.oldcity;
+          };
+          if (this.DoB ==''){
+            this.DoB =  this.oldDoB;
+
+        };
+        this.saveInfo();
       }
 
    },
