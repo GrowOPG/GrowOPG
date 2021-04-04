@@ -9,7 +9,7 @@
             <div class="card-body">
               <nav class="nav flex-column nav-pills nav-gap-y-1">
                 <a href="#profile" data-toggle="tab" class="nav-item nav-link has-icon nav-link-faded active">
-                  Profile Information
+                  Personal Information
                 </a>
                 <a href="#account" data-toggle="tab" class="nav-item nav-link has-icon nav-link-faded">
                   Delete Account
@@ -38,13 +38,13 @@
             </div>
             <div class="card-body tab-content">
               <div class="tab-pane active" id="profile">
-                <h6>CHANGE YOUR PROFILE INFORMATION</h6>
+                <h6>CHANGE YOUR PERSONAL INFORMATION</h6>
                 <hr>
                 <form>
                   <div class="form-group">
                     <label for="fullName">Full Name</label>
                     <input type="text" v-model="fullname" class="form-control" id="fullName" aria-describedby="fullNameHelp" required placeholder="eg. John Doe">
-                    <div class="form-group small text-muted">Current: {{oldname}}</div>
+                    <!-- <div class="form-group small text-muted">Current: {{oldname}}</div> -->
                   </div>
                   <div class="form-group">
                     <label for="email">Email</label>
@@ -56,42 +56,42 @@
                                  required 
                                  aria-describedby="emailHelp"
                                  placeholder="eg. tommylee@gmail.com" />
-                      <div class="form-group small text-muted">Current: {{oldmail}}</div>
+                      <!-- <div class="form-group small text-muted">Current: {{oldmail}}</div> -->
                   </div>
                   <div class="form-group">
                     <label for="location">Adress</label>
                     <input type="text" v-model="adress" class="form-control" id="adress" required placeholder="eg. Jeretova 46">
-                    <div class="form-group small text-muted">Current: {{oldadress}}</div>
+                    <!-- <div class="form-group small text-muted">Current: {{oldadress}}</div> -->
                   </div>
                   <div class="form-group">
                     <label for="location">City</label>
                     <input type="text" v-model="city" class="form-control" id="city" required placeholder="eg. Pula">
-                    <div class="form-group small text-muted">Current: {{oldcity}}</div>
+                    <!-- <div class="form-group small text-muted">Current: {{oldcity}}</div> -->
                   </div>
                   <div class="form-group">
                     <label for="location">Zip Code</label>
                     <input type="text" v-model="zip" class="form-control" id="zip" required placeholder="eg. 52100">
-                    <div class="form-group small text-muted">Current: {{oldzip}}</div>
+                    <!-- <div class="form-group small text-muted">Current: {{oldzip}}</div> -->
                   </div>
                   <div class="form-group">
                    <label for="DoB" class="input">Date of birth</label>
                    <input type="date" v-model="DoB" class="form-control" placeholder="mm-dd-yyyy" id="DoB" />
-                   <div class="form-group small text-muted">Current: {{oldDoB}}</div>
+                   <!-- <div class="form-group small text-muted">Current: {{oldDoB}}</div> -->
                   </div>
                   <!-- <div class="form-group small text-muted"></div> -->
                   <button type="button" class="btn btn-primary" @click="saveNewUserInfo">Update Profile</button>
-                  <button type="reset" class="btn btn-light">Reset Changes</button>
+                  <button type="reset" class="btn btn-light" @click="resetUserInfo">Reset Changes</button>
                 </form>
               </div>
               <div class="tab-pane" id="account">
-                <h6>DELETE ACCOUNT</h6>
+                <h6>ACCOUNT DELETION</h6>
                 <form>
                   <hr>
                   <div class="form-group">
-                    <label class="d-block text-danger">Delete Account</label>
+                    <label class="d-block text-danger">Deleting Account:</label>
                     <p class="text-muted font-size-sm">Once you delete your account, there is no going back. Please be certain before clicking the button.</p>
                   </div>
-                  <button class="btn btn-danger" type="button">Delete Account</button>
+                  <button class="btn btn-danger" type="button" @click="deleteUser" >Delete Account</button>
                 </form>
               </div>
               <div class="tab-pane" id="security">
@@ -100,14 +100,20 @@
                 <form>
                   <div class="form-group">
                     <!-- <label class="d-block text-danger">Change Password</label> -->
-                    <input type="password" class="form-control" required placeholder="Enter your old password">
-                    <br> 
-                    <input type="password" v-model="password" class="form-control mt-1" id="password" required placeholder="New password" />
-                    <div v-if="password.length < 6" class="text-danger">Your password must be at least 6 characters long.</div>
-                    <br>
-                    <input type="password" v-model="passwordrepeat" class="form-control mt-1" id="repeatpassword" required placeholder="Confirm new password">
-                    <div v-if="password != passwordrepeat" class="text-danger">Passwords don't match!</div>
+                    <label for="password">Old password</label>
+                    <input type="password" v-model="password" class="form-control mt-1" id="password" required placeholder="Enter your old password">
                   </div>
+                  <div class="form-group">
+                    <label for="password">NEW password</label>
+                    <input type="password" v-model="newpassword" class="form-control mt-1" id="newpassword" required placeholder="New password" />
+                    <div v-if="newpassword.length < 6" class="text-danger">Your password must be at least 6 characters long.</div>
+                  </div>
+                  <div class="form-group">
+                    <input type="password" v-model="newpasswordrepeat" class="form-control mt-1" id="newpasswordrepeat" required placeholder="Confirm new password">
+                    <div v-if="newpassword != newpasswordrepeat" class="text-danger">Passwords don't match!</div>
+                  </div>
+                   <div class="form-group small text-muted">By clicking on update password, your profile will be updated with a newly entered password.</div>
+                    <button type="button" class="btn btn-primary" @click="changeUserPass">Change Password</button>
                 </form>
               </div>
             </div>
@@ -216,15 +222,28 @@ export default {
            city:'',
            zip:'',
            oldname: '',
+           oldpassword: '',
            oldmail: '',
            oldadress: '',
            oldcity: '',
            oldzip: '',
-           oldDoB: ''
+           oldDoB: '',
+           tempfullname: '',
+           tempemail:'',
+           tempadress:'',
+           tempcity:'',
+           tempzip:'',
+           tempDoB:'',
+           newpassword: '',
+           newpasswordrepeat:''
        }
    },
+  //  computed:{
+  //    isDisabled
+
+  //  },
    methods: {
-     gibCurrentUserInfo(){
+     gibOldUserInfo(){ //vraca na stranicu user info unesen pri registraciji
         
       docRef.get(getOptions).then((doc) => { //fcija za citanje iz dokumenta iz db
         //console.log(doc.data().FullName) //ovako citamo data iz FS doc-a
@@ -234,11 +253,43 @@ export default {
           this.oldcity = doc.data().City;
           this.oldzip = doc.data().ZipCode;
           this.oldDoB = doc.data().DateOfBirth;
+          this.oldpassword = doc.data().Pass;
       }).catch((error) => {
           console.log("Error getting cached document:", error);
       });
     },
-      saveInfo(){
+    gibCurrentUserInfo(){ //vraca na stranicu user info iz Firebasea i sprema u current polja
+        
+      docRef.get(getOptions).then((doc) => { //fcija za citanje iz dokumenta iz db
+        //console.log(doc.data().FullName) //ovako citamo data iz FS doc-a
+          this.fullname = doc.data().FullName;
+          this.email = doc.data().Email;
+          this.adress = doc.data().Address;
+          this.city = doc.data().City;
+          this.zip = doc.data().ZipCode;
+          this.DoB = doc.data().DateOfBirth;
+      }).catch((error) => {
+          console.log("Error getting cached document:", error);
+      });
+    },
+    gibTempUserInfo(){
+      this.fullname =  this.tempfullname;
+          this.email = this.tempemail;
+          this.adress = this.tempadress;
+          this.city = this.tempcity;
+          this.zip = this.tempzip;
+          this.DoB = this.tempDoB;
+    },
+    storeOldInfo(){ //sprema prvotni user info
+      this.tempfullname = this.oldname;
+      this.tempemail = this.oldmail;
+      this.tempadress = this.oldadress;
+      this.tempcity = this.oldcity;
+      this.tempzip = this.oldzip;
+      this.tempDoB = this.oldDoB;
+      //alert(this.tempfullname);
+    },
+      saveInfo(){ //sprema novi info u Firestore
         
         docRef.set({ //radi
           FullName : this.fullname,
@@ -250,14 +301,33 @@ export default {
           
         },{merge:true})
         .then(() =>{
-          alert("User information updated")
+          console.log("User information updated")
         })
         .catch((error) =>{
           console.log("Error in updating information")
         })
 
       },
-      saveNewUserInfo(){//koristimo .set za updateat info
+      resetUserInfo(){ //resetira user info na onaj unesen prije promjena
+        this.storeOldInfo();
+        // alert(this.tempfullname);
+        docRef.set({ //radi
+          FullName : this.tempfullname,
+          Email : this.tempemail,
+          Address : this.tempadress,
+          City :  this.tempcity,
+          ZipCode : this.tempzip,
+          DateOfBirth : this.tempDoB
+          },{merge:true})
+        .then(() =>{
+          console.log("User information reset");
+          this.gibCurrentUserInfo();
+        })
+        .catch((error) =>{
+          console.log("Error in updating information")
+        })
+      },
+      saveNewUserInfo(){//koristimo .set za updateat info, provjerava koja je polja user ispunio, poziva funkciju da spremi novi unesen info
         
           if (this.fullname == ''){
             this.fullname = this.oldname;
@@ -280,10 +350,66 @@ export default {
 
         };
         this.saveInfo();
+      },
+      deleteUser(){
+        const user = firebase.auth().currentUser;
+        const self = this;
+        user.delete()
+        .then(() => {
+           console.log("Successfully deleted user")
+           self.$router.push({name: 'Home'});
+        })
+        .catch(function(error){
+          console.error('Došlo je do greške', error);
+        })
+      },
+      saveNewPass(){
+        // docRef.set({
+        //   Pass : this.newpassword
+        // }, { merge: true })
+        // .then(() =>{
+        //   const self = this;
+        //   // alert("aaaaaaa")
+        //   self.$router.push({name: 'Login'});
+
+        // })
+        // .catch((error) =>{
+        //   console.log("Error in saving new pass")
+        // })
+        
+      },
+      changeUserPass(){
+        const user = firebase.auth().currentUser;
+       // alert(this.oldpassword);
+        if(this.password == this.oldpassword){
+           
+          user.updatePassword(this.newpassword).then(()=>{
+            docRef.set({
+              Pass : this.newpassword
+            }, { merge: true })
+            .then(() =>{
+              const self = this;
+            // alert("aaaaaaa")
+            self.$router.push({name: 'Login'});
+            })
+            .catch((error) =>{
+              console.log("Error in saving new pass")
+            });
+            alert("Password changed");
+            
+          })
+          .catch((error)=> {
+            console.log("Error in changing password");
+          });
+        } 
+        else{
+          alert("Old Password incorrect");
+        }
       }
 
    },
    mounted() {
+      this.gibOldUserInfo();
       this.gibCurrentUserInfo();
      
    }
