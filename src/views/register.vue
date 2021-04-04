@@ -209,9 +209,10 @@ export default {
             const self = this;
             
             firebase.auth()
-            .createUserWithEmailAndPassword(this.email, this.password)
-            .then(cred => {
+            .createUserWithEmailAndPassword(this.email, this.password) // we create a user with email and password
+            .then(cred => { 
                 firebase.firestore().collection('USERS').doc(cred.user.uid).set({ //uzimamo podatke s .get
+                // and we add to the database additional requested details
                 FullName : this.fullname,
                 Email : this.email,
                 Address : this.address,
@@ -220,7 +221,7 @@ export default {
                 DateOfBirth : this.DoB,
                 Pass : this.password,
                 RepeatPass : this.passwordrepeat,
-                TypeOfUser : this.gibUserType
+                TypeOfUser : this.gibUserType 
                // console.log('Uspješna Registracija');
                 })
                 self.$router.push({name: 'Successful-registration'});

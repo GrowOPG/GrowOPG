@@ -143,24 +143,25 @@ img.resized { /*resized the user settings and cart icons*/
 <script>
 import store from '@/store';
 import firebase from '@/firebase'
+
 /* When the user clicks on the button, 
 toggle between hiding and showing the dropdown content */
-function showdrop() {
-  document.getElementsByClassName("dropdown-content").classList.toggle("show");
-}
-// Close the dropdown if the user clicks outside of it
-window.onclick = function(event) {
-  if (!event.target.matches('.resized')) {
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
+// function showdrop() {
+//   document.getElementsByClassName("dropdown-content").classList.toggle("show");
+// }
+// // Close the dropdown if the user clicks outside of it
+// window.onclick = function(event) {
+//   if (!event.target.matches('.resized')) {
+//     var dropdowns = document.getElementsByClassName("dropdown-content");
+//     var i;
+//     for (i = 0; i < dropdowns.length; i++) {
+//       var openDropdown = dropdowns[i];
+//       if (openDropdown.classList.contains('show')) {
+//         openDropdown.classList.remove('show');
+//       }
+//     }
+//   }
+// }
 
 export default {
   name: 'MainHeader',
@@ -183,20 +184,21 @@ export default {
 //       }
 //   },
 //Sluzi za search producta
-  methods: {
-      logout() {
-        firebase
-            .auth()
-            .signOut()
-            .then(() => {
-                console.log("user " + this.email + " signed out");
-                store.userType=null;
-                this.$router.push({name: 'Successfuly-signed-out'}) //need to add replace umjesto push before predaja profu
-            });
-      },
-      changeUserSettings() {
-          this.$router.push({name: 'settings-page'})
-      }
+methods: {
+    logout() {
+        firebase.auth()
+        .signOut() 
+        .then(() => {
+            console.log("user " + this.email + " signed out"); 
+            
+            store.userType=null; // we set the userType of the current user in store.js to NULL
+
+            this.$router.push({name: 'Successfuly-signed-out'}) //need to add replace umjesto push before predaja profu
+        });
+        },
+        changeUserSettings() {
+            this.$router.push({name: 'settings-page'})
+        }
   },
   created(){
       var user = firebase.auth().currentUser;
