@@ -91,6 +91,7 @@
                     <label class="d-block text-danger">Deleting Account:</label>
                     <p class="text-muted font-size-sm">Once you delete your account, there is no going back. Please be certain before clicking the button.</p>
                   </div>
+                  <br>
                   <button class="btn btn-danger" type="button" @click="deleteUser" >Delete Account</button>
                 </form>
               </div>
