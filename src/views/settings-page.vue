@@ -243,7 +243,6 @@ export default {
 
   //  },
    methods: {
-<<<<<<< HEAD
      gibOldUserInfo(){ //vraca na stranicu user info unesen pri registraciji
         
       docRef.get(getOptions).then((doc) => { //fcija za citanje iz dokumenta iz db
@@ -372,17 +371,6 @@ export default {
         //   const self = this;
         //   // alert("aaaaaaa")
         //   self.$router.push({name: 'Login'});
-=======
-     gibName(){
-       var userUID = firebase.auth().currentUser.uid; 
-       var name = firebase.firestore().collection('USERS').doc(userUID).get({ FullName }) //uzimamo podatke
-      // .then(() => {
-      //    return name = FullName;
-      //  });
-       return name;
-     }
->>>>>>> deb20d202d6d7750934ee9f3f3be42df92e6ce74
-
         // })
         // .catch((error) =>{
         //   console.log("Error in saving new pass")
