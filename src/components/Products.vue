@@ -1,17 +1,10 @@
 <template>
 
-<div class="container">
+<div class="container centered">
     <div class="row">
         <div class="col-2">
-            <div class="products" @click="openPopUp()">
-                <img class="resize" :src="product.img">
-                <span class="caption">{{ product.caption }}</span>
-            </div>
-        </div>
-        <br>
-        <div class="col-2">
-            <div class="products" @click="openPopUp()">
-                <img class="resize" :src="product.img">
+            <div class="products" @click="onProductSelected()">
+                <!-- <img class="resize" :src="product.img"> -->
                 <span class="caption">{{ product.caption }}</span>
             </div>
         </div>
@@ -27,8 +20,8 @@ export default {
     name: 'Products',
     props: ['product',],
     methods: {
-        openPopUp() { // method used to open our popup
-            document.getElementById("PopUp").style.display = "block";
+        onProductSelected() { // method used to open our popup
+            this.$emit('product-selected', this.product);
         },
     },
 };
@@ -36,16 +29,18 @@ export default {
 </script>
 
 <style>
+
+.products {
+    cursor: pointer;
+}
+
 .resize {
     width: 5%;
 }
 
-.col-2 {
-    margin-right: 100px;
-}
-
 .products {
     display: inline-block;
+    margin-left: 100px;
 }
 
 .category-filter {
