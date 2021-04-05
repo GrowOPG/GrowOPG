@@ -7,7 +7,7 @@
         <div class="flex-container">
 
             <div class="centered">
-                <CategoryFilter v-for="cat in CategoryImages" :key="cat" :cat="cat" />
+                <CategoryFilter v-for="cat in CategoryImages" :key="cat.img" :cat="cat" />
             </div>
             
         </div> 
@@ -19,8 +19,8 @@
     <div class="row">
 
         <div class="col-4 PrListing">
-            <div class="centered">
-                <Products v-for="product in ProductImages" :key="product" :product="product" />
+            <div class="centered scroll">
+                  <Products v-for="product in PDP" :key="product.caption" :product="product" @product-selected="setSelectedProduct" />
             </div>
         </div>
 
@@ -32,28 +32,37 @@
                 <div class="popup-container">
                     <div class="row">
 
-                        <div class="col-4">
-                            PRODUCT IMAGE
-                            <!-- <img class="centered" :src="product.img" /> -->
-                        </div>
+                        <carousel :perPage="1">
+                            <slide>
+                                <img class="carousel-image" :src="selectedProduct.img">
+                            </slide>
 
-                        <div class="col-4">
-                            name:
-                            <!-- <div class="ProductName" :src="product.caption" /> -->
-                            <br>
-                            desc:
-                            <!-- <div class="Description" :src="product.description" /> -->
-                            <br>
-                            price:
-                            <!-- <div class="ProductPrice" :src="product.price" /> -->
-                        </div>
+                            <slide>
+                                <img class="carousel-image" :src="selectedProduct.img">
+                            </slide>
+                        </carousel>
 
-                        <div class="col-2" />
+                        <div>
+                            <h2 class="ProductName">
+                                {{ selectedProduct.caption }}
+                            </h2>
+
+                            <p>
+                                {{ selectedProduct.description }}
+                            </p>
+
+                            <p>
+                                <strong>Owner and Location:</strong> {{selectedProduct.ol}}
+
+                            <p>
+                               <strong>Price:</strong> {{ selectedProduct.price }} HRK
+                            </p>
+                        </div>
 
                     </div>
                 </div>
 
-                <button type="button" class="button closebtn" @click="closePopUp()"><span>Close</span></button>
+                <button type="button" class="button cartbtn" @click="closePopUp()"><span>Add To Cart</span></button>
             </div>
         </div>
     </div>
@@ -65,6 +74,22 @@
 </template>
 
 <style scoped>
+
+.ProductName {
+    text-align: center;
+}
+
+.carousel-image {
+    width: 50%;
+    margin-left: 25%;
+}
+
+.scroll {
+    display: block;
+    width: 100%;
+    height: 500px;
+    overflow-y: scroll;
+}
 
 .centered {
     text-align: center;
@@ -106,12 +131,6 @@
   background-color: transparent;
 }
 
-.closebtn {
-    float: right;
-    bottom: 0;
-    /* position: fixed; */
-}
-
 .button { /*the styling for our button*/
 	width: 150px;
 	border-radius: 10px; /*rounded*/
@@ -127,8 +146,8 @@
 	cursor: pointer; /*sets our pointer as cursor to activate hover*/
 }
 .button:hover { /*styiling for a hovered button*/
-	background-color: white; /*we change the colors*/
-	color: #2D2D2D; 
+	background-color: green; /*we change the colors*/
+	color: white; 
 }
 .button span {
 	cursor: pointer;
@@ -136,24 +155,10 @@
 	position: relative;
 	transition: 0.5s;
 }
-.button:hover span {
-	padding-right: 25px; /*how far from the right border of our button*/
-}
-.button span:after {
-	content: '\00bb'; /*those are the two lines that display*/
-	position: absolute;
-	opacity: 0;
-	top: 0;
-	right: -20px;
-	transition: 0.5s;
-}
-.button:hover span:after {
-	opacity: 1;
-	right: 0;
-}
 </style>
 
 <script>
+import firebase from '@/firebase';
 import app from '@/App';
 import store from '@/store';
 import MainHeader from '../components/Main-Header';
@@ -177,30 +182,6 @@ import Products from '../components/Products';
 //   }
 // });
 
-let ProductImages = [
-    { 'img':"https://i.imgur.com/DZMlcsS.png", 'caption': "Cheese", 'price': "20 HRK/kg", 
-    'description': "Svježi domaći kravlji sir. Proizvodi: Tomo z Krnice" },
-
-    { 'img':"https://i.imgur.com/c06zXhX.png", 'caption': "Eggs",'price': "1,20 HRK/komad",
-    'description': "Svježa domaća jaja. Proizvodi: opg Iva" },
-
-    { 'img':"https://i.imgur.com/q4cOSdh.png", 'caption': "Fruit", 'price': "20 HRK/kg",
-    'description': "Svježe domaće voće. Proizvodi: Brkata" },
-
-    { 'img':"https://i.imgur.com/JP7zwv0.png", 'caption': "Honey", 'price': "80 HRK/kg",
-    'description': "Svježi domaći med. Proizvodi: opg DIDA Dadi  " },
-
-    { 'img':"https://i.imgur.com/8e5N4x2.png", 'caption': "Olive Oil", 'price': "120 HRK/l",
-    'description': "Svježe domaće maslinovo ulje. Proizvodi: opg Duilio i Tito" },
-
-    { 'img':"https://i.imgur.com/d2BUVSk.png", 'caption': "Vegetables", 'price': "20 HRK/kg",
-    'description': "Svježe domaće povrće. Proizvodi: Krekhed kod kazališta" },
-
-    { 'img':"https://i.imgur.com/qRQuc3U.png", 'caption': "Wine", 'price': "150 HRK/l",
-    'description': "Domaće prvoklasno vino. Proizvodi: opg Mane" },
-
-]
-
 let CategoryImages = [
     { 'img':"https://i.imgur.com/DZMlcsS.png", 'caption': "Cheese" },
     { 'img':"https://i.imgur.com/c06zXhX.png", 'caption': "Eggs" },
@@ -216,14 +197,47 @@ export default {
     data: function() {
         return {
             CategoryImages,
-            ProductImages,
-            Products
+            Products,
+            selectedProduct: {
+                'SecImage1':"",
+                'SecImage2' : "",
+                'productname': "",
+                'productprice': "", 
+                'productdesc': "",
+                'ownerandlocation':"" },
+            PDP: [],
         }
     },
+    mounted() {
+        this.getPDPs();
+    },
     methods: {
+        getPDPs() {
+            firebase.firestore().collection('PRODUCTS')
+            .get()
+            .then((query) => {
+                query.forEach((doc) => {
+
+                    const data = doc.data();
+
+                    this.PDP.push({
+                        caption: data.Name,
+                        description: data.Description,
+                        price: data.Price,
+                        ol: data.Owner,
+                    })
+
+                    console.log(data)
+                });
+            });
+        },
         closePopUp() {
         document.getElementById("PopUp").style.display = "none";
         },
+        setSelectedProduct(product) {
+            this.selectedProduct = product;
+            document.getElementById("PopUp").style.display = "block";
+        }
     },
     components: {
             MainHeader,

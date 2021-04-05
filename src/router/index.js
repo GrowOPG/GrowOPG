@@ -22,6 +22,14 @@ const routes = [
     // }
   },
   {
+    path: '/seller-page',
+    name: 'seller-page',
+    component: () => import(/* webpackChunkName: "about" */ '../views/seller-page.vue'),
+    // meta: {
+    //   needsUser: true
+    // }
+  },
+  {
     path: '/login',
     name: 'Login',
     // route level code-splitting
@@ -85,7 +93,7 @@ const routes = [
     name: 'settings-page',
     component: () => import(/* webpackChunkName: "about" */ '../views/settings-page.vue'),
     meta: {
-      needsUser: false
+      // needsUser: true
     }
   }
 ]
