@@ -40,6 +40,7 @@
                                 <croppa class="carousel-image" :width="300" :height="300" placeholder="Upload Image..." v-model="SecImage1" :disable-drag-to-move="true" :disable-scroll-to-zoom="true">
                                     <img slot="initial" :src="selectedProduct.img" />
                                 </croppa>
+                                
                             </slide>
 
                             <slide>
@@ -48,6 +49,7 @@
                                 </croppa>
                             </slide>
                         </carousel>
+                        <div class="text-muted font-size-sm" style="float: center;">To insert an image click the canvas above.</div>
 
                         <div class="sgp-form">
                             <label for="fullname">Product Name</label>
@@ -71,7 +73,7 @@
                         <br>
                 </div>
 
-                <button type="button" class="button cartbtn" @click="saveProductChanges()"><span>Save Changes</span></button>
+                <button type="button" class="button cartbtn" @click="saveProductChanges(); postImage()"><span>Save Changes</span></button>
                 <button type="button" class="button closeBtn" style="float: right;" @click="closePopUp()"><span>Close</span></button>
             </div>
         </div>
@@ -85,6 +87,7 @@
 
 <script>
 import firebase from '@/firebase';
+import storage from '@/firebase';
 import app from '@/App';
 import store from '@/store';
 import MainHeader from '../components/Main-Header';
@@ -124,13 +127,14 @@ export default {
         return {
             CategoryImages,
             Products,
+            SecImage1: null,
             selectedProduct: {
-                'SecImage1':"",
-                'SecImage2' : "",
-                'productname': "",
-                'productprice': "", 
-                'productdesc': "",
-                'ownerandlocation':"" },
+                
+                SecImage2: null,
+                productname: '',
+                productprice: '',
+                productdesc: '',
+                ownerandlocation: '' },
             PDP: [],
         }
     },
@@ -175,7 +179,11 @@ export default {
         saveProductChanges() {
             // alert(this.selectedProduct.productname);
             let user = firebase.auth().currentUser;
-            firebase.firestore().collection('PRODUCTS').doc(this.productname).set({
+            firebase
+            .firestore()
+            .collection('PRODUCTS')
+            .doc(this.productname)
+            .set({
                 Name : this.productname,
                 Description : this.productdesc,
                 Price : this.productprice,
@@ -185,7 +193,21 @@ export default {
                     alert(`Product ${this.selectedProduct} added`)
             })
             .catch((error) =>{
-              console.log("Error in saving product")
+              console.log("Error in saving product", error)
+            });
+        },
+        postImage() {
+            this.SecImage1.generateBlob((imageData) => {
+                let imageName = 'Product Images/' + store.currentUser + '/' + dateNow() + '.png';
+
+                storage
+                .ref(imageName)
+                .put(imageData)
+                .then(result =>   {
+                    console.log(result)
+                }).catch(e => {
+                    console.error(e);
+                })
             });
         }
     },
