@@ -62,7 +62,8 @@
                     </div>
                 </div>
 
-                <button type="button" class="button cartbtn" @click="closePopUp()"><span>Add To Cart</span></button>
+                <button type="button" class="button"><span>Add To Cart</span></button>
+                <button type="button" class="button closeBtn" style="float: right;" @click="closePopUp()"><span>Close</span></button>
             </div>
         </div>
     </div>
@@ -149,11 +150,30 @@
 	background-color: green; /*we change the colors*/
 	color: white; 
 }
+.closeBtn:hover {
+    background-color: red; 
+	color: white;
+}
 .button span {
 	cursor: pointer;
 	display: inline-block; /*so it displays inline to our text*/
 	position: relative;
 	transition: 0.5s;
+}
+.button:hover span {
+	padding-right: 25px; /*how far from the right border of our button*/
+}
+.button span:after {
+	content: '\00bb'; /*those are the two lines that display*/
+	position: absolute;
+	opacity: 0;
+	top: 0;
+	right: -20px;
+	transition: 0.5s;
+}
+.button:hover span:after {
+	opacity: 1;
+	right: 0;
 }
 </style>
 

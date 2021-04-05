@@ -71,7 +71,8 @@
                         <br>
                 </div>
 
-                <button type="button" class="button cartbtn" @click="saveProductChanges"><span>Save Changes</span></button>
+                <button type="button" class="button cartbtn" @click="saveProductChanges()"><span>Save Changes</span></button>
+                <button type="button" class="button closeBtn" style="float: right;" @click="closePopUp()"><span>Close</span></button>
             </div>
         </div>
     </div>
@@ -172,7 +173,7 @@ export default {
             document.getElementById("PopUp").style.display = "block";
         },
         saveProductChanges() {
-            alert(this.selectedProduct.productname);
+            // alert(this.selectedProduct.productname);
             let user = firebase.auth().currentUser;
             firebase.firestore().collection('PRODUCTS').doc(this.productname).set({
                 Name : this.productname,
@@ -181,7 +182,7 @@ export default {
                 Owner : this.ownerandlocation,
                 })
                 .then(() =>{
-                    alert("Product Saved")
+                    alert(`Product ${this.selectedProduct} added`)
             })
             .catch((error) =>{
               console.log("Error in saving product")
@@ -262,7 +263,7 @@ export default {
 }
 
 .button { /*the styling for our button*/
-	width: 150px;
+	width: 200px;
 	border-radius: 10px; /*rounded*/
 	padding: 5px; 
 
@@ -275,14 +276,36 @@ export default {
 	transition: all 0.5s; /*the transition to span lasts 0.5s*/
 	cursor: pointer; /*sets our pointer as cursor to activate hover*/
 }
+.addbutton {
+    width: 250px;
+}
 .button:hover { /*styiling for a hovered button*/
 	background-color: green; /*we change the colors*/
 	color: white; 
+}
+.closeBtn:hover {
+    background-color: red; 
+	color: white;
 }
 .button span {
 	cursor: pointer;
 	display: inline-block; /*so it displays inline to our text*/
 	position: relative;
 	transition: 0.5s;
+}
+.button:hover span {
+	padding-right: 25px; /*how far from the right border of our button*/
+}
+.button span:after {
+	content: '\00bb'; /*those are the two lines that display*/
+	position: absolute;
+	opacity: 0;
+	top: 0;
+	right: -20px;
+	transition: 0.5s;
+}
+.button:hover span:after {
+	opacity: 1;
+	right: 0;
 }
 </style>
