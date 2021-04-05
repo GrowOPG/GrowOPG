@@ -372,7 +372,7 @@ export default {
           .catch((error) =>{
             console.log("Error in saving new mail")
           });
-          alert("Mail changed");
+          // alert("Mail changed");
           
         })
         .catch((error)=> {
@@ -418,13 +418,13 @@ export default {
             }, { merge: true })
             .then(() =>{
               const self = this;
-            // alert("aaaaaaa")
+            
             self.$router.push({name: 'Login'});
             })
             .catch((error) =>{
               console.log("Error in saving new pass")
             });
-            alert("Password changed");
+            alert(`Password for ${this.email} has been updated!`)
             
           })
           .catch((error)=> {
