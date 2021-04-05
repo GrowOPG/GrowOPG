@@ -5,8 +5,9 @@ import VueCarousel from 'vue-carousel';
 import Croppa from 'vue-croppa';
 import 'vue-croppa/dist/vue-croppa.css';
 
-Vue.use(Croppa);
+
 Vue.config.productionTip = false;
+Vue.use(Croppa);
 Vue.use(VueCarousel);
 
 new Vue({
