@@ -1,6 +1,9 @@
 <template>
     <div class="bg">
+        
     <MainHeader />
+        
+        <img :src="require('@/assets/back.svg')" class="backButton" @click="backToMain()">
         <div class="container-fluid">
         <div class="row">
             <div class="col-6">
@@ -88,6 +91,9 @@
     margin-top: 50px;
     margin-left: 35%;
 }
+.backButton{
+    width: 30px;
+}
 .button { /*the styling for our button*/
 	width: 150px;
 	border-radius: 10px; /*rounded*/
@@ -138,7 +144,21 @@ export default {
    components: {
         MainHeader,
         Footer,
-        CartItem
+        CartItem,
+        store
+   },
+   methods: {
+        backToMain() {
+             this.$router.push({name: "main-page"})
+            // if (store.userType != 'Buyer'){
+            //     this.$router.push({name: "main-page"})
+            //     // this.$router.replace({name: "main-page-seller"}) 
+            // } 
+            // else if(store.userType != 'Seller'){
+            //     this.$router.push({name: "main-page"})
+            //     /*this.$router.replace({name: "main-page-buyer"}) */
+            // };
+        },
    }
 };
 </script>

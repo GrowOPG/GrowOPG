@@ -15,11 +15,7 @@
                 <div class="col-5 CartItemElement">
                     <div class="LowerCenter">
                         <input type="number" class="QtyInput" max="50">
-                        <button type="button" class="removeItemBtn"><span>Remove</span></button>
-                        <!-- <select class="QtyInput">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                        </select> -->
+                        <button type="button" class="removeItemBtn" @click="RemoveItem()"><span>Remove</span></button>
                     </div>
                 </div>
 
@@ -115,6 +111,11 @@ export default {
     ],
     components: {
         product,
-    }
+    },
+    methods: {
+        RemoveItem() {
+            product = null;
+        }
+    },
 }
 </script>
