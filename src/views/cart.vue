@@ -1,33 +1,15 @@
 <template>
     <div class="bg">
+        
     <MainHeader />
+        
+        <img :src="require('@/assets/back.svg')" class="backButton" @click="backToMain()">
         <div class="container-fluid">
         <div class="row">
             <div class="col-6">
                 <div class="CartList">
-                    <div class="CartItem">
-                        this is a placeholder dok se ne sredi kako spada
-                    </div>
-                    <div class="CartItem">
-                        this is a placeholder dok se ne sredi kako spada
-                    </div>
-                    <div class="CartItem">
-                        this is a placeholder dok se ne sredi kako spada
-                    </div>
-                    <div class="CartItem">
-                        this is a placeholder dok se ne sredi kako spada
-                    </div>
-                    <div class="CartItem">
-                        this is a placeholder dok se ne sredi kako spada
-                    </div>
-                    <div class="CartItem">
-                        this is a placeholder dok se ne sredi kako spada
-                    </div>
-                    <div class="CartItem">
-                        this is a placeholder dok se ne sredi kako spada
-                    </div>
-                    <!-- <Cart-Item />
-                    <Cart-Item /> -->
+
+                    <CartItem />
 
                 </div>
             </div>
@@ -85,13 +67,6 @@
     overflow-x: hidden;
     overflow-y: auto;
 }
-.CartItem {
-    height: 100px;
-    margin-top: 20px;
-    border: 3px solid #2d2d2d;
-    border-radius: 10px;
-    border-left: 0;
-}
 .Receipt {
     margin-top: 50px;
     height: 400px;
@@ -116,8 +91,10 @@
     margin-top: 50px;
     margin-left: 35%;
 }
+.backButton{
+    width: 30px;
+}
 .button { /*the styling for our button*/
-    
 	width: 150px;
 	border-radius: 10px; /*rounded*/
 	padding: 5px; 
@@ -167,7 +144,21 @@ export default {
    components: {
         MainHeader,
         Footer,
-        CartItem
+        CartItem,
+        store
+   },
+   methods: {
+        backToMain() {
+             this.$router.push({name: "main-page"})
+            // if (store.userType != 'Buyer'){
+            //     this.$router.push({name: "main-page"})
+            //     // this.$router.replace({name: "main-page-seller"}) 
+            // } 
+            // else if(store.userType != 'Seller'){
+            //     this.$router.push({name: "main-page"})
+            //     /*this.$router.replace({name: "main-page-buyer"}) */
+            // };
+        },
    }
 };
 </script>

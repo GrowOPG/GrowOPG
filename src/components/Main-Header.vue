@@ -15,8 +15,8 @@
                     <img class="resized" alt="user-settings" @click="showdrop()" src="@/assets/user.png">
                     <div class="dropdown-content">
                         <div class="user text-left">
-                            {{email}}<br>
-                            {{store.userType}}
+                            {{ store.currentUser }}<br>
+                            {{ store.userType }}
                         </div>
 
                         <div class="dropdown-divider"></div>
@@ -142,7 +142,7 @@ img.resized { /*resized the user settings and cart icons*/
 
 <script>
 import store from '@/store';
-import firebase from '@/firebase'
+import firebase from '@/firebase';
 
 /* When the user clicks on the button, 
 toggle between hiding and showing the dropdown content */
@@ -168,7 +168,7 @@ export default {
   data(){
       return{
         store,
-        email:null
+        email: null,
      }
   },
 //   computed: {

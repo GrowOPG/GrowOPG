@@ -2,6 +2,7 @@
  <div class=bg> 
     <div class="container-fluid">
       <MainHeader />
+      <img :src="require('@/assets/back.svg')" class="backButton" @click="backToMain()">
       <div class="row gutters-sm">
         <div class="col-md-1"/>
         <div class="col-md-3 d-none d-md-block">
@@ -79,8 +80,8 @@
                    <!-- <div class="form-group small text-muted">Current: {{oldDoB}}</div> -->
                   </div>
                   <!-- <div class="form-group small text-muted"></div> -->
-                  <button type="button" class="btn btn-primary" @click="saveNewUserInfo">Update Profile</button>
-                  <button type="reset" class="btn btn-light" @click="resetUserInfo">Reset Changes</button>
+                  <button type="button" class="btn btn-primary" @click="saveNewUserInfo()">Update Profile</button>
+                  <button type="reset" class="btn btn-light" @click="resetUserInfo()">Reset Changes</button>
                 </form>
               </div>
               <div class="tab-pane" id="account">
@@ -92,7 +93,7 @@
                     <p class="text-muted font-size-sm">Once you delete your account, there is no going back. Please be certain before clicking the button.</p>
                   </div>
                   <br>
-                  <button class="btn btn-danger" type="button" @click="deleteUser" >Delete Account</button>
+                  <button class="btn btn-danger" type="button" @click="deleteUser()" >Delete Account</button>
                 </form>
               </div>
               <div class="tab-pane" id="security">
@@ -114,7 +115,7 @@
                     <div v-if="newpassword != newpasswordrepeat" class="text-danger">Passwords don't match!</div>
                   </div>
                    <div class="form-group small text-muted">By clicking on update password, your profile will be updated with a newly entered password.</div>
-                    <button type="button" class="btn btn-primary" @click="changeUserPass">Change Password</button>
+                    <button type="button" class="btn btn-primary" @click="changeUserPass()">Change Password</button>
                 </form>
               </div>
             </div>
@@ -176,12 +177,18 @@ body{
     margin-left: -8px;
     margin-top: 48px;
 }
-
+.backButton{
+    width: 30px;
+}
 .btn.btn-primary{
    background-color: #556b2f;
    border-color: #2D2D2D;
+   margin-right: 5px;
 }
 
+.btn-light {
+  border-color: #2D2D2D;
+}
 .nav-link.active{
   background-color:#2D2D2D
 }
@@ -275,11 +282,11 @@ export default {
     },
     gibTempUserInfo(){
       this.fullname =  this.tempfullname;
-          this.email = this.tempemail;
-          this.adress = this.tempadress;
-          this.city = this.tempcity;
-          this.zip = this.tempzip;
-          this.DoB = this.tempDoB;
+      this.email = this.tempemail;
+      this.adress = this.tempadress;
+      this.city = this.tempcity;
+      this.zip = this.tempzip;
+      this.DoB = this.tempDoB;
     },
     storeOldInfo(){ //sprema prvotni user info
       this.tempfullname = this.oldname;
@@ -351,6 +358,28 @@ export default {
 
         };
         this.saveInfo();
+        const user = firebase.auth().currentUser;
+
+        user.updateEmail(this.email).then(()=>{
+          docRef.set({
+            Email : this.email
+          }, { merge: true })
+          .then(() =>{
+            const self = this;
+            store.currentUser = this.email;
+          // self.$router.push({name: 'Login'});
+          })
+          .catch((error) =>{
+            console.log("Error in saving new mail")
+          });
+          // alert("Mail changed");
+          
+        })
+        .catch((error)=> {
+          console.log("Error in changing password");
+        });
+
+        alert(`Settings for ${this.email} have been updated!`)
       },
       deleteUser(){
         const user = firebase.auth().currentUser;
@@ -389,13 +418,13 @@ export default {
             }, { merge: true })
             .then(() =>{
               const self = this;
-            // alert("aaaaaaa")
+            
             self.$router.push({name: 'Login'});
             })
             .catch((error) =>{
               console.log("Error in saving new pass")
             });
-            alert("Password changed");
+            alert(`Password for ${this.email} has been updated!`)
             
           })
           .catch((error)=> {
@@ -405,7 +434,18 @@ export default {
         else{
           alert("Old Password incorrect");
         }
-      }
+      },
+      backToMain() {
+             this.$router.push({name: "main-page"})
+            // if (store.userType != 'Buyer'){
+            //     this.$router.push({name: "main-page"})
+            //     // this.$router.replace({name: "main-page-seller"}) 
+            // } 
+            // else if(store.userType != 'Seller'){
+            //     this.$router.push({name: "main-page"})
+            //     /*this.$router.replace({name: "main-page-buyer"}) */
+            // };
+        },
 
    },
    mounted() {

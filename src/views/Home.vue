@@ -19,7 +19,7 @@
                    <h1 class="main-title">Welcome to GrowOPG</h1>
                    <p class="excerpt">GrowOPG is a platform connecting agriculturists and customers 
                        who value quality of fresh, homemade or locally grown produce. Start your journey by choosing
-                       wether you are a Buyer or a Seller.</p>
+                       whether you are a Buyer or a Seller.</p>
                 </div>                    
             </div>
             <div class="col-lg-4 choice" @click="IamSeller">
