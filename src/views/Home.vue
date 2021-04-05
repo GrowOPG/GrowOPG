@@ -17,9 +17,9 @@
                 </div>
                 <div class="text-box-centered"> 
                    <h1 class="main-title">Welcome to GrowOPG</h1>
-                   <p class="excerpt">GrowOPG is a platform/web-app connecting agriculturists and customers 
-                       who value quality of fresh, homemade or locally grown produce. Here you can choose
-                       wether you're the seller or a buyer. A seller is a person who is..</p>
+                   <p class="excerpt">GrowOPG is a platform connecting agriculturists and customers 
+                       who value quality of fresh, homemade or locally grown produce. Start your journey by choosing
+                       wether you are a Buyer or a Seller.</p>
                 </div>                    
             </div>
             <div class="col-lg-4 choice" @click="IamSeller">
