@@ -30,6 +30,7 @@
             <li><router-link to="/successful-registration">Successful Registration</router-link></li>
             <li><router-link to="/successfuly-signed-out">Successfuly Signed Out</router-link></li>
             <li><router-link to="/main-page">Main Page</router-link></li>
+            <li><router-link to="/seller-page">Seller Page</router-link></li>
             <li><router-link to="/cart">Cart</router-link></li>
             <li><router-link to="/settings-page">Settings Page</router-link></li>
             </ul>
