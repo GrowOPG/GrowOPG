@@ -39,7 +39,7 @@
         <h4 class="mt-lg-0 mt-sm-4">Contact</h4>
           <p><i class="fa fa-phone mr-0">(052) 431-growopg</i></p>
           <p><i class="fa fa-envelope-o mr-0">growopg@gmail.com</i></p>
-          <p class="copyright"><small class="text-white-50">© 2020. All Rights Reserved.</small></p>
+          <p class="copyright"><small class="text-white-50">© 2021. All Rights Reserved.</small></p>
         </div>
     </div>
     </div>
@@ -47,6 +47,10 @@
 </template>
 
 <style lang="scss">
+li a {
+  color:white;
+  text-decoration: underline;
+}
 .footer {
   background: #2D2D2D;
   color:white;
