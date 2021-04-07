@@ -59,6 +59,16 @@
                                  placeholder="eg. tommylee@gmail.com" />
                       <!-- <div class="form-group small text-muted">Current: {{oldmail}}</div> -->
                   </div>
+                  <div v-if="store.userType == 'Seller'" class="form-group">
+                    <label for="OPGName">OPG Name</label>
+                      <input 
+                                 type="text" 
+                                 v-model="opgname" 
+                                 class="form-control" 
+                                 id="opgname" 
+                                 required 
+                                 placeholder="OPG Name" />
+                  </div>
                   <div class="form-group">
                     <label for="location">Adress</label>
                     <input type="text" v-model="adress" class="form-control" id="adress" required placeholder="eg. Jeretova 46">
@@ -219,12 +229,16 @@ export default {
         MainHeader,
         Footer
    },
+
    data() {
        return {
            fullname: '',
            password: '',
            passwordrepeat: '',
            email:'',
+           opgname: '',
+           oldopgname: '',
+           tempopgname: '',
            DoB: '',
            adress: '',
            city:'',
@@ -243,9 +257,11 @@ export default {
            tempzip:'',
            tempDoB:'',
            newpassword: '',
-           newpasswordrepeat:''
+           newpasswordrepeat:'',
+           store,
        }
    },
+
   //  computed:{
   //    isDisabled
 
@@ -257,6 +273,7 @@ export default {
         //console.log(doc.data().FullName) //ovako citamo data iz FS doc-a
           this.oldname = doc.data().FullName;
           this.oldmail = doc.data().Email;
+          this.oldopgname = doc.data().OPGName;
           this.oldadress = doc.data().Address;
           this.oldcity = doc.data().City;
           this.oldzip = doc.data().ZipCode;
@@ -272,6 +289,7 @@ export default {
         //console.log(doc.data().FullName) //ovako citamo data iz FS doc-a
           this.fullname = doc.data().FullName;
           this.email = doc.data().Email;
+          this.opgname = doc.data().OPGName;
           this.adress = doc.data().Address;
           this.city = doc.data().City;
           this.zip = doc.data().ZipCode;
@@ -283,6 +301,7 @@ export default {
     gibTempUserInfo(){
       this.fullname =  this.tempfullname;
       this.email = this.tempemail;
+      this.opgname = this.tempopgname;
       this.adress = this.tempadress;
       this.city = this.tempcity;
       this.zip = this.tempzip;
@@ -291,6 +310,7 @@ export default {
     storeOldInfo(){ //sprema prvotni user info
       this.tempfullname = this.oldname;
       this.tempemail = this.oldmail;
+      this.tempopgname = this.oldopgname;
       this.tempadress = this.oldadress;
       this.tempcity = this.oldcity;
       this.tempzip = this.oldzip;
@@ -302,6 +322,7 @@ export default {
         docRef.set({ //radi
           FullName : this.fullname,
           Email : this.email,
+          OPGName : this.opgname,
           Address : this.adress,
           City : this.city,
           ZipCode : this.zip,
@@ -322,6 +343,7 @@ export default {
         docRef.set({ //radi
           FullName : this.tempfullname,
           Email : this.tempemail,
+          OPGName : this.tempopgname,
           Address : this.tempadress,
           City :  this.tempcity,
           ZipCode : this.tempzip,
@@ -343,6 +365,9 @@ export default {
           if (this.email== ''){
             this.email = this.oldmail;
             // alert(this.fullname);
+          };
+          if (this.opgname== ''){
+            this.opgname = this.oldopgname;
           };
           if (this.adress==''){
             this.adress =  this.oldadress;

@@ -3,8 +3,8 @@
     <div class="row no-padding no-gutter">
         <div class="header text-left col-6">
             <div class="header-n-logo">
-                <strong>GrowOPG</strong>
-                <img class="resize" alt="logo" src="@/assets/logo.png">
+                <strong><router-link to="/main-page">GrowOPG</router-link></strong>
+                <router-link to="/main-page"><img class="resize" alt="logo" src="@/assets/logo.png"></router-link>
             </div>
         </div>
         <div class="col-3" />
@@ -38,6 +38,16 @@
 </template>
 
 <style lang='scss'>
+
+a {
+    color: black;
+}
+
+a:hover {
+    text-decoration: none;
+    color: black;
+}
+
 .no-padding { /*no padding on the column/row -- found on stack-overflow*/
     padding-left: 0;
     padding-right: 0;
@@ -198,7 +208,7 @@ methods: {
         },
         changeUserSettings() {
             this.$router.push({name: 'settings-page'})
-        }
+        },
   },
   created(){
       var user = firebase.auth().currentUser;

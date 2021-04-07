@@ -29,6 +29,11 @@
                                  placeholder="eg. tommylee@gmail.com" />
                         </div>
 
+                        <div v-if="store.userType == 'Seller'" class="sgp-form">
+                            <label for="password">OPG Name</label>
+                            <input type="text" v-model="opgname" class="form-control" id="opgname" required placeholder="Enter your OPG name" />
+                        </div>
+
                         <div class="sgp-form">
                             <label for="address">Address</label>
                             <input type="text" v-model="address" class="form-control" id="address" required placeholder="eg. Jeretova 46" />
@@ -177,7 +182,8 @@ export default {
             DoB: '',
             password: '',
             passwordrepeat: '',
-            store
+            opgname: '',
+            store,
         }
     },
      components: {
@@ -214,6 +220,7 @@ export default {
                 firebase.firestore().collection('USERS').doc(cred.user.uid).set({ //uzimamo podatke s .get
                 // and we add to the database additional requested details
                 FullName : this.fullname,
+                OPGName : this.opgname,
                 Email : this.email,
                 Address : this.address,
                 City : this.city,
