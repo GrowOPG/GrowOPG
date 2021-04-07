@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-2">
             <div class="products" @click="onProductSelected()">
-                <!-- <img class="resize" :src="product.img"> -->
+                <img class="resize" :src="product.url">
                 <span class="caption">{{ product.caption }}</span>
             </div>
         </div>
