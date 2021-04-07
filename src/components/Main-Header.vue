@@ -152,7 +152,7 @@ img.resized { /*resized the user settings and cart icons*/
 
 <script>
 import store from '@/store';
-import firebase from '@/firebase';
+import { firebase } from '@/firebase';
 
 /* When the user clicks on the button, 
 toggle between hiding and showing the dropdown content */

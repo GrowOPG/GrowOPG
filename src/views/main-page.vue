@@ -20,7 +20,7 @@
 
         <div class="col-4 PrListing">
             <div class="centered scroll">
-                  <Products v-for="product in PDP" :key="product.caption" :product="product" @product-selected="setSelectedProduct" />
+                <Products v-for="product in PDP" :key="product.caption" :product="product" @product-selected="setSelectedProduct" />
             </div>
         </div>
 
@@ -34,28 +34,30 @@
 
                         <carousel :perPage="1">
                             <slide>
-                                <img class="carousel-image" :src="selectedProduct.img">
+                                <img class="carousel-image" :src="selectedProduct.url">
                             </slide>
 
                             <slide>
-                                <img class="carousel-image" :src="selectedProduct.img">
+                                <img class="carousel-image" :src="selectedProduct.url">
                             </slide>
                         </carousel>
 
                         <div>
                             <h2 class="ProductName">
-                                {{ selectedProduct.caption }}
+                                Name:
+                                {{ this.selectedProduct.caption }}
                             </h2>
 
                             <p>
-                                {{ selectedProduct.description }}
+                                Description:
+                                {{ this.selectedProduct.Description }}
                             </p>
 
                             <p>
-                                <strong>Owner and Location:</strong> {{selectedProduct.ol}}
+                                <strong>Owner and Location:</strong> {{ this.selectedProduct.OwnerAndLoc }}
 
                             <p>
-                               <strong>Price:</strong> {{ selectedProduct.price }} HRK
+                               <strong>Price:</strong> {{ this.selectedProduct.Price }} HRK
                             </p>
                         </div>
 
@@ -178,7 +180,7 @@
 </style>
 
 <script>
-import firebase from '@/firebase';
+import { firebase } from '@/firebase';
 import app from '@/App';
 import store from '@/store';
 import MainHeader from '../components/Main-Header';
@@ -219,12 +221,13 @@ export default {
             CategoryImages,
             Products,
             selectedProduct: {
-                'SecImage1':"",
-                'SecImage2' : "",
+                'imageReference1':"",
+                'imageReference2' : "",
                 'productname': "",
                 'productprice': "", 
                 'productdesc': "",
-                'ownerandlocation':"" },
+                'ownerandlocation':"",
+                'url': ""},
             PDP: [],
         }
     },
@@ -233,18 +236,28 @@ export default {
     },
     methods: {
         getPDPs() {
-            firebase.firestore().collection('PRODUCTS')
+            firebase.firestore()
+            .collection('PRODUCTS')
             .get()
             .then((query) => {
                 query.forEach((doc) => {
 
                     const data = doc.data();
 
+                    this.selectedProduct = data.Name;
+                    
+                    this.productname = data.Name;
+                    this.productdesc = data.Description;
+                    this.productprice = data.Price;
+                    this.ownerandlocation = data.Owner;
+                    this.url = data.Url;
+
                     this.PDP.push({
-                        caption: data.Name,
-                        description: data.Description,
-                        price: data.Price,
-                        ol: data.Owner,
+                        'url': data.Url,
+                        'caption': data.Name,
+                        'Description': data.Description,
+                        'Price': data.Price,
+                        'OwnerAndLoc': data.Owner,
                     })
 
                     console.log(data)

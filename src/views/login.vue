@@ -110,7 +110,7 @@ body, html {
 </style>
 
 <script>
-import firebase from '@/firebase';
+import { firebase } from '@/firebase';
 import Header from '@/components/Header.vue';
 import Footer from '@/components/Footer.vue';
 import store from '@/store';

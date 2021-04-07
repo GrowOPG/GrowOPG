@@ -210,7 +210,7 @@ body{
 import MainHeader from '../components/Main-Header';
 import Footer from '../components/Footer';
 import store from '@/store';
-import firebase from '@/firebase';
+import { firebase } from '@/firebase';
 
 // import Vodal from 'vodal';
 

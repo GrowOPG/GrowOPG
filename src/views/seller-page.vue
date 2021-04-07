@@ -37,41 +37,41 @@
 
                         <carousel :perPage="1">
                             <slide>
-                                <croppa class="carousel-image" :width="300" :height="300" placeholder="Upload Image..." v-model="SecImage1" :disable-drag-to-move="true" :disable-scroll-to-zoom="true">
-                                    <img slot="initial" :src="selectedProduct.img" />
+                                <croppa class="carousel-image" :width="300" :height="300" placeholder="Upload Image..." v-model="imageReference1" :disable-drag-to-move="true" :disable-scroll-to-zoom="true">
+                                    <img slot="initial" :src="selectedProduct.url" />
                                 </croppa>
                             </slide>
 
                             <slide>
-                                <croppa class="carousel-image" :width="300" :height="300" placeholder="Upload Image..." v-model="SecImage2" :disable-drag-to-move="true" :disable-scroll-to-zoom="true">
-                                    <img slot="initial" :src="selectedProduct.img" />
-                                </croppa>
+                                <croppa class="carousel-image" :width="300" :height="300" placeholder="Upload Image..." v-model="imageReference2" :disable-drag-to-move="true" :disable-scroll-to-zoom="true"/>
                             </slide>
                         </carousel>
+                        <div class="text-muted font-size-sm" style="float: center;">To insert an image click the canvas above.</div>
 
                         <div class="sgp-form">
                             <label for="fullname">Product Name</label>
-                            <input type="text" v-model="productname" class="form-control" id="productname" required :placeholder="selectedProduct.caption" />
+                            <input type="text" v-model="productname" class="form-control" id="productname" required :placeholder="selectedProduct.caption"/>
+                            
                         </div>
                         <br>
                         <div class="sgp-form">
                             <label for="fullname">Product Description</label>
-                            <input type="text" v-model="productdesc" class="form-control" id="productdesc" required :placeholder="selectedProduct.description" />
+                            <input type="text" v-model="productdesc" class="form-control" id="productdesc" required :placeholder="selectedProduct.Description" />
                         </div>
                          <br>
                         <div class="sgp-form">
                             <label for="fullname">Owner and Location</label>
-                            <input type="text" v-model="ownerandlocation" class="form-control" id="ownerandlocation" required :placeholder="selectedProduct.ol" />
+                            <input type="text" v-model="ownerandlocation" class="form-control" id="ownerandlocation" required :placeholder="selectedProduct.OwnerAndLoc" />
                         </div>
                            <br>
                         <div class="sgp-form">
                             <label for="price">Price (HRK)</label>
-                            <input type="number" v-model="productprice" class="form-control" id="productprice" required :placeholder="selectedProduct.price" />
+                            <input type="number" v-model="productprice" class="form-control" id="productprice" required :placeholder="selectedProduct.Price" />
                         </div>
                         <br>
                 </div>
 
-                <button type="button" class="button cartbtn" @click="saveProductChanges()"><span>Save Changes</span></button>
+                <button type="button" class="button cartbtn" @click="saveProductChanges(); postImage()"><span>Save Changes</span></button>
                 <button type="button" class="button closeBtn" style="float: right;" @click="closePopUp()"><span>Close</span></button>
             </div>
         </div>
@@ -84,7 +84,7 @@
 </template>
 
 <script>
-import firebase from '@/firebase';
+import { firebase, storage, db } from '@/firebase.js';
 import app from '@/App';
 import store from '@/store';
 import MainHeader from '../components/Main-Header';
@@ -118,39 +118,62 @@ let CategoryImages = [
     { 'img':"https://i.imgur.com/qRQuc3U.png", 'caption': "Wine" },
 ]
 
+// let db = firebase.firestore();
+
 export default {
     name: 'seller-page',
     data: function() {
         return {
+            store,
             CategoryImages,
             Products,
+            imageReference1: null,
+            imageReference2: null,
+            productname: '',
+            productprice: '',
+            productdesc: '',
+            ownerandlocation: '' ,
+            url: '',
+            product: '',
             selectedProduct: {
                 'SecImage1':"",
                 'SecImage2' : "",
                 'productname': "",
                 'productprice': "", 
                 'productdesc': "",
-                'ownerandlocation':"" },
+                'ownerandlocation':"",
+                'url': ""},
             PDP: [],
         }
     },
     mounted() {
         this.getPDPs();
+        this.getImages();
     },
     methods: {
         getPDPs() {
-            firebase.firestore().collection('PRODUCTS')
+            firebase.firestore()
+            .collection('PRODUCTS')
             .get()
             .then((query) => {
                 query.forEach((doc) => {
 
                     const data = doc.data();
 
+                    this.selectedProduct = data.Name;
+
+                    this.productname = data.Name;
+                    this.productdesc = data.Description;
+                    this.productprice = data.Price;
+                    this.ownerandlocation = data.Owner;
+                    this.url = data.Url;
+
                     this.PDP.push({
-                        caption: data.Name,
-                        description: data.Description,
-                        price: data.Price,
-                        ol: data.Owner,
+                        'url': data.Url,
+                        'caption': data.Name,
+                        'Description': data.Description,
+                        'Price': data.Price,
+                        'OwnerAndLoc': data.Owner,
                     })
 
                     console.log(data)
@@ -160,32 +183,102 @@ export default {
         closePopUp() {
         document.getElementById("PopUp").style.display = "none";
         },
-        setSelectedProduct(product) {
+        setSelectedProduct(product) { //Postavlja da se sve sljedece akcije izvode na odabranom proizvodu, ako v-model kako spada
             this.selectedProduct = product;
             document.getElementById("PopUp").style.display = "block";
-            this.SecImage1.refresh();
-            this.SecImage2.refresh();
+            this.imageReference1.refresh();
+            this.imageReference2.refresh();
         },
-        cancelSelectedProduct(product) {
+        cancelSelectedProduct(product) { //  promijeniti ime, Otvara pop up za novi proizvod i brise sve iz placeholdera
+        // srediti
             this.selectedProduct = {};
-            this.SecImage1.remove();
-            this.SecImage2.remove();
+            this.imageReference1.remove();
+            this.imageReference2.remove();
             document.getElementById("PopUp").style.display = "block";
         },
-        saveProductChanges() {
+        saveProductChanges() { // 1. Sprema Novi Proizvod , kasnije cemo morat napravit separate fciju koja updatea samo proizvod
             // alert(this.selectedProduct.productname);
             let user = firebase.auth().currentUser;
-            firebase.firestore().collection('PRODUCTS').doc(this.productname).set({
-                Name : this.productname,
-                Description : this.productdesc,
-                Price : this.productprice,
-                Owner : this.ownerandlocation,
+            firebase
+            .firestore()
+            .collection('PRODUCTS')
+            .doc(this.productname) //Otvara lokaciju u firestoreu gdje ce se odviti spremanje novih info za taj product
+            .set({
+                'Name' : this.productname,
+                'Description' : this.productdesc,
+                'Price' : this.productprice,
+                'Owner' : this.ownerandlocation,
+                'Url': this.url
                 })
                 .then(() =>{
-                    alert(`Product ${this.selectedProduct} added`)
+                    alert(`Product ${this.productname} added`)
             })
             .catch((error) =>{
-              console.log("Error in saving product")
+              console.log("Error in saving product", error)
+            });
+        },
+        getImages() { // povlaci url slika koje su vec unesene na stranicu - kako bi se prikazale, mozda nepotrebna
+            firebase.firestore()
+                .collection('PRODUCTS')
+                .get()
+                .then((query) => {
+                    this.Products= [];
+                    query.forEach((doc) => {
+                        const data = doc.data;
+
+                        this.Products.push({
+                            'Url': data.url,
+                            'Name': data.Name,
+                            'Description': data.Description,
+                            'Price': data.Price,
+                            'Owner': data.ownerandlocation,
+                        });
+                    });
+                });
+            },
+        postImage() { // 2. odvija se nakon sto se izvrsi "SaveProductChanges"
+            console.log("tusam")
+            this.imageReference1.generateBlob((imageData) => { // blob ima imageData -> slika prebacena u binary
+                //setup storage - Folder -> Product Images > SubFolder for every user > pictures with timestamp ID
+                let imageName = 'Product Images/' + store.currentUser + '/' + this.productname + Date.now() + '.png';
+                let ovajProduct = this.productname;
+
+                console.log(ovajProduct);
+                console.log(this.productname)
+
+                storage
+                    .ref(imageName) // uđemo u folder i subfolder za određenu sliku i alociramo ju
+                    .put(imageData) // ubacimo u subfolder binary data slike
+                    .then(result =>   {
+                        result.ref.getDownloadURL().then((url) => { // izvučemo public Url kako bi ga mogli koristiti
+                            console.log("url: ", url) // radi
+                            
+                            let imageUrl = url; // prebacujem url u varijablu
+                            // alert(`Thisprod ${ovajProduct}`)
+                            console.log("imageUrl: ", imageUrl) // radi
+
+                            firebase.firestore()
+                            .collection("PRODUCTS") //Sprema sav info (kako se nebi obrisao unosom samo 1 nove info) i dodaje URL od slike unesene
+                            .doc(this.productname)
+                            .set({
+                                Name : this.productname,
+                                Description : this.productdesc,
+                                Price : this.productprice,
+                                Owner : this.ownerandlocation,
+                                Url: imageUrl,
+                            })
+                            .then(() => {
+                                this.productname = '';
+                                // this.imageReference1 = null;
+                                this.getImages();
+                            })
+                            .catch(e => {
+                                console.log(e)
+                            })
+                        })
+                    }).catch(e => {
+                        console.error(e);
+                    })
             });
         }
     },
