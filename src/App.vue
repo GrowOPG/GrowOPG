@@ -12,7 +12,7 @@
 <script>
 import store from '@/store';
 import router from '@/router';
-import firebase from '@/firebase';
+import { firebase } from '@/firebase';
 
 firebase.auth().onAuthStateChanged((user) => {
    // we're setting a const of the currentRoute we're on
@@ -52,4 +52,3 @@ export default {
     }
 } /* Ako vam ne sljaka i nis ne vidite to je do ove skripte ibacite ju u comm */
 </script> 
-*/

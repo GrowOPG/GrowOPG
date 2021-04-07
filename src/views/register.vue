@@ -159,7 +159,7 @@ label { /*label text*/
 </style>
 
 <script>
-import firebase from '@/firebase';
+import { firebase } from '@/firebase';
 import store from '@/store';
 
 import Header from '@/components/Header.vue'; //imported Header
