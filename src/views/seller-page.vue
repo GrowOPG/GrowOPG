@@ -22,7 +22,7 @@
             <div class="centered scroll">
                 <Products v-for="product in PDP" :key="product.caption" :product="product" @product-selected="setSelectedProduct" />
             </div>
-            <button type="button" class="button addbtn" @click="cancelSelectedProduct()"><span>Add New Product</span></button>
+            <button type="button" class="button addbtn" @click="OpenNewProductPopUp()"><span>Add New Product</span></button>
         </div>
 
         
@@ -49,9 +49,8 @@
                         <div class="text-muted font-size-sm" style="float: center;">To insert an image click the canvas above.</div>
 
                         <div class="sgp-form">
-                            <label for="fullname">Product Name</label>
-                            <input type="text" v-model="productname" class="form-control" id="productname" required :placeholder="selectedProduct.caption"/>
-                            
+                            <label for="fullname">Product Name </label>
+                            <input type="text" v-model="productname" class="form-control" id="productname" required :placeholder="selectedProduct.caption"/>  
                         </div>
                         <br>
                         <div class="sgp-form">
@@ -160,14 +159,6 @@ export default {
 
                     const data = doc.data();
 
-                    this.selectedProduct = data.Name;
-
-                    this.productname = data.Name;
-                    this.productdesc = data.Description;
-                    this.productprice = data.Price;
-                    this.ownerandlocation = data.Owner;
-                    this.url = data.Url;
-
                     this.PDP.push({
                         'url': data.Url,
                         'caption': data.Name,
@@ -176,6 +167,7 @@ export default {
                         'OwnerAndLoc': data.Owner,
                     })
 
+                    
                     console.log(data)
                 });
             });
@@ -185,11 +177,28 @@ export default {
         },
         setSelectedProduct(product) { //Postavlja da se sve sljedece akcije izvode na odabranom proizvodu, ako v-model kako spada
             this.selectedProduct = product;
+                        
             document.getElementById("PopUp").style.display = "block";
+
+            firebase.firestore()
+            .collection('PRODUCTS')
+            .doc(this.selectedProduct.caption)
+            .get()
+            .then((doc) => {
+                const data = doc.data();
+                
+                this.productname = data.Name;
+                this.productdesc = data.Description;
+                this.productprice = data.Price;
+                this.ownerandlocation = data.Owner;
+                this.url = data.Url;
+
+            });
+
             this.imageReference1.refresh();
             this.imageReference2.refresh();
         },
-        cancelSelectedProduct(product) { //  promijeniti ime, Otvara pop up za novi proizvod i brise sve iz placeholdera
+        OpenNewProductPopUp(product) { //  promijeniti ime, Otvara pop up za novi proizvod i brise sve iz placeholdera
         // srediti
             this.selectedProduct = {};
             this.imageReference1.remove();
