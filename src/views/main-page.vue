@@ -55,6 +55,10 @@
 
                             <p>
                                 <strong>Owner and Location:</strong> {{ this.selectedProduct.OwnerAndLoc }}
+                            
+                            <p>
+                               <strong>Quantity:</strong> <input class="QtyInput" id="Qty" type="number" max="50" />
+                            </p>
 
                             <p>
                                <strong>Price:</strong> {{ this.selectedProduct.Price }} HRK
@@ -64,8 +68,8 @@
                     </div>
                 </div>
 
-                <button type="button" class="button"><span>Add To Cart</span></button>
-                <button type="button" class="button closeBtn" style="float: right;" @click="closePopUp()"><span>Close</span></button>
+                <button type="button" class="button" @click="getSumPrice(selectedProduct.Price)" ><span>Add To Cart</span></button>
+                <button type="button" class="button closeBtn" style="float: right;" @click="closePopUp(); getSumPrice(selectedProduct.productprice)"><span>Close</span></button>
             </div>
         </div>
     </div>
@@ -132,6 +136,10 @@
 .popup-container {
   padding: 10px;
   background-color: transparent;
+}
+
+.QtyInput {
+    width: 50px;
 }
 
 .button { /*the styling for our button*/
@@ -229,6 +237,7 @@ export default {
                 'ownerandlocation':"",
                 'url': ""},
             PDP: [],
+            
         }
     },
     mounted() {
@@ -263,13 +272,42 @@ export default {
                     console.log(data)
                 });
             });
+        
+        },
+        AddToCart(Product) {
+            // document.getElementById('Qty').value = ''; // doesnt work
+            
         },
         closePopUp() {
-        document.getElementById("PopUp").style.display = "none";
+            document.getElementById("PopUp").style.display = "none";
         },
         setSelectedProduct(product) {
             this.selectedProduct = product;
             document.getElementById("PopUp").style.display = "block";
+
+            firebase.firestore()
+            .collection('PRODUCTS')
+            .doc(this.selectedProduct.caption)
+            .get()
+            .then((doc) => {
+                const data = doc.data();
+                
+                this.productname = data.Name;
+                this.productdesc = data.Description;
+                this.productprice = data.Price;
+                this.ownerandlocation = data.Owner;
+                this.url = data.Url;
+
+            });
+        },
+        getSumPrice(PrPrice) {
+            var QtyRaw = document.getElementById("Qty"); // since this returns an object 
+            var Qty = QtyRaw.value; // we have to extract the value to be able to use it
+            var price = PrPrice;
+
+            var sum = Qty*price
+            alert(sum)
+            return sum;
         }
     },
     components: {

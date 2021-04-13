@@ -92,6 +92,7 @@
     margin-left: 35%;
 }
 .backButton{
+    align-self: center;
     width: 30px;
 }
 .button { /*the styling for our button*/

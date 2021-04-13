@@ -4,10 +4,7 @@
             <div class="row CartItemElement">
 
                 <div class="col-6 CartItemElement">
-                    <div class="adjust">
-                        <img src="https://i.imgur.com/DZMlcsS.png" class="resize">
-                        cheese
-                    </div>
+                    <!-- <Products v-for="product in PDP" :key="product.caption" :product="product" @product-selected="setSelectedProduct" /> -->
                 </div>
 
                 <div class="col-1 CartItemElement" />
@@ -102,15 +99,32 @@
 
 <script>
 import product from '../components/Products';
+import Products from './Products.vue';
+import PDP from '@/views/main-page.vue';
 
 export default {
     name: "CartItem",
+    data: function() {
+        return {
+            Products,
+            selectedProduct: {
+                'imageReference1':"",
+                'imageReference2' : "",
+                'productname': "",
+                'productprice': "", 
+                'productdesc': "",
+                'ownerandlocation':"",
+                'url': ""},
+            PDP: []
+        }
+    },
     props: [
         'CartItem',
         'product',
     ],
     components: {
-        product,
+        Products,
+        PDP,
     },
     methods: {
         RemoveItem() {
