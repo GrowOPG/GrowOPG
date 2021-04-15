@@ -18,6 +18,9 @@
                 <a href="#security" data-toggle="tab" class="nav-item nav-link has-icon nav-link-faded">
                   Security
                 </a>
+                <a href="#UserType" data-toggle="tab" class="nav-item nav-link has-icon nav-link-faded">
+                  User Type
+                </a>
               </nav>
             </div>
           </div>
@@ -35,6 +38,9 @@
                 <li class="nav-item">
                   <a href="#security" data-toggle="tab" class="nav-link has-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shield"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></a>
                 </li>
+                <li class="nav-item">
+                  <a href="#UserType" data-toggle="tab" class="nav-link has-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shield"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></a>
+                </li>
               </ul>
             </div>
             <div class="card-body tab-content">
@@ -50,24 +56,24 @@
                   <div class="form-group">
                     <label for="email">Email</label>
                       <input 
-                                 type="email" 
-                                 v-model="email" 
-                                 class="form-control" 
-                                 id="mail" 
-                                 required 
-                                 aria-describedby="emailHelp"
-                                 placeholder="eg. tommylee@gmail.com" />
+                        type="email" 
+                        v-model="email" 
+                        class="form-control" 
+                        id="mail" 
+                        required 
+                        aria-describedby="emailHelp"
+                        placeholder="eg. tommylee@gmail.com" />
                       <!-- <div class="form-group small text-muted">Current: {{oldmail}}</div> -->
                   </div>
                   <div v-if="store.userType == 'Seller'" class="form-group">
                     <label for="OPGName">OPG Name</label>
                       <input 
-                                 type="text" 
-                                 v-model="opgname" 
-                                 class="form-control" 
-                                 id="opgname" 
-                                 required 
-                                 placeholder="OPG Name" />
+                        type="text" 
+                        v-model="opgname" 
+                        class="form-control" 
+                        id="opgname" 
+                        required 
+                        placeholder="OPG Name" />
                   </div>
                   <div class="form-group">
                     <label for="location">Adress</label>
@@ -128,6 +134,21 @@
                     <button type="button" class="btn btn-primary" @click="changeUserPass()">Change Password</button>
                 </form>
               </div>
+              <div class="tab-pane" id="UserType">
+                <h6>CHANGE USER TYPE</h6>
+                <hr>
+                <form>
+                  <div class="form-group">
+                    <p>Currenty you're a {{ store.userType }} </p>
+                  </div>
+                  <div class="form-group">
+
+                  </div>
+                  <button v-if="store.userType == 'Buyer'" type="button" class="btn btn-primary" @click="changeToSeller()">Change to Seller</button>
+                  <button v-if="store.userType == 'Seller'" type="button" class="btn btn-primary" @click="changeToBuyer()">Change to Buyer</button>
+                </form>
+              </div>
+
             </div>
           </div>
         </div>
@@ -196,6 +217,7 @@ body{
    margin-right: 5px;
 }
 
+
 .btn-light {
   border-color: #2D2D2D;
 }
@@ -212,10 +234,6 @@ import Footer from '../components/Footer';
 import store from '@/store';
 import { firebase } from '@/firebase';
 
-// import Vodal from 'vodal';
-
-// Vue.component(Vodal.name, Vodal);
-
 var userUID = firebase.auth().currentUser.uid;
 var docRef = firebase.firestore().collection('USERS').doc(userUID);
 
@@ -224,42 +242,44 @@ var getOptions = {
 };
 
 export default {
-   name: 'settings-page',
-   components: {
-        MainHeader,
-        Footer
-   },
+  name: 'settings-page',
+  components: {
+    MainHeader,
+    Footer
+  },
 
-   data() {
-       return {
-           fullname: '',
-           password: '',
-           passwordrepeat: '',
-           email:'',
-           opgname: '',
-           oldopgname: '',
-           tempopgname: '',
-           DoB: '',
-           adress: '',
-           city:'',
-           zip:'',
-           oldname: '',
-           oldpassword: '',
-           oldmail: '',
-           oldadress: '',
-           oldcity: '',
-           oldzip: '',
-           oldDoB: '',
-           tempfullname: '',
-           tempemail:'',
-           tempadress:'',
-           tempcity:'',
-           tempzip:'',
-           tempDoB:'',
-           newpassword: '',
-           newpasswordrepeat:'',
-           store,
-       }
+  data() {
+    return {
+      fullname: '',
+      password: '',
+      passwordrepeat: '',
+      email:'',
+      opgname: '',
+      oldopgname: '',
+      tempopgname: '',
+      DoB: '',
+      adress: '',
+      city:'',
+      zip:'',
+      oldname: '',
+      oldpassword: '',
+      oldmail: '',
+      oldadress: '',
+      oldcity: '',
+      oldzip: '',
+      oldDoB: '',
+      oldUserType: '',
+      tempfullname: '',
+      tempemail:'',
+      tempadress:'',
+      tempcity:'',
+      tempzip:'',
+      tempDoB:'',
+      tempUserType: '',
+      newpassword: '',
+      newpasswordrepeat:'',
+      store,
+    }
    },
 
   //  computed:{
@@ -315,6 +335,7 @@ export default {
       this.tempcity = this.oldcity;
       this.tempzip = this.oldzip;
       this.tempDoB = this.oldDoB;
+      this.userType = this.oldUserType
       //alert(this.tempfullname);
     },
       saveInfo(){ //sprema novi info u Firestore
@@ -347,7 +368,8 @@ export default {
           Address : this.tempadress,
           City :  this.tempcity,
           ZipCode : this.tempzip,
-          DateOfBirth : this.tempDoB
+          DateOfBirth : this.tempDoB,
+          
           },{merge:true})
         .then(() =>{
           console.log("User information reset");
@@ -459,6 +481,26 @@ export default {
         else{
           alert("Old Password incorrect");
         }
+      },
+      changeToSeller() {
+        this.storeOldInfo();
+        store.userType = 'Seller'
+        docRef.set({
+          TypeOfUser : store.userType
+        }, {merge:true})
+        .catch((error) =>{
+          console.log("Error in updating information", error)
+        })
+      },
+      changeToBuyer() {
+        this.storeOldInfo();
+        store.userType = 'Buyer';
+        docRef.set({
+          TypeOfUser : store.userType
+        }, {merge:true})
+        .catch((error) =>{
+          console.log("Error in updating information", error)
+        })
       },
       backToMain() {
              this.$router.push({name: "main-page"})

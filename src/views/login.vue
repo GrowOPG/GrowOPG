@@ -154,13 +154,19 @@ export default {
 
                     if (doc.data().TypeOfUser != store.userType){ //ako se store user type ne podudara s Firestore User typeom - ne ides nikud
                     alert('You are not what you say you are, go back to Home and select the correct type!')
-                    this.$router.replace({name: "/"}) // ovako cemo napravit kad budemo imali gotov main page - pa ga kopirat za sellera i buyera*/
-
+                    
+                    firebase.auth() // we have to signout the user so he can login again - no need to be logged in all the time
+                    .signOut() 
+                    .then(() => {
+                        console.log("user " + this.email + " signed out"); 
+                        store.userType=null; // we set the userType of the current user in store.js to NULL
+                        this.$router.replace({name: 'Home'}) // this sends the user back to 'Home' where he chooses whether he's a seller or a buyer
+                    });
                     } 
                     else {
                         if (store.userType!='Buyer'){
                             console.log('You are not a buyer, but a seller!')
-                            this.$router.replace({name: "seller-page"}) // ovako cemo napravit kad budemo imali gotov main page - pa ga kopirat za sellera i buyera*/
+                            this.$router.replace({name: "seller-page"}) // ovako cemo napravit kad budemo imali gotov main page - pa ga kopirat za sellera i buyera
 
                         } 
                         else if(store.userType!='Seller'){
