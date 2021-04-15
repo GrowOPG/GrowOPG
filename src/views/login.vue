@@ -115,6 +115,10 @@ import Header from '@/components/Header.vue';
 import Footer from '@/components/Footer.vue';
 import store from '@/store';
 
+var getOptions = {
+    source: 'default'
+};
+
 export default {
    name: 'login',
    components: {
@@ -132,23 +136,44 @@ export default {
    methods: {
        login() {
         console.log('logging in user -> ' + this.email)
-        
+
         firebase
 	    .auth()
            .signInWithEmailAndPassword(this.email, this.password)
            .then((result) => {
+               
                console.log('Uspješna prijava', result);
+               var userUID = firebase.auth().currentUser.uid;
+               var userRef = firebase.firestore().collection('USERS').doc(userUID);
+            //    var fsUserType; 
+                userRef
+                .get(getOptions)
+                .then((doc) => { //fcija za citanje iz dokumenta iz db
+                  //console.log(doc.data().FullName) //ovako citamo data iz FS doc-a
+                    this.fsUserType = doc.data().TypeOfUser;
 
-               if (store.userType!='Buyer'){
-                   console.log('You are not a buyer, but a seller!')
-                   /*this.$router.replace({name: "main-page-seller"}) // ovako cemo napravit kad budemo imali gotov main page - pa ga kopirat za sellera i buyera*/
+                    if (doc.data().TypeOfUser != store.userType){ //ako se store user type ne podudara s Firestore User typeom - ne ides nikud
+                    alert('You are not what you say you are, go back to Home and select the correct type!')
+                    this.$router.replace({name: "/"}) // ovako cemo napravit kad budemo imali gotov main page - pa ga kopirat za sellera i buyera*/
 
-               } 
-               else if(store.userType!='Seller'){
-                   console.log('You are not a seller, but a buyer!')
-                   /*this.$router.replace({name: "main-page-buyer"}) */
-               }
-               this.$router.replace({name: "main-page"}) //.replace instead of .push so the user can't go back to login page (since he just logged in)
+                    } 
+                    else {
+                        if (store.userType!='Buyer'){
+                            console.log('You are not a buyer, but a seller!')
+                            this.$router.replace({name: "seller-page"}) // ovako cemo napravit kad budemo imali gotov main page - pa ga kopirat za sellera i buyera*/
+
+                        } 
+                        else if(store.userType!='Seller'){
+                            console.log('You are not a seller, but a buyer!')
+                            this.$router.replace({name: "main-page"}) //
+                       }
+                    }
+
+
+                })
+                .catch((error) => {
+                    console.log("Error getting cached document:", error);
+                });
            })
 	   .catch((e) => {
                console.error('greska', e);
