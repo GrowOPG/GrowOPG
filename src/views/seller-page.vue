@@ -246,7 +246,6 @@ export default {
                 });
             },
         postImage() { // 2. odvija se nakon sto se izvrsi "SaveProductChanges"
-            console.log("tusam")
             this.imageReference1.generateBlob((imageData) => { // blob ima imageData -> slika prebacena u binary
                 //setup storage - Folder -> Product Images > SubFolder for every user > pictures with timestamp ID
                 let imageName = 'Product Images/' + store.currentUser + '/' + this.productname + Date.now() + '.png';
