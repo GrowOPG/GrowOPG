@@ -20,7 +20,7 @@ export default {
     name: 'Products',
     props: ['product',],
     methods: {
-        onProductSelected() { // method used to open our popup
+        onProductSelected() { // unknown method god knows what this does
             this.$emit('product-selected', this.product);
         },
     },

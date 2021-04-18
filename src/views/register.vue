@@ -8,7 +8,7 @@
             </div>
         </div>
         <div class="container">
-            <div class= "form-box">
+          <div v-if="store.userType == 'Seller'" class= "form-box-seller"> <!--pocetak seller form boxa-->
             <div class="row">
                 <div class="col-6">
                     <form id="form">
@@ -69,13 +69,89 @@
                         <label for="zip" class="input" >Zip code</label>
                         <input type="text" v-model="zip" class="form-control" required placeholder="eg. 52100" />
                     </div>
-
-                <button type="button" class="button" @click="register"><span>Register now</span></button>
+                    <div v-if="store.userType == 'Seller'" class="sgp-form" >
+                        <button type="button" class="button-seller" @click="register"><span>Register now</span></button>
+                    </div>
+                    <div v-if="store.userType == 'Buyer'" class="sgp-form" >
+                        <button type="button" class="button-buyer" @click="register"><span>Register now</span></button>
+                    </div>
                 </form>
 
                 </div>
             </div>
+            </div><!-- kraj sellerform boxa-->
+            <div v-if="store.userType == 'Buyer'" class= "form-box"> <!--pocetak buyer form boxa-->
+            <div class="row">
+                <div class="col-6">
+                    <form id="form">
+                        <div class="sgp-form">
+                            <label for="fullname">Full name</label>
+                            <input type="text" v-model="fullname" class="form-control" id="fullname" required placeholder="eg. Tommy Lee" />
+                        </div>
+
+                        <div class="sgp-form">
+                            <label for="email"> Email</label>
+                            <input 
+                                 type="email" 
+                                 v-model="email" 
+                                 class="form-control" 
+                                 id="mail" 
+                                 required 
+                                 aria-describedby="emailHelp"
+                                 placeholder="eg. tommylee@gmail.com" />
+                        </div>
+
+                        <div v-if="store.userType == 'Seller'" class="sgp-form">
+                            <label for="password">OPG Name</label>
+                            <input type="text" v-model="opgname" class="form-control" id="opgname" required placeholder="Enter your OPG name" />
+                        </div>
+
+                        <div class="sgp-form">
+                            <label for="address">Address</label>
+                            <input type="text" v-model="address" class="form-control" id="address" required placeholder="eg. Jeretova 46" />
+                        </div>
+
+                        <div class="sgp-form">
+                            <label for="city">City</label>
+                            <input type="text" v-model="city" class="form-control" id="city" required placeholder="eg. Pula" />
+                        </div>
+
+                        <div class="sgp-form">
+                            <label for="password">Password</label>
+                            <input type="password" v-model="password" class="form-control" id="password" required placeholder="Enter your password" />
+                            <div v-if="password.length < 6" class="text-danger">Your password must be at least 6 characters long.</div>
+                        </div>
+
+                        <div class="sgp-form">
+                            <label for="repeatpassword" >Repeat password</label>
+                            <input type="password" v-model="passwordrepeat" class="form-control" id="repeatpassword" required placeholder="Retype your password" />
+                            <div v-if="password != passwordrepeat" class="text-danger">Passwords don't match!</div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-2" />
+                <div class="col-4">
+                    <form>
+                    <div class="sgp-form">
+                        <label for="DoB" class="input">Date of birth</label>
+                        <input type="date" v-model="DoB" class="form-control" placeholder="mm-dd-yyyy" id="DoB" />
+                    </div>
+
+                    <div class="sgp-form"  style="margin-top: 85px;">
+                        <label for="zip" class="input" >Zip code</label>
+                        <input type="text" v-model="zip" class="form-control" required placeholder="eg. 52100" />
+                    </div>
+                    <div v-if="store.userType == 'Seller'" class="sgp-form" >
+                        <button type="button" class="button-seller" @click="register"><span>Register now</span></button>
+                    </div>
+                    <div v-if="store.userType == 'Buyer'" class="sgp-form" >
+                        <button type="button" class="button-buyer" @click="register"><span>Register now</span></button>
+                    </div>
+                </form>
+
+                </div>
             </div>
+            </div><!-- kraj buyer form boxa-->
         </div>
     </div>
     </div>
@@ -106,7 +182,17 @@ box-sizing: border-box;
     padding-left: 30px;
     padding-right: 30px;
     width: inherit;
-    height: 640px;   
+    height: 600px;   
+}
+.form-box-seller {
+    margin-top: 50px;
+    border-radius: 10px;
+    background: rgb(18,18,18,0.05);
+    padding-top: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
+    width: inherit;
+    height: 680px;   
 }
 #form {
     position: absolute;
@@ -120,10 +206,26 @@ label { /*label text*/
 .form-control{ /*all input boxes are rounded*/
     border-radius: 10px;
 }
-.button { /*the styling for our button*/
+.button-buyer { /*the styling for our button*/
 	width: 92%;
     position: absolute;
-    margin-top: 258px;
+    margin-top: 238px;
+	border-radius: 10px; /*rounded*/
+	padding: 5px;
+
+	background-color: #2D2D2D;
+	color: white;
+
+	font-size: 16px;
+	text-align: center;
+	
+	transition: all 0.5s; /*the transition to span lasts 0.5s*/
+	cursor: pointer; /*sets our pointer as cursor to activate hover*/
+}
+.button-seller { /*the styling for our button*/
+	width: 92%;
+    position: absolute;
+    margin-top: 320px;
 	border-radius: 10px; /*rounded*/
 	padding: 5px;
 

@@ -1,13 +1,16 @@
 <template>
     <div class="container-fluid ">
     <div class="row no-padding no-gutter">
+
         <div class="header text-left col-6">
             <div class="header-n-logo">
                 <strong><router-link to="/main-page">GrowOPG</router-link></strong>
                 <router-link to="/main-page"><img class="resize" alt="logo" src="@/assets/logo.png"></router-link>
             </div>
         </div>
+
         <div class="col-3" />
+
         <div class="header-small text-right col-3">
             <form class="d-flex ">
                 <input v-model="store.searchTerm" class="button form-control me-2" type="search" placeholder="Search">
@@ -22,7 +25,7 @@
                         <div class="dropdown-divider"></div>
 
                         <div class="options">
-                            <button type="button" class="ButtonItem" @click="changeUserSettings"><span class="BtnTxt">User settings</span></button>
+                            <button type="button" class="ButtonItem" @click="toUserSettings"><span class="BtnTxt">User settings</span></button>
                             <br>
                             <div class="dropdown-divider2"></div>
                             <button type="button" class="ButtonItem" @click="logout"><span class="BtnTxt">Log out</span></button>
@@ -32,7 +35,8 @@
                 <router-link to="/cart"><img class="resized" alt="cart" src="@/assets/cart.png"></router-link>
             </form>
         </div>
-       </div> 
+        
+    </div> 
     <div class="dropdown-divider"></div>
     </div>
 </template>
@@ -206,7 +210,7 @@ methods: {
             this.$router.push({name: 'Successfuly-signed-out'}) //need to add replace umjesto push before predaja profu
         });
         },
-        changeUserSettings() {
+        toUserSettings() {
             this.$router.push({name: 'settings-page'})
         },
   },
