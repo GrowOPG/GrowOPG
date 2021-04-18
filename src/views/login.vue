@@ -180,6 +180,7 @@ export default {
                this.kriviUser=true;
            })
         //return kriviUser;
+        
        }
    }
 };
