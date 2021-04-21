@@ -282,7 +282,8 @@ export default {
     methods: {
         getPDPs() {
             firebase.firestore()
-            .collection('PRODUCTS').limit(5)
+            .collection('PRODUCTS')
+            .limit(5)
             .get()
             .then((query) => {
                 query.forEach((doc) => {

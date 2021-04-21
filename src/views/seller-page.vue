@@ -22,7 +22,7 @@
             <div class="centered scroll">
                 <Products v-for="product in PDP" :key="product.caption" :product="product" @product-selected="setSelectedProduct" />
             </div>
-            <button type="button" class="button addbtn showBtn"><span>Show more products</span></button>
+            <button type="button" class="button addbtn showBtn" @click="showMore"><span>Show more products</span></button>
             <button type="button" v-show="isPopUpOpen != false" class="button addbtn addBtn" @click="OpenNewProductPopUp()"><span>Add New Product</span></button>
         </div>
 
@@ -120,8 +120,7 @@ let CategoryImages = [
 ]
 
 // let db = firebase.firestore();
-var isPopUpOpen = true;
-
+// var isPopUpOpen = true;
 export default {
     name: 'seller-page',
     data: function() {
@@ -146,6 +145,11 @@ export default {
                 'ownerandlocation':"",
                 'url': ""},
             PDP: [],
+            lastProduct:'',
+            // tempProduct:'',
+            // firstProduct:'',
+            isPopUpOpen: true,
+            
         }
     },
     mounted() {
@@ -154,30 +158,75 @@ export default {
     },
     methods: {
         getPDPs() {
+            let uid = firebase.auth().currentUser.uid;
             firebase.firestore()
             .collection('PRODUCTS')
+            .limit(5)
             .get()
             .then((query) => {
                 query.forEach((doc) => {
 
                     const data = doc.data();
-
-                    this.PDP.push({
-                        'url': data.Url,
-                        'caption': data.Name,
-                        'Description': data.Description,
-                        'Price': data.Price,
-                        'OwnerAndLoc': data.Owner,
-                    })
-
-                    
+                    if(data.CreatedBy == uid){
+                        this.PDP.push({
+                            'url': data.Url,
+                            'caption': data.Name,
+                            'Description': data.Description,
+                            'Price': data.Price,
+                            'OwnerAndLoc': data.Owner,
+                        })
+                    }
+                    this.lastProduct=data.Name;
                     console.log(data)
                 });
             });
         },
+        // refreshPDPs() {
+
+        //      firebase.firestore()
+        //     .collection('PRODUCTS')
+        //     .orderBy("Name")
+        //     .limit(1)
+        //     .get()
+        //     .then((query) => {
+        //         query.forEach((doc) => {
+
+        //             const data = doc.data();
+        //             this.firstProduct=data.Name;
+        //             //alert(this.firstProduct);
+            
+        //         });
+        //     });
+        //     firebase.firestore()
+        //     .collection('PRODUCTS')
+        //     .orderBy("Name")
+        //     .startAt(this.firstProduct)
+        //     .limit(5)
+        //     .get()
+        //     .then((query) => {
+        //         query.forEach((doc) => {
+
+        //             const data = doc.data();
+        //             this.tempProduct=data.Name;
+        //             //alert(this.tempProduct);
+        //             if(data.Name != this.tempProduct){
+        //                 this.PDP.push({
+        //                     'url': data.Url,
+        //                     'caption': data.Name,
+        //                     'Description': data.Description,
+        //                     'Price': data.Price,
+        //                     'OwnerAndLoc': data.Owner,
+        //                 })
+        //             }
+        //            // this.tempProduct=data.Name;
+        //             console.log(data)
+        //         });
+        //     });
+        // },
         closePopUp() {
             this.isPopUpOpen = true;
             document.getElementById("PopUp").style.display = "none";
+            // this.refreshPDPs();
         },
         setSelectedProduct(product) { //Postavlja da se sve sljedece akcije izvode na odabranom proizvodu, ako v-model kako spada
             this.isPopUpOpen = false;
@@ -225,7 +274,8 @@ export default {
                 Description : this.productdesc,
                 Price : this.productprice,
                 Owner : this.ownerandlocation,
-                Url: this.url
+                Url: this.url,
+                CreatedBy: user.uid
                 },{merge:true})
                 .then(() =>{
                     alert(`Product ${this.productname} added`)
@@ -233,6 +283,7 @@ export default {
             .catch((error) =>{
               console.log("Error in saving product", error)
             });
+            //this.refreshPDPs();
         },
         updateProduct() {
 
@@ -261,6 +312,8 @@ export default {
                 //setup storage - Folder -> Product Images > SubFolder for every user > pictures with timestamp ID
                 let imageName = 'Product Images/' + store.currentUser + '/' + this.productname + Date.now() + '.png';
                 let ovajProduct = this.productname;
+                let user = firebase.auth().currentUser;
+
 
                 console.log(ovajProduct);
                 console.log(this.productname)
@@ -285,6 +338,7 @@ export default {
                                 Price : this.productprice,
                                 Owner : this.ownerandlocation,
                                 Url: imageUrl,
+                                CreatedBy: user.uid
                             })
                             .then(() => {
                                 this.productname = '';
@@ -299,7 +353,41 @@ export default {
                         console.error(e);
                     })
             });
-        }
+        },
+        showMore(){
+            let uid = firebase.auth().currentUser.uid;
+            firebase.firestore()
+            .collection('PRODUCTS')
+            .orderBy("Name")
+            .startAt(this.lastProduct)
+            .limit(5)
+            .get()
+            .then((query) => {
+                query.forEach((doc) => {
+
+                    const data = doc.data();
+
+                    if(data.Name != this.lastProduct && data.CreatedBy == uid){
+                        this.selectedProduct = data.Name;
+                        this.productname = data.Name;
+                        this.productdesc = data.Description;
+                        this.productprice = data.Price;
+                        this.ownerandlocation = data.Owner;
+                        this.url = data.Url;
+
+                        this.PDP.push({
+                            'url': data.Url,
+                            'caption': data.Name,
+                            'Description': data.Description,
+                            'Price': data.Price,
+                            'OwnerAndLoc': data.Owner,
+                        })
+                    }
+                    this.lastProduct=data.Name;
+                    console.log(data)
+                });
+            });
+        },
     },
     components: {
             MainHeader,
