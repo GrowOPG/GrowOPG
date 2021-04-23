@@ -22,6 +22,7 @@
             <div class="centered scroll">
                 <Products v-for="product in PDP" :key="product.caption" :product="product" @product-selected="setSelectedProduct" />
             </div>
+              <button type="button" class="button addbtn showBtn" @click="showMore"><span>Show more products</span></button>
         </div>
 
         <div class="col-1" />
@@ -82,6 +83,10 @@
 
 <style scoped>
 
+.addbtn {
+    margin-top: 20px;
+    margin-left: 100px;
+}
 .ProductName {
     text-align: center;
 }
@@ -143,7 +148,7 @@
 }
 
 .button { /*the styling for our button*/
-	width: 150px;
+	width: 200px;
 	border-radius: 10px; /*rounded*/
 	padding: 5px; 
 
@@ -156,12 +161,26 @@
 	transition: all 0.5s; /*the transition to span lasts 0.5s*/
 	cursor: pointer; /*sets our pointer as cursor to activate hover*/
 }
+.addbutton {
+    width: 250px;
+}
+.addBtn {
+    background-color: green;
+}
 .button:hover { /*styiling for a hovered button*/
 	background-color: green; /*we change the colors*/
 	color: white; 
 }
 .closeBtn:hover {
     background-color: red; 
+	color: white;
+}
+.addBtn:hover {
+    background-color: #2D2D2D;  /* we change the colors */
+	color: white; 
+}
+.showBtn:hover {
+    background-color: green; 
 	color: white;
 }
 .button span {
@@ -182,6 +201,22 @@
 	transition: 0.5s;
 }
 .button:hover span:after {
+	opacity: 1;
+	right: 0;
+}
+.closeBtn:hover span {
+	padding-right: 25px; /*how far from the right border of our button*/
+}
+.closeBtn span::after {
+	content: '\00AB'; /*those are the two lines that display*/
+	position: absolute;
+	opacity: 0;
+	top: 0;
+	left: -120px;
+	transition: 0.5s;
+}
+
+.closeBtn:hover span:after {
 	opacity: 1;
 	right: 0;
 }
@@ -237,6 +272,7 @@ export default {
                 'ownerandlocation':"",
                 'url': ""},
             PDP: [],
+            lastProduct:'',
             
         }
     },
@@ -247,6 +283,7 @@ export default {
         getPDPs() {
             firebase.firestore()
             .collection('PRODUCTS')
+            .limit(5)
             .get()
             .then((query) => {
                 query.forEach((doc) => {
@@ -268,11 +305,10 @@ export default {
                         'Price': data.Price,
                         'OwnerAndLoc': data.Owner,
                     })
-
+                    this.lastProduct=data.Name;
                     console.log(data)
                 });
             });
-        
         },
         AddToCart(Product) {
             // document.getElementById('Qty').value = ''; // doesnt work
@@ -308,6 +344,39 @@ export default {
             var sum = Qty*price
             alert(sum)
             return sum;
+        },
+        showMore(){
+            firebase.firestore()
+            .collection('PRODUCTS')
+            .orderBy("Name")
+            .startAt(this.lastProduct)
+            .limit(5)
+            .get()
+            .then((query) => {
+                query.forEach((doc) => {
+
+                    const data = doc.data();
+
+                    if(data.Name != this.lastProduct){
+                        this.selectedProduct = data.Name;
+                        this.productname = data.Name;
+                        this.productdesc = data.Description;
+                        this.productprice = data.Price;
+                        this.ownerandlocation = data.Owner;
+                        this.url = data.Url;
+
+                        this.PDP.push({
+                            'url': data.Url,
+                            'caption': data.Name,
+                            'Description': data.Description,
+                            'Price': data.Price,
+                            'OwnerAndLoc': data.Owner,
+                        })
+                    }
+                    this.lastProduct=data.Name;
+                    console.log(data)
+                });
+            });
         }
     },
     components: {

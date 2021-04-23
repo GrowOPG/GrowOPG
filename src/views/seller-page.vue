@@ -22,7 +22,8 @@
             <div class="centered scroll">
                 <Products v-for="product in PDP" :key="product.caption" :product="product" @product-selected="setSelectedProduct" />
             </div>
-            <button type="button" class="button addbtn" @click="OpenNewProductPopUp()"><span>Add New Product</span></button>
+            <button type="button" class="button addbtn showBtn" @click="showMore"><span>Show more products</span></button>
+            <button type="button" v-show="isPopUpOpen != false" class="button addbtn addBtn" @click="OpenNewProductPopUp()"><span>Add New Product</span></button>
         </div>
 
         
@@ -30,6 +31,7 @@
         <div class="col-1" />
 
         <div class="col-7 pdp" id="PopUp">
+            
             <div class="form-popup">
 
                 <div class="popup-container">
@@ -118,7 +120,7 @@ let CategoryImages = [
 ]
 
 // let db = firebase.firestore();
-
+// var isPopUpOpen = true;
 export default {
     name: 'seller-page',
     data: function() {
@@ -143,6 +145,11 @@ export default {
                 'ownerandlocation':"",
                 'url': ""},
             PDP: [],
+            lastProduct:'',
+            // tempProduct:'',
+            // firstProduct:'',
+            isPopUpOpen: true,
+            
         }
     },
     mounted() {
@@ -151,32 +158,80 @@ export default {
     },
     methods: {
         getPDPs() {
+            let uid = firebase.auth().currentUser.uid;
             firebase.firestore()
             .collection('PRODUCTS')
+            .limit(5)
             .get()
             .then((query) => {
                 query.forEach((doc) => {
 
                     const data = doc.data();
-
-                    this.PDP.push({
-                        'url': data.Url,
-                        'caption': data.Name,
-                        'Description': data.Description,
-                        'Price': data.Price,
-                        'OwnerAndLoc': data.Owner,
-                    })
-
-                    
+                    if(data.CreatedBy == uid){
+                        this.PDP.push({
+                            'url': data.Url,
+                            'caption': data.Name,
+                            'Description': data.Description,
+                            'Price': data.Price,
+                            'OwnerAndLoc': data.Owner,
+                        })
+                    }
+                    this.lastProduct=data.Name;
                     console.log(data)
                 });
             });
         },
+        // refreshPDPs() {
+
+        //      firebase.firestore()
+        //     .collection('PRODUCTS')
+        //     .orderBy("Name")
+        //     .limit(1)
+        //     .get()
+        //     .then((query) => {
+        //         query.forEach((doc) => {
+
+        //             const data = doc.data();
+        //             this.firstProduct=data.Name;
+        //             //alert(this.firstProduct);
+            
+        //         });
+        //     });
+        //     firebase.firestore()
+        //     .collection('PRODUCTS')
+        //     .orderBy("Name")
+        //     .startAt(this.firstProduct)
+        //     .limit(5)
+        //     .get()
+        //     .then((query) => {
+        //         query.forEach((doc) => {
+
+        //             const data = doc.data();
+        //             this.tempProduct=data.Name;
+        //             //alert(this.tempProduct);
+        //             if(data.Name != this.tempProduct){
+        //                 this.PDP.push({
+        //                     'url': data.Url,
+        //                     'caption': data.Name,
+        //                     'Description': data.Description,
+        //                     'Price': data.Price,
+        //                     'OwnerAndLoc': data.Owner,
+        //                 })
+        //             }
+        //            // this.tempProduct=data.Name;
+        //             console.log(data)
+        //         });
+        //     });
+        // },
         closePopUp() {
-        document.getElementById("PopUp").style.display = "none";
+            this.isPopUpOpen = true;
+            document.getElementById("PopUp").style.display = "none";
+            // this.refreshPDPs();
         },
         setSelectedProduct(product) { //Postavlja da se sve sljedece akcije izvode na odabranom proizvodu, ako v-model kako spada
+            this.isPopUpOpen = false;
             this.selectedProduct = product;
+            
                         
             document.getElementById("PopUp").style.display = "block";
 
@@ -200,6 +255,8 @@ export default {
         },
         OpenNewProductPopUp(product) { //  promijeniti ime, Otvara pop up za novi proizvod i brise sve iz placeholdera
         // srediti
+            this.isPopUpOpen = false;
+
             this.selectedProduct = {};
             this.imageReference1.remove();
             this.imageReference2.remove();
@@ -213,18 +270,23 @@ export default {
             .collection('PRODUCTS')
             .doc(this.productname) //Otvara lokaciju u firestoreu gdje ce se odviti spremanje novih info za taj product
             .set({
-                'Name' : this.productname,
-                'Description' : this.productdesc,
-                'Price' : this.productprice,
-                'Owner' : this.ownerandlocation,
-                'Url': this.url
-                })
+                Name : this.productname,
+                Description : this.productdesc,
+                Price : this.productprice,
+                Owner : this.ownerandlocation,
+                Url: this.url,
+                CreatedBy: user.uid
+                },{merge:true})
                 .then(() =>{
                     alert(`Product ${this.productname} added`)
             })
             .catch((error) =>{
               console.log("Error in saving product", error)
             });
+            //this.refreshPDPs();
+        },
+        updateProduct() {
+
         },
         getImages() { // povlaci url slika koje su vec unesene na stranicu - kako bi se prikazale, mozda nepotrebna
             firebase.firestore()
@@ -250,6 +312,8 @@ export default {
                 //setup storage - Folder -> Product Images > SubFolder for every user > pictures with timestamp ID
                 let imageName = 'Product Images/' + store.currentUser + '/' + this.productname + Date.now() + '.png';
                 let ovajProduct = this.productname;
+                let user = firebase.auth().currentUser;
+
 
                 console.log(ovajProduct);
                 console.log(this.productname)
@@ -274,6 +338,7 @@ export default {
                                 Price : this.productprice,
                                 Owner : this.ownerandlocation,
                                 Url: imageUrl,
+                                CreatedBy: user.uid
                             })
                             .then(() => {
                                 this.productname = '';
@@ -288,7 +353,41 @@ export default {
                         console.error(e);
                     })
             });
-        }
+        },
+        showMore(){
+            let uid = firebase.auth().currentUser.uid;
+            firebase.firestore()
+            .collection('PRODUCTS')
+            .orderBy("Name")
+            .startAt(this.lastProduct)
+            .limit(5)
+            .get()
+            .then((query) => {
+                query.forEach((doc) => {
+
+                    const data = doc.data();
+
+                    if(data.Name != this.lastProduct && data.CreatedBy == uid){
+                        this.selectedProduct = data.Name;
+                        this.productname = data.Name;
+                        this.productdesc = data.Description;
+                        this.productprice = data.Price;
+                        this.ownerandlocation = data.Owner;
+                        this.url = data.Url;
+
+                        this.PDP.push({
+                            'url': data.Url,
+                            'caption': data.Name,
+                            'Description': data.Description,
+                            'Price': data.Price,
+                            'OwnerAndLoc': data.Owner,
+                        })
+                    }
+                    this.lastProduct=data.Name;
+                    console.log(data)
+                });
+            });
+        },
     },
     components: {
             MainHeader,
@@ -380,12 +479,23 @@ export default {
 .addbutton {
     width: 250px;
 }
+.addBtn {
+    background-color: green;
+}
 .button:hover { /*styiling for a hovered button*/
 	background-color: green; /*we change the colors*/
 	color: white; 
 }
 .closeBtn:hover {
     background-color: red; 
+	color: white;
+}
+.addBtn:hover {
+    background-color: #2D2D2D;  /* we change the colors */
+	color: white; 
+}
+.showBtn:hover {
+    background-color: green; 
 	color: white;
 }
 .button span {
@@ -406,6 +516,22 @@ export default {
 	transition: 0.5s;
 }
 .button:hover span:after {
+	opacity: 1;
+	right: 0;
+}
+.closeBtn:hover span {
+	padding-right: 25px; /*how far from the right border of our button*/
+}
+.closeBtn span::after {
+	content: '\00AB'; /*those are the two lines that display*/
+	position: absolute;
+	opacity: 0;
+	top: 0;
+	left: -120px;
+	transition: 0.5s;
+}
+
+.closeBtn:hover span:after {
 	opacity: 1;
 	right: 0;
 }

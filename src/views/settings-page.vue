@@ -2,7 +2,10 @@
  <div class=bg> 
     <div class="container-fluid">
       <MainHeader />
-      <img :src="require('@/assets/back.svg')" class="backButton" @click="backToMain()">
+      <div>
+        <img :src="require('@/assets/back.svg')"  class="backButton"  @click="backToMain()" >
+        <p class="backButtonText"  @click="backToMain()">Back to Main page</p>
+      </div>
       <div class="row gutters-sm">
         <div class="col-md-1"/>
         <div class="col-md-3 d-none d-md-block">
@@ -12,14 +15,14 @@
                 <a href="#profile" data-toggle="tab" class="nav-item nav-link has-icon nav-link-faded active">
                   Personal Information
                 </a>
-                <a href="#account" data-toggle="tab" class="nav-item nav-link has-icon nav-link-faded">
-                  Delete Account
-                </a>
                 <a href="#security" data-toggle="tab" class="nav-item nav-link has-icon nav-link-faded">
                   Security
                 </a>
                 <a href="#UserType" data-toggle="tab" class="nav-item nav-link has-icon nav-link-faded">
                   User Type
+                </a>
+                <a href="#account" data-toggle="tab" class="nav-item nav-link has-icon nav-link-faded">
+                  Delete Account
                 </a>
               </nav>
             </div>
@@ -139,7 +142,7 @@
                 <hr>
                 <form>
                   <div class="form-group">
-                    <p>Currenty you're a {{ store.userType }} </p>
+                    <p>Currenty, you're a <b>{{ store.userType }} </b></p>
                   </div>
                   <div class="form-group">
 
@@ -209,7 +212,21 @@ body{
     margin-top: 48px;
 }
 .backButton{
-    width: 30px;
+    display: inline-block;
+    white-space: nowrap;
+    margin-left: 20px;
+    max-height: 20px;
+    max-width: 30px;
+}
+.backButtonText{
+    font-style: italic;
+    font-weight: 500;
+    color: #556b2f;
+    display: inline-block;
+    white-space: nowrap;
+    margin-top: 20px;
+    max-height: 20px;
+    max-width: 30px;
 }
 .btn.btn-primary{
    background-color: #556b2f;

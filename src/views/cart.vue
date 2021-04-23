@@ -3,7 +3,10 @@
         
     <MainHeader />
         
-        <img :src="require('@/assets/back.svg')" class="backButton" @click="backToMain()">
+         <div>
+            <img :src="require('@/assets/back.svg')"  class="backButton"  @click="backToMain()" >
+            <p class="backButtonText"  @click="backToMain()">Back to Main page</p>
+        </div>
         <div class="container-fluid">
         <div class="row">
             <div class="col-6">
@@ -92,8 +95,21 @@
     margin-left: 35%;
 }
 .backButton{
-    align-self: center;
-    width: 30px;
+    display: inline-block;
+    white-space: nowrap;
+    margin-left: 20px;
+    max-height: 20px;
+    max-width: 30px;
+}
+.backButtonText{
+    font-style: italic;
+    font-weight: 500;
+    color: #556b2f;
+    display: inline-block;
+    white-space: nowrap;
+    margin-top: 20px;
+    max-height: 20px;
+    max-width: 30px;
 }
 .button { /*the styling for our button*/
 	width: 150px;
