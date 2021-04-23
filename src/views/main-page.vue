@@ -50,7 +50,7 @@
                             </h2>
 
                             <p>
-                                Description:
+                                <strong>Description:</strong>
                                 {{ this.selectedProduct.Description }}
                             </p>
 
