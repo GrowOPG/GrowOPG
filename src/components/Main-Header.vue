@@ -4,8 +4,8 @@
 
         <div class="header text-left col-6">
             <div class="header-n-logo">
-                <strong><router-link to="/main-page">GrowOPG</router-link></strong>
-                <router-link to="/main-page"><img class="resize" alt="logo" src="@/assets/logo.png"></router-link>
+                <!-- <strong><router-link to="/main-page">GrowOPG</router-link></strong> -->
+                <router-link to="/main-page"><img class="logo" alt="logo" src="@/assets/grow-opg-logo-reworked.png"></router-link>
             </div>
         </div>
 
@@ -147,6 +147,11 @@ img.resized { /*resized the user settings and cart icons*/
     width: 40px;
     height: 40px;
     margin-left: 15px
+}
+img.logo{
+    margin-left: 15px;
+    max-width: 60%;
+    max-height: 40px;
 }
 
 .button {
