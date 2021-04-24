@@ -87,6 +87,7 @@
 img.resize { /*needed to resize logo*/
     width: 50%;
     height: 50%;
+    margin-left: 0px;
 }
 
 .main-title {
