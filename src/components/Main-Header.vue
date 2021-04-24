@@ -13,7 +13,8 @@
 
         <div class="header-small text-right col-3">
             <form class="d-flex ">
-                <input v-model="store.searchTerm" class="button form-control me-2" type="search" placeholder="Search">
+                <input v-model="store.searchTerm"  class="button form-control me-2" type="search" placeholder="Search"/>
+                <button type="button" class="button-srch" @click="searchFn()" >Search!</button>
                 <div class="dropdown">
                     <img class="resized" alt="user-settings" @click="showdrop()" src="@/assets/user.png">
                     <div class="dropdown-content">
@@ -152,6 +153,12 @@ img.resized { /*resized the user settings and cart icons*/
     border-radius: 20px;
     width: 200px;
 }
+.button-srch{
+    border-radius: 20px;
+    width: 100px;
+    color: white;
+    background-color:#556b2f;
+}
 </style>
 
 <script>
@@ -179,44 +186,88 @@ toggle between hiding and showing the dropdown content */
 
 export default {
   name: 'MainHeader',
-  data(){
-      return{
-        store,
-        email: null,
-     }
-  },
-//   computed: {
-//       filtriranaKomponenta(){
-//           let termin = this.store.searchTerm;
-//           let newKomp = [] //recimo da je array producta
-
-//           for (let product of this.komponenta koju cemo izbuildat) {
-//               if (product.description.indexOf(termin) >= 0){
-//                   newKomp.push(product);
-//               }
-//           }
-//       }
-//   },
-//Sluzi za search producta
-methods: {
-    logout() {
-        firebase.auth()
-        .signOut() 
-        .then(() => {
-            console.log("user " + this.email + " signed out"); 
-            
-            store.userType=null; // we set the userType of the current user in store.js to NULL
-
-            this.$router.push({name: 'Successfuly-signed-out'}) //need to add replace umjesto push before predaja profu
-        });
+    data(){
+        return{
+            store,
+            email: null,
+            PrSearch: '',
+            PrSearchArray: [],
+        }
+    },
+    computed: {        
+    },
+    methods: {
+        searchFn() { //Sluzi za search producta
+            let inputSearch = this.store.searchTerm;
+            // now we convert the searchTerm to lowercase so it's the same if someone searches for 'Product' or 'product'
+            var PrSearch = inputSearch.toLowerCase();
+            let PrSearchArray = []; //array used to store all our products
+            firebase.firestore() // we get all of our products from firestore
+            .collection('PRODUCTS')
+            .get()
+            .then((query) => {
+                query.forEach((doc) => {
+                    const data = doc.data();
+                    
+                    this.PrName = data.Name;
+                    this.PrDesc = data.Description;
+                    this.PrOwner = data.Owner;
+                    this.PrSearchArray.push({ // now we store all of our products as objects in out productsSearch[] array
+                        PrName: data.Name,
+                        PrDesc: data.Description,
+                        PrOwner: data.Owner,
+                    })
+                });
+                // let's now loop through the array
+                for (let i = 0; i < this.PrSearchArray.length; i++) {
+                    console.log('Lista na početku', this.PrSearchArray)
+                    // need to find a way to access the object within the array
+                    let loopPr = this.PrSearchArray[i];
+                    // we now set all the attributes to lowercase since the search term  is in lowercase
+                    let prname = loopPr.PrName.toLowerCase();
+                    let prdesc = loopPr.PrDesc.toLowerCase();
+                    let prowner = loopPr.PrOwner.toLowerCase();
+                    // onto the search itself
+                    // if any of the three parameters are true we go on
+                    if (PrSearch == prname || PrSearch == prdesc || PrSearch == prowner ) {
+                    // the idea now, is to check and then list out all the products that are actually searched for by desired parameters
+                        if (PrSearch == prname) console.log(i, PrSearch, "=", prname);
+                        else if (PrSearch == prdesc) console.log(i, PrSearch, "=", prdesc);
+                        else if (PrSearch == prowner) console.log(i, PrSearch, "=", prowner);
+                        else console.log('Nema proizvoda!')
+                    }
+                    else{
+                        console.log("The product you're looking for is unavailable!")
+                        break;
+                    }
+                }
+                // now I'd like to empty the Pr Search array because as its visible in the console, the array keeps duplicating
+                // every time we search for a product
+                // 2 options - either create new method for lines 200-217, then we won't need to pop the list
+                            // or create a new recursive method used to empty the list. 
+                for (let empty = 0; empty < this.PrSearchArray.length; empty++) {
+                    // this.PrSearchArray.pop(); this doesn't work for some reason
+                };
+                console.log('Lista na kraju', this.PrSearchArray)
+            });
         },
-        toUserSettings() {
-            this.$router.push({name: 'settings-page'})
-        },
-  },
-  created(){
-      var user = firebase.auth().currentUser;
-      this.email = user.email;
-  }
+  logout() {
+            firebase.auth()
+            .signOut() 
+            .then(() => {
+                console.log("user " + this.email + " signed out"); 
+                
+                store.userType=null; // we set the userType of the current user in store.js to NULL
+                this.$router.push({name: 'Successfuly-signed-out'}) //need to add replace umjesto push before predaja profu
+            });
+            },
+            toUserSettings() {
+                this.$router.push({name: 'settings-page'})
+            },
+    },
+    created(){
+        var user = firebase.auth().currentUser;
+        this.email = user.email;
+    }
 }
 </script>

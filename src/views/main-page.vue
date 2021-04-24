@@ -165,10 +165,10 @@
     width: 250px;
 }
 .addBtn {
-    background-color: green;
+    background-color:#556b2f;
 }
 .button:hover { /*styiling for a hovered button*/
-	background-color: green; /*we change the colors*/
+	background-color: #556b2f; /*we change the colors*/
 	color: white; 
 }
 .closeBtn:hover {
@@ -180,7 +180,7 @@
 	color: white; 
 }
 .showBtn:hover {
-    background-color: green; 
+    background-color:#556b2f; 
 	color: white;
 }
 .button span {
