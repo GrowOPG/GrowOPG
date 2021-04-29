@@ -64,10 +64,15 @@
                             <label for="fullname">Owner and Location</label>
                             <input type="text" v-model="ownerandlocation" class="form-control" id="ownerandlocation" required :placeholder="selectedProduct.OwnerAndLoc" />
                         </div>
-                           <br>
+                        <br>
                         <div class="sgp-form">
                             <label for="price">Price (HRK)</label>
                             <input type="number" v-model="productprice" class="form-control" id="productprice" required :placeholder="selectedProduct.Price" />
+                        </div>
+                        <br>
+                        <div class="sgp-form">
+                            <label for="availability">Availability</label>
+                            <input type="checkbox" v-model="productavailability" class="checkbox-availability" id="productavailability" />
                         </div>
                         <br>
                 </div>
@@ -132,6 +137,7 @@ export default {
             imageReference2: null,
             productname: '',
             productprice: '',
+            productavailability: '',
             productdesc: '',
             ownerandlocation: '' ,
             url: '',
@@ -140,7 +146,8 @@ export default {
                 'SecImage1':"",
                 'SecImage2' : "",
                 'productname': "",
-                'productprice': "", 
+                'productprice': "",
+                'productavailability': "", 
                 'productdesc': "",
                 'ownerandlocation':"",
                 'url': ""},
@@ -172,6 +179,7 @@ export default {
                             'caption': data.Name,
                             'Description': data.Description,
                             'Price': data.Price,
+                            'Availability' : data.Availability,
                             'OwnerAndLoc': data.Owner,
                         })
                     }
@@ -243,6 +251,7 @@ export default {
                 this.productname = data.Name;
                 this.productdesc = data.Description;
                 this.productprice = data.Price;
+                this.productavailability = data.Availability;
                 this.ownerandlocation = data.Owner;
                 this.url = data.Url;
 
@@ -271,6 +280,7 @@ export default {
                 Name : this.productname,
                 Description : this.productdesc,
                 Price : this.productprice,
+                Availability: this.productavailability,
                 Owner : this.ownerandlocation,
                 Url: this.url,
                 CreatedBy: user.uid
@@ -300,6 +310,7 @@ export default {
                             'Name': data.Name,
                             'Description': data.Description,
                             'Price': data.Price,
+                            'Availability': data.Availability,
                             'Owner': data.ownerandlocation,
                         });
                     });
@@ -334,6 +345,7 @@ export default {
                                 Name : this.productname,
                                 Description : this.productdesc,
                                 Price : this.productprice,
+                                Availability: this.productavailability,
                                 Owner : this.ownerandlocation,
                                 Url: imageUrl,
                                 CreatedBy: user.uid
@@ -532,5 +544,12 @@ export default {
 .closeBtn:hover span:after {
 	opacity: 1;
 	right: 0;
+}
+
+.checkbox-availability{
+    position: absolute;
+    margin-left: 15px;
+    margin-top: 7px;
+    
 }
 </style>
