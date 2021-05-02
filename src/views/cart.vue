@@ -167,14 +167,14 @@ export default {
    methods: {
         backToMain() {
              this.$router.push({name: "main-page"})
-            // if (store.userType != 'Buyer'){
-            //     this.$router.push({name: "main-page"})
+              if (store.userType != 'Buyer'){
+                this.$router.push({name: "seller-page"})
             //     // this.$router.replace({name: "main-page-seller"}) 
-            // } 
-            // else if(store.userType != 'Seller'){
-            //     this.$router.push({name: "main-page"})
+             } 
+             else if(store.userType != 'Seller'){
+                this.$router.push({name: "main-page"})
             //     /*this.$router.replace({name: "main-page-buyer"}) */
-            // };
+            };
         },
    }
 };

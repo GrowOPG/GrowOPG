@@ -74,6 +74,10 @@
                             <label for="availability">Availability</label>
                             <input type="checkbox" v-model="productavailability" class="checkbox-availability" id="productavailability" />
                         </div>
+                        <!-- <div class="sgp-form">
+                            <label for="availabilitydate">Earliest available date:</label>
+                            <b-form-datepicker id="availabilitydate" v-model="availabilitydate" class="mb-2"></b-form-datepicker>
+                        </div> -->
                         <br>
                 </div>
 
@@ -138,6 +142,7 @@ export default {
             productname: '',
             productprice: '',
             productavailability: '',
+            // availabilitydate: '',
             productdesc: '',
             ownerandlocation: '' ,
             url: '',
@@ -147,7 +152,8 @@ export default {
                 'SecImage2' : "",
                 'productname': "",
                 'productprice': "",
-                'productavailability': "", 
+                'productavailability': "",
+                // 'availabilitydate': "", 
                 'productdesc': "",
                 'ownerandlocation':"",
                 'url': ""},
@@ -180,6 +186,7 @@ export default {
                             'Description': data.Description,
                             'Price': data.Price,
                             'Availability' : data.Availability,
+                            // 'Availabilitydate': data.Availabilitydate,
                             'OwnerAndLoc': data.Owner,
                         })
                     }
@@ -252,6 +259,7 @@ export default {
                 this.productdesc = data.Description;
                 this.productprice = data.Price;
                 this.productavailability = data.Availability;
+                // this.availabilitydate = data.Availabilitydate;
                 this.ownerandlocation = data.Owner;
                 this.url = data.Url;
 
@@ -264,7 +272,16 @@ export default {
         // srediti
             this.isPopUpOpen = false;
 
+
             this.selectedProduct = {};
+            this.productname = '';
+            this.productdesc = '';
+            this.productprice = '';
+            this.productavailability = '';
+            // this.availabilitydate = data.Availabilitydate;
+            this.ownerandlocation = '';
+            this.url = '';
+            // this.selectedProduct = {};
             this.imageReference1.remove();
             this.imageReference2.remove();
             document.getElementById("PopUp").style.display = "block";
@@ -281,6 +298,7 @@ export default {
                 Description : this.productdesc,
                 Price : this.productprice,
                 Availability: this.productavailability,
+                // Availabilitydate: this.availabilitydate,
                 Owner : this.ownerandlocation,
                 Url: this.url,
                 CreatedBy: user.uid
@@ -311,6 +329,7 @@ export default {
                             'Description': data.Description,
                             'Price': data.Price,
                             'Availability': data.Availability,
+                            // 'Availabilitydate': data.Availabilitydate,
                             'Owner': data.ownerandlocation,
                         });
                     });
@@ -346,6 +365,7 @@ export default {
                                 Description : this.productdesc,
                                 Price : this.productprice,
                                 Availability: this.productavailability,
+                                // Availabilitydate: this.availabilitydate,
                                 Owner : this.ownerandlocation,
                                 Url: imageUrl,
                                 CreatedBy: user.uid
