@@ -188,15 +188,11 @@ export default {
             PrSearchArray: [],
         }
     },
-    computed: {        
+    mounted() {
+        this.getSearcheablePr();
     },
     methods: {
-        searchFn() { //Sluzi za search producta
-            let inputSearch = this.store.searchTerm;
-            // now we convert the searchTerm to lowercase so it's the same if someone searches for 'Product' or 'product'
-            var PrSearch = inputSearch.toLowerCase();
-            let PrSearchArray = []; //array used to store all our products
-
+        getSearcheablePr() {
             firebase.firestore() // we get all of our products from firestore
             .collection('PRODUCTS')
             .get()
@@ -215,38 +211,35 @@ export default {
                         PrOwner: data.Owner,
                     })
                 });
-                // let's now loop through the array
-                for (let i = 0; i < this.PrSearchArray.length; i++) {
-                    console.log('Lista na početku', this.PrSearchArray)
-                    // need to find a way to access the object within the array
-                    let loopPr = this.PrSearchArray[i];
-                    // we now set all the attributes to lowercase since the search term  is in lowercase
-                    let prname = loopPr.PrName.toLowerCase();
-                    let prdesc = loopPr.PrDesc.toLowerCase();
-                    let prowner = loopPr.PrOwner.toLowerCase();
-                    // onto the search itself
-                    // if any of the three parameters are true we go on
-                    if (PrSearch == prname || PrSearch == prdesc || PrSearch == prowner ) {
-                    // the idea now, is to check and then list out all the products that are actually searched for by desired parameters
-                        if (PrSearch == prname) console.log(i, PrSearch, "=", prname);
-                        else if (PrSearch == prdesc) console.log(i, PrSearch, "=", prdesc);
-                        else if (PrSearch == prowner) console.log(i, PrSearch, "=", prowner);
-                        else console.log('Nema proizvoda!')
-                    }
-                    else{
-                        console.log("The product you're looking for is unavailable!")
-                        break;
-                    }
-                }
-                // now I'd like to empty the Pr Search array because as its visible in the console, the array keeps duplicating
-                // every time we search for a product
-                // 2 options - either create new method for lines 200-217, then we won't need to pop the list
-                            // or create a new recursive method used to empty the list. 
-                for (let empty = 0; empty < this.PrSearchArray.length; empty++) {
-                    // this.PrSearchArray.pop(); this doesn't work for some reason
-                };
-                console.log('Lista na kraju', this.PrSearchArray)
             });
+        },
+        searchFn() { //Sluzi za search producta
+            let inputSearch = this.store.searchTerm;
+            // now we convert the searchTerm to lowercase so it's the same if someone searches for 'Product' or 'product'
+            var PrSearch = inputSearch.toLowerCase();
+            let PrSearchArray = []; //array used to store all our products
+            console.log('Search array len', this.PrSearchArray.length);
+            console.log('Search array', this.PrSearchArray);
+            
+            // let's now loop through the array
+            for (let i = 0; i < this.PrSearchArray.length; i++) {
+                // need to find a way to access the object within the array
+                let loopPr = this.PrSearchArray[i];
+                // we now set all the attributes to lowercase since the search term  is in lowercase
+                let prname = loopPr.PrName.toLowerCase();
+                
+                let prdesc = loopPr.PrDesc.toLowerCase();
+                let prowner = loopPr.PrOwner.toLowerCase();
+                // onto the search itself
+                // if any of the three parameters are true we go on
+                if (PrSearch == prname || PrSearch == prdesc || PrSearch == prowner ) {
+                // the idea now, is to check and then list out all the products that are actually searched for by desired parameters
+                    if (PrSearch == prname) console.log(i, PrSearch, "=", prname);
+                    else if (PrSearch == prdesc) console.log(i, PrSearch, "=", prdesc);
+                    else if (PrSearch == prowner) console.log(i, PrSearch, "=", prowner);
+                    else console.log('Nema proizvoda!')
+                }
+            }            
         },
         logout() {
             firebase.auth()
