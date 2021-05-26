@@ -20,7 +20,7 @@
 
         <div class="col-4 PrListing">
             <div class="centered scroll">
-                <Products v-for="product in PDP" :key="product.caption" :product="product" @product-selected="setSelectedProduct" />
+                <Products v-for="product in PDP" :key="product.Name" :product="product" @product-selected="setSelectedProduct" />
             </div>
               <button type="button" class="button addbtn showBtn" @click="showMore"><span>Show more products</span></button>
         </div>
@@ -46,7 +46,7 @@
                         <div>
                             <h2 class="ProductName">
                                 Name:
-                                {{ this.selectedProduct.caption }}
+                                {{ this.selectedProduct.Name }}
                             </h2>
 
                             <p>
@@ -69,7 +69,7 @@
                     </div>
                 </div>
 
-                <button type="button" class="button" @click="getSumPrice(selectedProduct.Price)" ><span>Add To Cart</span></button>
+                <button type="button" class="button" @click="getSumPrice(selectedProduct.Price); AddToCart(selectedProduct)" ><span>Add To Cart</span></button>
                 <button type="button" class="button closeBtn" style="float: right;" @click="closePopUp(); getSumPrice(selectedProduct.productprice)"><span>Close</span></button>
             </div>
         </div>
@@ -270,7 +270,10 @@ export default {
                 'productprice': "", 
                 'productdesc': "",
                 'ownerandlocation':"",
-                'url': ""},
+                'url': "",
+                'qty': "",
+                'sum': "",
+                },
             PDP: [],
             lastProduct:'',
             
@@ -300,7 +303,7 @@ export default {
 
                     this.PDP.push({
                         'url': data.Url,
-                        'caption': data.Name,
+                        'Name': data.Name,
                         'Description': data.Description,
                         'Price': data.Price,
                         'OwnerAndLoc': data.Owner,
@@ -310,8 +313,29 @@ export default {
                 });
             });
         },
-        AddToCart(Product) {
-            // document.getElementById('Qty').value = ''; // doesnt work
+        AddToCart(product) {
+            var itemToCart = product; // we use a new variable to save the selected products info
+            var cartLen = store.cartItems.length + 1; // variable to get the length of the array
+            
+            for (var i = 0; i < cartLen; i++) { // now we'll use this to input new items
+                if (store.cartItems[i] == null) { // if the spot is empty, we can put a new item inside
+                    store.cartItems.push(itemToCart); // we push our selected product into the array
+                }
+                else if (store.cartItems[i] != null) { 
+                    // if the spot is already taken we check further since someone might want to add a new qty
+                    if ( store.cartItems[i].Name == itemToCart.Name // if the product has the same name
+                        && store.cartItems[i].OwnerAndLoc == itemToCart.OwnerAndLoc // and the same owner
+                        && store.cartItems[i].Price == itemToCart.Price // AND MOST IMPORTANTLY THE SAME PRICE, we cant be mixing prices to bi bio mess
+                        ) {
+                        // we set the new quantity if the user selected more or less (still editable in cart.vue)
+                        store.cartItems[i].qty = itemToCart.qty; 
+                    }
+                }
+
+                console.log(store.cartItems);
+            }
+
+            
             
         },
         closePopUp() {
@@ -323,7 +347,7 @@ export default {
 
             firebase.firestore()
             .collection('PRODUCTS')
-            .doc(this.selectedProduct.caption)
+            .doc(this.selectedProduct.Name)
             .get()
             .then((doc) => {
                 const data = doc.data();
@@ -341,9 +365,10 @@ export default {
             var Qty = QtyRaw.value; // we have to extract the value to be able to use it
             var price = PrPrice;
 
-            var sum = Qty*price
-            alert(sum)
-            return sum;
+            var sum = Qty*price;
+
+            this.selectedProduct.qty = Qty; // so we can track the selected amount of products
+            this.selectedProduct.sum = sum; 
         },
         showMore(){
             firebase.firestore()
@@ -367,7 +392,7 @@ export default {
 
                         this.PDP.push({
                             'url': data.Url,
-                            'caption': data.Name,
+                            'Name': data.Name,
                             'Description': data.Description,
                             'Price': data.Price,
                             'OwnerAndLoc': data.Owner,

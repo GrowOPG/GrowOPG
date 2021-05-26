@@ -10,11 +10,9 @@
         <div class="container-fluid">
         <div class="row">
             <div class="col-6">
-                <div class="CartList">
 
-                    <CartItem />
+                <CartItem />
 
-                </div>
             </div>
             
             <div class="col-1" />
@@ -63,13 +61,13 @@
     overflow: hidden;
     border-top: 2px solid #2D2D2D;
 }
-.CartList {
-    /* border: 2px solid red; */
+/* .CartList {
+    border: 2px solid red;
     margin-top: 50px;
     height: 700px;
     overflow-x: hidden;
     overflow-y: auto;
-}
+} */
 .Receipt {
     margin-top: 50px;
     height: 400px;
@@ -158,6 +156,11 @@ import store from '@/store';
 
 export default {
    name: 'cart',
+   data() {
+       return {
+           'cartItemsArray': []
+       }
+   },
    components: {
         MainHeader,
         Footer,

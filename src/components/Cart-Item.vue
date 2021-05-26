@@ -1,18 +1,35 @@
 <template>
-    <div class="CartItem">
-        <div class="container-fluid CartItemElement">
-            <div class="row CartItemElement">
+    <div class="bg">
+        <div class="container-fluid">
+            <div class="row CartItem">
 
-                <div class="col-6 CartItemElement">
-                    <!-- <Products v-for="product in PDP" :key="product.caption" :product="product" @product-selected="setSelectedProduct" /> -->
+                <div class="col-2 CartItemPicture">
+                    <!-- somehow proc kroz cartItemsArray i izvaditi iz njega podatke o proizvodima(slika, ime, cijena, kolicina i suma) -->
+                    <img class="itemPicture" :src="cartItemsArray.Url">
+                </div>
+
+                <div class="col-2 CartItemName">
+                    <!-- somehow proc kroz cartItemsArray i izvaditi iz njega podatke o proizvodima(slika, ime, cijena, kolicina i suma) -->
+                    <span class="ProductName">
+                        {{ this.cartItemsArray.Name }}
+                    </span>
+                </div>
+
+                <div class="col-5 CartItemMoney">
+                    <!-- somehow proc kroz cartItemsArray i izvaditi iz njega podatke o proizvodima(slika, ime, cijena, kolicina i suma) -->
+                    <span class="ProductName">
+                        cijena: 
+                        {{ this.cartItemsArray.Price }}
+                        HRK
+                    </span>
+                    <input type="number" class="QtyInput" max="50">
                 </div>
 
                 <div class="col-1 CartItemElement" />
 
-                <div class="col-5 CartItemElement">
+                <div class="col-2 CartItemElement">
                     <div class="LowerCenter">
-                        <input type="number" class="QtyInput" max="50">
-                        <button type="button" class="removeItemBtn" @click="RemoveItem()"><span>Remove</span></button>
+                        <button type="button" class="removeItemBtn" @click="RemoveItem(this.selectedProduct)"><span>Remove</span></button>
                     </div>
                 </div>
 
@@ -34,10 +51,23 @@
     border-left: 0;
 }
 
-.CartItemElement {
+.itemPicture {
+    padding-top: 2%;
+    height: 15%;
+    border-radius: 10px;
+}
+.CartItemName {
+    align-self: center;
     height: inherit;
 }
-
+.CartItemMoney {
+    align-self: center;
+    height: inherit;
+}
+.CartItemElement {
+    align-self: center;
+    height: inherit;
+}
 .adjust {
     margin-top: 10%;
 }
@@ -98,37 +128,51 @@
 </style>
 
 <script>
-import product from '../components/Products';
-import Products from './Products.vue';
-import PDP from '@/views/main-page.vue';
+import store from '../store.js';
+import selectedProduct from '../views/main-page';
+
+var cartLen = store.cartItems.length; // i need it more times so ill declare it here
 
 export default {
     name: "CartItem",
     data: function() {
         return {
-            Products,
-            selectedProduct: {
-                'imageReference1':"",
-                'imageReference2' : "",
-                'productname': "",
-                'productprice': "", 
-                'productdesc': "",
-                'ownerandlocation':"",
-                'url': ""},
-            PDP: []
+            'cartItemsArray': [],
         }
     },
-    props: [
-        'CartItem',
-        'product',
-    ],
-    components: {
-        Products,
-        PDP,
+    mounted() {
+        this.getCartItems();
     },
     methods: {
-        RemoveItem() {
-            product = null;
+        getCartItems() {
+            // in this method we have to get the cartItems list from store.js
+            // for (var i = 0; i < cartLen; i++) {
+            //     // for every item in our store, we send it to the cart array
+            //     var izbaci = store.cartItems.pop();
+
+            //     cartItemsArray.push(izbaci);
+            // }
+            // now we have our products array
+
+            var fakePodaci = {
+                'Name': "Jabuka",
+                'Price': 12,
+                'Url': "https://firebasestorage.googleapis.com/v0/b/growopg.appspot.com/o/Product%20Images%2Fea-poe%40mail.com%2FApple1619035303377.png?alt=media&token=d48473a9-e042-4b8e-b8a6-dce762e59379"
+            }
+            this.cartItemsArray = fakePodaci;
+        },
+        RemoveItem(product) {
+            // will have to remove just from cartItemsArray
+            var toRemove = product;
+
+            for (var i = 0; i < cartLen; i++) {
+                if (toRemove.name == cartItemsArray[i].name) {
+                    var izbaci = cartItemsArray[i].pop();
+
+                    console.log(izbaci)
+                }
+            }
+
         }
     },
 }

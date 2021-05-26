@@ -1,5 +1,9 @@
 export default {
     searchTerm: '',
     currentUser: null,
-    userType: ''
+    userType: '',
+    cartItems: [
+        
+    ],
+
 };
