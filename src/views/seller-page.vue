@@ -22,7 +22,7 @@
             <div class="centered scroll">
                 <Products v-for="product in PDP" :key="product.caption" :product="product" @product-selected="setSelectedProduct" />
             </div>
-            <button type="button" class="button addbtn showBtn" @click="showMore"><span>Show more products</span></button>
+            <!-- <button type="button" class="button addbtn showBtn" @click="showMore"><span>Show more products</span></button> -->
             <button type="button" v-show="isPopUpOpen != false" class="button addbtn addBtn" @click="OpenNewProductPopUp()"><span>Add New Product</span></button>
         </div>
 
@@ -145,7 +145,7 @@ export default {
                 'ownerandlocation':"",
                 'url': ""},
             PDP: [],
-            lastProduct:'',
+            //lastProduct:'',
             // tempProduct:'',
             // firstProduct:'',
             isPopUpOpen: true,
@@ -161,7 +161,6 @@ export default {
             let uid = firebase.auth().currentUser.uid;
             firebase.firestore()
             .collection('PRODUCTS')
-            .limit(5)
             .get()
             .then((query) => {
                 query.forEach((doc) => {
@@ -176,7 +175,6 @@ export default {
                             'OwnerAndLoc': data.Owner,
                         })
                     }
-                    this.lastProduct=data.Name;
                     console.log(data)
                 });
             });
@@ -354,40 +352,40 @@ export default {
                     })
             });
         },
-        showMore(){
-            let uid = firebase.auth().currentUser.uid;
-            firebase.firestore()
-            .collection('PRODUCTS')
-            .orderBy("Name")
-            .startAt(this.lastProduct)
-            .limit(5)
-            .get()
-            .then((query) => {
-                query.forEach((doc) => {
+        // showMore(){
+        //     let uid = firebase.auth().currentUser.uid;
+        //     firebase.firestore()
+        //     .collection('PRODUCTS')
+        //     .orderBy("Name")
+        //     .startAt(this.lastProduct)
+        //     .limit(5)
+        //     .get()
+        //     .then((query) => {
+        //         query.forEach((doc) => {
 
-                    const data = doc.data();
+        //             const data = doc.data();
 
-                    if(data.Name != this.lastProduct && data.CreatedBy == uid){
-                        this.selectedProduct = data.Name;
-                        this.productname = data.Name;
-                        this.productdesc = data.Description;
-                        this.productprice = data.Price;
-                        this.ownerandlocation = data.Owner;
-                        this.url = data.Url;
+        //             if(data.Name != this.lastProduct && data.CreatedBy == uid){
+        //                 this.selectedProduct = data.Name;
+        //                 this.productname = data.Name;
+        //                 this.productdesc = data.Description;
+        //                 this.productprice = data.Price;
+        //                 this.ownerandlocation = data.Owner;
+        //                 this.url = data.Url;
 
-                        this.PDP.push({
-                            'url': data.Url,
-                            'caption': data.Name,
-                            'Description': data.Description,
-                            'Price': data.Price,
-                            'OwnerAndLoc': data.Owner,
-                        })
-                    }
-                    this.lastProduct=data.Name;
-                    console.log(data)
-                });
-            });
-        },
+        //                 this.PDP.push({
+        //                     'url': data.Url,
+        //                     'caption': data.Name,
+        //                     'Description': data.Description,
+        //                     'Price': data.Price,
+        //                     'OwnerAndLoc': data.Owner,
+        //                 })
+        //             }
+        //             this.lastProduct=data.Name;
+        //             console.log(data)
+        //         });
+        //     });
+        // },
     },
     components: {
             MainHeader,
@@ -480,10 +478,10 @@ export default {
     width: 250px;
 }
 .addBtn {
-    background-color: green;
+    background-color: #556b2f;
 }
 .button:hover { /*styiling for a hovered button*/
-	background-color: green; /*we change the colors*/
+	background-color:#556b2f; /*we change the colors*/
 	color: white; 
 }
 .closeBtn:hover {
@@ -495,7 +493,7 @@ export default {
 	color: white; 
 }
 .showBtn:hover {
-    background-color: green; 
+    background-color:#556b2f; 
 	color: white;
 }
 .button span {
