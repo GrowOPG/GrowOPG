@@ -64,6 +64,10 @@
                             <p>
                                <strong>Price:</strong> {{ this.selectedProduct.Price }} HRK
                             </p>
+
+                            <p>
+                               <strong>Available:</strong> {{ this.selectedProduct.AvailabilityForShow }}
+                            </p>
                         </div>
 
                     </div>
@@ -267,7 +271,9 @@ export default {
                 'imageReference1':"",
                 'imageReference2' : "",
                 'productname': "",
-                'productprice': "", 
+                'productprice': "",
+                'availabilityforshow': "", 
+                'productavailability': "",
                 'productdesc': "",
                 'ownerandlocation':"",
                 'url': "",
@@ -281,6 +287,7 @@ export default {
     },
     mounted() {
         this.getPDPs();
+        this.available();
     },
     methods: {
         getPDPs() {
@@ -298,6 +305,7 @@ export default {
                     this.productname = data.Name;
                     this.productdesc = data.Description;
                     this.productprice = data.Price;
+                    this.productavailability = data.Availability
                     this.ownerandlocation = data.Owner;
                     this.url = data.Url;
 
@@ -306,12 +314,21 @@ export default {
                         'Name': data.Name,
                         'Description': data.Description,
                         'Price': data.Price,
+                        'Availability': data.Availability,
+                        'AvailabilityForShow': this.available(),
                         'OwnerAndLoc': data.Owner,
                     })
                     this.lastProduct=data.Name;
                     console.log(data)
                 });
             });
+        },
+        available(){
+            this.availabilityforshow = this.productavailability
+            if(this.availabilityforshow == true){
+                return this.availabilityforshow = 'Yes'
+            }
+            else return this.availabilityforshow = 'No'
         },
         AddToCart(product) {
             var itemToCart = product; // we use a new variable to save the selected products info
@@ -355,6 +372,7 @@ export default {
                 this.productname = data.Name;
                 this.productdesc = data.Description;
                 this.productprice = data.Price;
+                this.productavailability = data.Availability;
                 this.ownerandlocation = data.Owner;
                 this.url = data.Url;
 
@@ -387,6 +405,7 @@ export default {
                         this.productname = data.Name;
                         this.productdesc = data.Description;
                         this.productprice = data.Price;
+                        this.productavailability = data.Availability;
                         this.ownerandlocation = data.Owner;
                         this.url = data.Url;
 
@@ -395,6 +414,8 @@ export default {
                             'Name': data.Name,
                             'Description': data.Description,
                             'Price': data.Price,
+                            'Availability': data.Availability,
+                            'AvailabilityForShow': this.available(),
                             'OwnerAndLoc': data.Owner,
                         })
                     }

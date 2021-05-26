@@ -64,11 +64,20 @@
                             <label for="fullname">Owner and Location</label>
                             <input type="text" v-model="ownerandlocation" class="form-control" id="ownerandlocation" required :placeholder="selectedProduct.OwnerAndLoc" />
                         </div>
-                           <br>
+                        <br>
                         <div class="sgp-form">
                             <label for="price">Price (HRK)</label>
                             <input type="number" v-model="productprice" class="form-control" id="productprice" required :placeholder="selectedProduct.Price" />
                         </div>
+                        <br>
+                        <div class="sgp-form">
+                            <label for="availability">Availability</label>
+                            <input type="checkbox" v-model="productavailability" class="checkbox-availability" id="productavailability" />
+                        </div>
+                        <!-- <div class="sgp-form">
+                            <label for="availabilitydate">Earliest available date:</label>
+                            <b-form-datepicker id="availabilitydate" v-model="availabilitydate" class="mb-2"></b-form-datepicker>
+                        </div> -->
                         <br>
                 </div>
 
@@ -132,6 +141,8 @@ export default {
             imageReference2: null,
             productname: '',
             productprice: '',
+            productavailability: '',
+            // availabilitydate: '',
             productdesc: '',
             ownerandlocation: '' ,
             url: '',
@@ -140,7 +151,9 @@ export default {
                 'SecImage1':"",
                 'SecImage2' : "",
                 'productname': "",
-                'productprice': "", 
+                'productprice': "",
+                'productavailability': "",
+                // 'availabilitydate': "", 
                 'productdesc': "",
                 'ownerandlocation':"",
                 'url': ""},
@@ -172,6 +185,8 @@ export default {
                             'caption': data.Name,
                             'Description': data.Description,
                             'Price': data.Price,
+                            'Availability' : data.Availability,
+                            // 'Availabilitydate': data.Availabilitydate,
                             'OwnerAndLoc': data.Owner,
                         })
                     }
@@ -243,6 +258,8 @@ export default {
                 this.productname = data.Name;
                 this.productdesc = data.Description;
                 this.productprice = data.Price;
+                this.productavailability = data.Availability;
+                // this.availabilitydate = data.Availabilitydate;
                 this.ownerandlocation = data.Owner;
                 this.url = data.Url;
 
@@ -255,7 +272,16 @@ export default {
         // srediti
             this.isPopUpOpen = false;
 
+
             this.selectedProduct = {};
+            this.productname = '';
+            this.productdesc = '';
+            this.productprice = '';
+            this.productavailability = '';
+            // this.availabilitydate = data.Availabilitydate;
+            this.ownerandlocation = '';
+            this.url = '';
+            // this.selectedProduct = {};
             this.imageReference1.remove();
             this.imageReference2.remove();
             document.getElementById("PopUp").style.display = "block";
@@ -271,6 +297,8 @@ export default {
                 Name : this.productname,
                 Description : this.productdesc,
                 Price : this.productprice,
+                Availability: this.productavailability,
+                // Availabilitydate: this.availabilitydate,
                 Owner : this.ownerandlocation,
                 Url: this.url,
                 CreatedBy: user.uid
@@ -300,6 +328,8 @@ export default {
                             'Name': data.Name,
                             'Description': data.Description,
                             'Price': data.Price,
+                            'Availability': data.Availability,
+                            // 'Availabilitydate': data.Availabilitydate,
                             'Owner': data.ownerandlocation,
                         });
                     });
@@ -334,6 +364,8 @@ export default {
                                 Name : this.productname,
                                 Description : this.productdesc,
                                 Price : this.productprice,
+                                Availability: this.productavailability,
+                                // Availabilitydate: this.availabilitydate,
                                 Owner : this.ownerandlocation,
                                 Url: imageUrl,
                                 CreatedBy: user.uid
@@ -532,5 +564,12 @@ export default {
 .closeBtn:hover span:after {
 	opacity: 1;
 	right: 0;
+}
+
+.checkbox-availability{
+    position: absolute;
+    margin-left: 15px;
+    margin-top: 7px;
+    
 }
 </style>
