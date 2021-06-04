@@ -345,12 +345,8 @@ export default {
                         store.cartItems[i].qty = itemToCart.qty; 
                     }
                 }
-
-                console.log(store.cartItems);
             }
-
-            
-            
+            console.log(store.cartItems);
         },
         closePopUp() {
             document.getElementById("PopUp").style.display = "none";
