@@ -66,7 +66,11 @@
                             </p>
 
                             <p>
-                               <strong>Available:</strong> {{ this.selectedProduct.AvailabilityForShow }}
+                               <strong>Available:</strong> {{ this.selectedProduct.productavailability }}
+                            </p>
+
+                            <p v-if="this.selectedProduct.productavailability != true ">
+                               <strong>Earliest available date:</strong> {{ this.selectedProduct.availabilitydate }}
                             </p>
                         </div>
 
@@ -272,7 +276,7 @@ export default {
                 'imageReference2' : "",
                 'productname': "",
                 'productprice': "",
-                'availabilityforshow': "", 
+                'availabilitydate': "", 
                 'productavailability': "",
                 'productdesc': "",
                 'ownerandlocation':"",
@@ -287,7 +291,6 @@ export default {
     },
     mounted() {
         this.getPDPs();
-        this.available();
     },
     methods: {
         getPDPs() {
@@ -305,7 +308,8 @@ export default {
                     this.productname = data.Name;
                     this.productdesc = data.Description;
                     this.productprice = data.Price;
-                    this.productavailability = data.Availability
+                    this.productavailability = data.Availability;
+                    this.availabilitydate = data.Availabilitydate;
                     this.ownerandlocation = data.Owner;
                     this.url = data.Url;
 
@@ -315,20 +319,13 @@ export default {
                         'Description': data.Description,
                         'Price': data.Price,
                         'Availability': data.Availability,
-                        'AvailabilityForShow': this.available(),
+                        'Availabilitydate': data.Availabilitydate,
                         'OwnerAndLoc': data.Owner,
                     })
                     this.lastProduct=data.Name;
                     console.log(data)
                 });
             });
-        },
-        available(){
-            this.availabilityforshow = this.productavailability
-            if(this.availabilityforshow == true){
-                return this.availabilityforshow = 'Yes'
-            }
-            else return this.availabilityforshow = 'No'
         },
         AddToCart(product) {
             var itemToCart = product; // we use a new variable to save the selected products info
@@ -373,6 +370,7 @@ export default {
                 this.productdesc = data.Description;
                 this.productprice = data.Price;
                 this.productavailability = data.Availability;
+                this.availabilitydate = data.Availabilitydate;
                 this.ownerandlocation = data.Owner;
                 this.url = data.Url;
 
@@ -406,6 +404,7 @@ export default {
                         this.productdesc = data.Description;
                         this.productprice = data.Price;
                         this.productavailability = data.Availability;
+                        this.availabilitydate = data.Availabilitydate;
                         this.ownerandlocation = data.Owner;
                         this.url = data.Url;
 
@@ -415,7 +414,7 @@ export default {
                             'Description': data.Description,
                             'Price': data.Price,
                             'Availability': data.Availability,
-                            'AvailabilityForShow': this.available(),
+                            'Availabilitydate': data.Availabilitydate,
                             'OwnerAndLoc': data.Owner,
                         })
                     }

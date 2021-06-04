@@ -18,7 +18,7 @@
     <div class="dropdown-divider"></div>
     <div class="row">
 
-        <div class="col-4 PrListing">
+        <div class="col-4 PrListing"  :key="reRender">
             <div class="centered scroll">
                 <Products v-for="product in PDP" :key="product.caption" :product="product" @product-selected="setSelectedProduct" />
             </div>
@@ -30,9 +30,9 @@
 
         <div class="col-1" />
 
-        <div class="col-7 pdp" id="PopUp">
+        <div class="col-7 pdp" id="PopUp" >
             
-            <div class="form-popup">
+            <div class="form-popup" >
 
                 <div class="popup-container">
 
@@ -71,18 +71,19 @@
                         </div>
                         <br>
                         <div class="sgp-form">
-                            <label for="availability">Availability</label>
+                            <label for="availability">Is the product available?</label>
                             <input type="checkbox" v-model="productavailability" class="checkbox-availability" id="productavailability" />
                         </div>
-                        <!-- <div class="sgp-form">
+                        <div class="sgp-form" v-if="productavailability != true">
                             <label for="availabilitydate">Earliest available date:</label>
-                            <b-form-datepicker id="availabilitydate" v-model="availabilitydate" class="mb-2"></b-form-datepicker>
-                        </div> -->
+                            <input type="date" v-model="availabilitydate" class="form-control"  placeholder="mm-dd-yyyy" id="availabilitydate" />
+                        </div>
                         <br>
                 </div>
 
-                <button type="button" class="button cartbtn" @click="saveProductChanges(); postImage()"><span>Save Changes</span></button>
-                <button type="button" class="button closeBtn" style="float: right;" @click="closePopUp()"><span>Close</span></button>
+                <button type="button" class="button cartbtn" @click="saveProductChanges(); postImage();"><span>Save Changes</span></button>
+                <button type="button" class="button delBtn" @click="deleteProduct(selectedProduct.caption);"><span>Delete product</span></button>
+                <button type="button" class="button closeBtn" style="float: right;" @click="closePopUp();"><span>Close</span></button>
             </div>
         </div>
     </div>
@@ -132,7 +133,7 @@ let CategoryImages = [
 // var isPopUpOpen = true;
 export default {
     name: 'seller-page',
-    data: function() {
+    data() {
         return {
             store,
             CategoryImages,
@@ -142,7 +143,7 @@ export default {
             productname: '',
             productprice: '',
             productavailability: '',
-            // availabilitydate: '',
+            availabilitydate: '',
             productdesc: '',
             ownerandlocation: '' ,
             url: '',
@@ -153,16 +154,16 @@ export default {
                 'productname': "",
                 'productprice': "",
                 'productavailability': "",
-                // 'availabilitydate': "", 
+                'availabilitydate': "", 
                 'productdesc': "",
                 'ownerandlocation':"",
                 'url': ""},
             PDP: [],
-            //lastProduct:'',
-            // tempProduct:'',
-            // firstProduct:'',
+            lastProduct:'',
+            tempProduct:'',
+            firstProduct:'',
             isPopUpOpen: true,
-            
+            reRender: 0,
         }
     },
     mounted() {
@@ -186,7 +187,7 @@ export default {
                             'Description': data.Description,
                             'Price': data.Price,
                             'Availability' : data.Availability,
-                            // 'Availabilitydate': data.Availabilitydate,
+                            'Availabilitydate': data.Availabilitydate,
                             'OwnerAndLoc': data.Owner,
                         })
                     }
@@ -196,7 +197,7 @@ export default {
         },
         // refreshPDPs() {
 
-        //      firebase.firestore()
+        //     firebase.firestore()
         //     .collection('PRODUCTS')
         //     .orderBy("Name")
         //     .limit(1)
@@ -240,6 +241,7 @@ export default {
             this.isPopUpOpen = true;
             document.getElementById("PopUp").style.display = "none";
             // this.refreshPDPs();
+            //this.reRender += 1; // allegedly bi trebalo raditi -> https://michaelnthiessen.com/force-re-render/
         },
         setSelectedProduct(product) { //Postavlja da se sve sljedece akcije izvode na odabranom proizvodu, ako v-model kako spada
             this.isPopUpOpen = false;
@@ -259,7 +261,7 @@ export default {
                 this.productdesc = data.Description;
                 this.productprice = data.Price;
                 this.productavailability = data.Availability;
-                // this.availabilitydate = data.Availabilitydate;
+                this.availabilitydate = data.Availabilitydate;
                 this.ownerandlocation = data.Owner;
                 this.url = data.Url;
 
@@ -271,7 +273,6 @@ export default {
         OpenNewProductPopUp(product) { //  promijeniti ime, Otvara pop up za novi proizvod i brise sve iz placeholdera
         // srediti
             this.isPopUpOpen = false;
-
 
             this.selectedProduct = {};
             this.productname = '';
@@ -287,8 +288,8 @@ export default {
             document.getElementById("PopUp").style.display = "block";
         },
         saveProductChanges() { // 1. Sprema Novi Proizvod , kasnije cemo morat napravit separate fciju koja updatea samo proizvod
-            // alert(this.selectedProduct.productname);
             let user = firebase.auth().currentUser;
+
             firebase
             .firestore()
             .collection('PRODUCTS')
@@ -298,7 +299,7 @@ export default {
                 Description : this.productdesc,
                 Price : this.productprice,
                 Availability: this.productavailability,
-                // Availabilitydate: this.availabilitydate,
+                Availabilitydate: this.availabilitydate,
                 Owner : this.ownerandlocation,
                 Url: this.url,
                 CreatedBy: user.uid
@@ -310,6 +311,31 @@ export default {
               console.log("Error in saving product", error)
             });
             //this.refreshPDPs();
+        },
+        deleteProduct(product) { // brisemo proizvod
+
+            let uid = firebase.auth().currentUser.uid; // posto ne zelimo da se izbrise tudi proizvod treba nam uid usera
+
+            firebase.firestore()
+            .collection('PRODUCTS')
+            .doc(product)
+            .delete()
+            .then((query) => {
+                console.log(product);
+
+                query.forEach((doc) => {
+                    // moramo proc kroz svaki dokument u firesore-u
+                    const data = doc.data();
+                    
+                    if (data.CreatedBy == uid && 
+                        product == data.Name) {
+                        // ako se uid i ime proizvoda podudaraju sa podacima u firestoru brisemo proizvod
+                        alert("Document "+ this.productname + " successfully deleted!");
+                    }
+                });
+            }).catch((error) => {
+                console.error("Error removing document: ", error);
+            });
         },
         updateProduct() {
 
@@ -329,7 +355,7 @@ export default {
                             'Description': data.Description,
                             'Price': data.Price,
                             'Availability': data.Availability,
-                            // 'Availabilitydate': data.Availabilitydate,
+                            'Availabilitydate': data.Availabilitydate,
                             'Owner': data.ownerandlocation,
                         });
                     });
@@ -365,7 +391,7 @@ export default {
                                 Description : this.productdesc,
                                 Price : this.productprice,
                                 Availability: this.productavailability,
-                                // Availabilitydate: this.availabilitydate,
+                                Availabilitydate: this.availabilitydate,
                                 Owner : this.ownerandlocation,
                                 Url: imageUrl,
                                 CreatedBy: user.uid
@@ -512,11 +538,18 @@ export default {
 .addBtn {
     background-color: #556b2f;
 }
+.delBtn {
+    margin-left: 2%;
+}
 .button:hover { /*styiling for a hovered button*/
 	background-color:#556b2f; /*we change the colors*/
 	color: white; 
 }
 .closeBtn:hover {
+    background-color: white; 
+	color: #2d2d2d;
+}
+.delBtn:hover {
     background-color: red; 
 	color: white;
 }
@@ -560,8 +593,21 @@ export default {
 	left: -120px;
 	transition: 0.5s;
 }
-
 .closeBtn:hover span:after {
+	opacity: 1;
+	right: 0;
+}
+.delBtn:hover span {
+	padding-right: 25px;  /* how far from the right border of our button */
+}
+.delBtn span::after {
+	content: 'x'; /*those are the two lines that display*/
+	position: absolute;
+	opacity: 0;
+	top: 0;
+	transition: 0.5s;
+}
+.delBtn:hover span:after {
 	opacity: 1;
 	right: 0;
 }
@@ -569,7 +615,6 @@ export default {
 .checkbox-availability{
     position: absolute;
     margin-left: 15px;
-    margin-top: 7px;
-    
+    margin-top: 7px; 
 }
 </style>
