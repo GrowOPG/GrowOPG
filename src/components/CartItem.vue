@@ -2,21 +2,31 @@
   <div class="container">
     <div class="row">
       <div class="col-2 fa">
-        <img class="resize" :src="item.url" />
+        <img class="resize" :src="item.prUrl" />
       </div>
 
-      <div class="col-4 fa">
+      <div class="col-3 fa">
         {{ item.prName }}
       </div>
 
       <div class="col-2 fa">
-        <input type="number" class="QtyInput" max="50" />
+        Quantity:
+        {{ item.prQty }}
       </div>
 
-      <div class="col-2 fa">{{ item.prSum }} HRK</div>
+      <div class="col-2 fa">{{ item.prPrice }} HRK</div>
 
-      <div class="col-2 fa">
-        <button type="button" class="RmvBtn">Remove Item</button>
+      <div class="col-1 fa">
+        <button
+          type="button"
+          class="RmvBtn"
+          @click="
+            removeFromCart(item);
+            refreshCart();
+          "
+        >
+          Remove Item
+        </button>
       </div>
     </div>
   </div>
@@ -24,14 +34,19 @@
 
 <style scoped>
 .row {
-  border: 1px solid #2d2d2d;
+  border: 2px solid #2d2d2d;
+  border-radius: 10px;
+  height: 75px;
   border-left: 0;
+  margin-top: 2%;
 }
 .resize {
-  width: 5%;
+  width: 75%;
+  height: 75%;
 }
 .fa {
-  border: 1px solid red;
+  /* border: 1px solid red; */
+  align-self: center;
 }
 
 .QtyInput {
@@ -59,8 +74,38 @@
 </style>
 
 <script>
+import store from "../store";
+import cart from "../views/cart.vue";
+
 export default {
   name: "CartItem",
   props: ["item"],
+  data() {
+    return {};
+  },
+  methods: {
+    removeFromCart(product) {
+      console.log("selected", product.prName);
+      console.log("old array", store.cartItems);
+
+      // let's now remove the selected product from the cart
+      for (let i = 0; i < store.cartItems.length; i++) {
+        if (store.cartItems[i].Name === product.prName) {
+          var deleteName = store.cartItems[i]; // there's no difference if we use store.cartItems[i].Name since they're the same
+          var deleteIndex = store.cartItems.indexOf(deleteName); // we get the index of the selected product
+
+          console.log("index -> ", deleteIndex);
+
+          var removed = store.cartItems.splice(deleteIndex, 1); // we remove 1 item from the selected index
+
+          console.log("We removed ", removed, " from index ", deleteIndex);
+        } else console.log("NOt the same");
+      }
+      console.log("new array", store.cartItems);
+    },
+    refreshCart() {
+      // now we need to work on a method to refresh the component every time  we delete a product
+    },
+  },
 };
 </script>

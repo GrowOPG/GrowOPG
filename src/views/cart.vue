@@ -27,21 +27,21 @@
           <div class="Receipt">
             <div class="ReceiptData">
               <span class="text">Subtotal</span>
-              <span class="prices">HRK {{ subTotal }}</span>
+              <span class="prices">HRK {{ this.subTotal }}</span>
             </div>
 
             <br />
 
             <div class="ReceiptData">
               <span class="text">Delivery</span>
-              <span class="prices">HRK {{ deliveryFee }}</span>
+              <span class="prices">HRK {{ this.deliveryFee }}</span>
             </div>
 
             <div class="dropdown-divider"></div>
 
             <div class="ReceiptData">
               <span class="text">Total</span>
-              <span class="prices">HRK {{ totalCost }}</span>
+              <span class="prices">HRK {{ this.totalCost }}</span>
             </div>
 
             <div class="dropdown-divider"></div>
@@ -188,7 +188,6 @@ export default {
   },
   mounted() {
     this.getCartItems();
-    this.getTotalCost();
   },
   methods: {
     backToMain() {
@@ -201,14 +200,6 @@ export default {
         //     /*this.$router.replace({name: "main-page-buyer"}) */
       }
     },
-    getRandomInt(max) {
-      return Math.floor(Math.random() * max);
-    },
-    getTotalCost() {
-      var deliveryFee = this.getRandomInt(26);
-      console.log("subtotal", subTotal, "deliveryfee", deliveryFee);
-      totalCost = subTotal + deliveryFee;
-    },
     getCartItems() {
       // in this method we have to get the cartItems list from store.js
       var tempList;
@@ -218,25 +209,26 @@ export default {
         this.cartItemsArray.push({
           prName: tempList[i].Name,
           prUrl: tempList[i].url,
-          prSum: tempList[i].sum,
+          prPrice: tempList[i].sum,
+          prCost: tempList[i].Price,
           prQty: tempList[i].qty,
         });
+        // now let's set the subTotal which will be a sum of all the items' prices
         this.subTotal += tempList[i].sum;
-        console.log(this.subTotal);
       }
-      console.log("itemsarray", this.cartItemsArray);
-    },
-    RemoveItem(product) {
-      // will have to remove just from cartItemsArray
-      var toRemove = product;
 
-      for (var i = 0; i < this.cartItemsArray.length; i++) {
-        if (toRemove.name == cartItemsArray[i].name) {
-          var izbaci = cartItemsArray[i].pop();
+      this.deliveryFee = Math.floor(Math.random() * 25); // since we dont have a set delivery fee i think the best is to get a random number(max 25kn delivery fee)
 
-          console.log(izbaci);
-        }
-      }
+      this.totalCost = this.subTotal + this.deliveryFee;
+
+      console.log(
+        "subtotal",
+        this.subTotal,
+        "deliveryfee",
+        this.deliveryFee,
+        "totalcost",
+        this.totalCost
+      );
     },
   },
 };
