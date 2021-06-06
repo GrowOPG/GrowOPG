@@ -16,9 +16,9 @@
                             <input type="password" v-model="password" class="form-control" id="password" placeholder="Password">
                             <div v-if="password.length < 6" class="text-danger">Your password must be at least 6 characters long.</div>
                         </div>
-                        <div class="checkbox mb-3 text-center">
+                        <!-- <div class="checkbox mb-3 text-center">
                             <label><input type="checkbox" value="remember-me"> Remember me</label>
-                        </div>
+                        </div> -->
                         <div class="text-center">
                             <div v-if="kriviUser==true" class="text-danger mt-3 mb-3">Incorrect Password or Email.</div>
                             <button type="button" class="button" @click="login"><span>Submit</span></button>
