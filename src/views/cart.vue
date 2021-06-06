@@ -47,7 +47,7 @@
             <div class="dropdown-divider"></div>
 
             <div class="CheckoutBtn">
-              <button type="button" class="button">
+              <button type="button" class="button" @click="checkout()">
                 <span>Checkout</span>
               </button>
             </div>
@@ -199,6 +199,9 @@ export default {
         this.$router.push({ name: "main-page" });
         //     /*this.$router.replace({name: "main-page-buyer"}) */
       }
+    },
+    checkout() {
+      this.$router.push({name: "checkout"});
     },
     getCartItems() {
       // in this method we have to get the cartItems list from store.js
