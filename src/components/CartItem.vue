@@ -90,7 +90,7 @@ export default {
 
       // let's now remove the selected product from the cart
       for (let i = 0; i < store.cartItems.length; i++) {
-        if (store.cartItems[i].Name === product.prName) {
+        if (store.cartItems[i].Name == product.prName) {
           var deleteName = store.cartItems[i]; // there's no difference if we use store.cartItems[i].Name since they're the same
           var deleteIndex = store.cartItems.indexOf(deleteName); // we get the index of the selected product
 

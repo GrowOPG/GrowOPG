@@ -201,7 +201,7 @@ export default {
       }
     },
     checkout() {
-      this.$router.push({name: "checkout"});
+      this.$router.push({ name: "checkout" });
     },
     getCartItems() {
       // in this method we have to get the cartItems list from store.js
