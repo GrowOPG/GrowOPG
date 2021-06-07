@@ -1,7 +1,6 @@
 export default {
-    searchTerm: '',
-    currentUser: null,
-    userType: '',
-    cartItems: [],
-
+  searchTerm: "",
+  currentUser: null,
+  userType: "",
+  cartItems: [],
 };
