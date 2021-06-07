@@ -1,21 +1,7 @@
 <template>
   <div class="bg">
     <MainHeader />
-
-    <div class="row-fluid">
-      <div class="flex-container">
-        <div class="centered">
-          <CategoryFilter
-            v-for="cat in CategoryImages"
-            :key="cat.img"
-            :cat="cat"
-          />
-        </div>
-      </div>
-    </div>
-
     <div class="container">
-      <div class="dropdown-divider"></div>
       <div class="row">
         <div class="col-4 PrListing">
           <div class="centered scroll">
@@ -99,10 +85,7 @@
               type="button"
               class="button closeBtn"
               style="float: right;"
-              @click="
-                closePopUp();
-                getSumPrice(selectedProduct.productprice);
-              "
+              @click="closePopUp()"
             >
               <span>Close</span>
             </button>
@@ -265,37 +248,12 @@ import MainHeader from "../components/Main-Header";
 import Footer from "../components/Footer";
 import CategoryFilter from "../components/Category-Filter";
 import Products from "../components/Products";
-
-// firebase.auth().onAuthStateChanged((user) => {
-//   if (user) {
-//     // User is signed in.
-//     store.currentUser = user.email;
-//   }
-//   else {
-//     // User is not signed in
-//     store.currentUser = null;
-//     // if the user is not signed in and is not on our 'Home' he will be redirected there
-//     if (router.name !== "home"){
-//         router.push({name:'home'})
-//     }
-//   }
-// });
-
-let CategoryImages = [
-  { img: "https://i.imgur.com/DZMlcsS.png", caption: "Cheese" },
-  { img: "https://i.imgur.com/c06zXhX.png", caption: "Eggs" },
-  { img: "https://i.imgur.com/q4cOSdh.png", caption: "Fruit" },
-  { img: "https://i.imgur.com/JP7zwv0.png", caption: "Honey" },
-  { img: "https://i.imgur.com/8e5N4x2.png", caption: "Olive Oil" },
-  { img: "https://i.imgur.com/d2BUVSk.png", caption: "Vegetables" },
-  { img: "https://i.imgur.com/qRQuc3U.png", caption: "Wine" },
-];
+import FilteredArray from "../components/Main-Header.vue";
 
 export default {
-  name: "main-page",
+  name: "mainpage",
   data() {
     return {
-      CategoryImages,
       Products,
       selectedProduct: {
         imageReference1: "",
@@ -312,11 +270,15 @@ export default {
       },
       PDP: [],
       lastProduct: "",
+      PrSearchArray: [],
+      searching: "0",
+      store,
     };
   },
   mounted() {
     this.getPDPs();
   },
+
   methods: {
     getPDPs() {
       firebase
@@ -348,6 +310,7 @@ export default {
               OwnerAndLoc: data.Owner,
             });
             this.lastProduct = data.Name;
+            var searching = 0;
             console.log(data);
           });
         });
@@ -450,7 +413,7 @@ export default {
   components: {
     MainHeader,
     Footer,
-    CategoryFilter,
+
     Products,
   },
 };
