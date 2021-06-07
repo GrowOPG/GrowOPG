@@ -8,7 +8,7 @@
           <div class="centered scroll">
             <Products
               v-for="product in PDP"
-              :key="product.caption"
+              :key="product.Name"
               :product="product"
               @product-selected="setSelectedProduct"
             />
@@ -143,7 +143,7 @@
             <button
               type="button"
               class="button delBtn"
-              @click="deleteProduct(selectedProduct.caption)"
+              @click="deleteProduct(selectedProduct.Name)"
             >
               <span>Delete product</span>
             </button>
@@ -227,7 +227,7 @@ export default {
             if (data.CreatedBy == uid) {
               this.PDP.push({
                 url: data.Url,
-                caption: data.Name,
+                Name: data.Name,
                 Description: data.Description,
                 Price: data.Price,
                 Availability: data.Availability,
@@ -297,7 +297,7 @@ export default {
       firebase
         .firestore()
         .collection("PRODUCTS")
-        .doc(this.selectedProduct.caption)
+        .doc(this.selectedProduct.Name)
         .get()
         .then((doc) => {
           const data = doc.data();
