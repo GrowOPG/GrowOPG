@@ -246,7 +246,6 @@ import app from "@/App";
 import store from "@/store";
 import MainHeader from "../components/Main-Header";
 import Footer from "../components/Footer";
-import CategoryFilter from "../components/Category-Filter";
 import Products from "../components/Products";
 import FilteredArray from "../components/Main-Header.vue";
 
