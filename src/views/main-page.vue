@@ -105,9 +105,6 @@
   margin-top: 20px;
   margin-left: 100px;
 }
-.ProductName {
-  text-align: center;
-}
 
 .carousel-image {
   width: 50%;
