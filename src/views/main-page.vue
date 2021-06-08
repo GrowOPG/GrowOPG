@@ -60,18 +60,19 @@
 
                   <p>
                     <strong>Available:</strong>
-                    {{ this.selectedProduct.productavailability }}
+                    {{ this.selectedProduct.Availability }}
                   </p>
 
-                  <p v-if="this.selectedProduct.productavailability != true">
+                  <p v-if="this.selectedProduct.Availability != 'Yes'">
                     <strong>Earliest available date:</strong>
-                    {{ this.selectedProduct.availabilitydate }}
+                    {{ this.selectedProduct.Availabilitydate }}
                   </p>
                 </div>
               </div>
             </div>
 
             <button
+              v-if="this.selectedProduct.Availability != 'No'"
               type="button"
               class="button"
               @click="
@@ -81,6 +82,7 @@
             >
               <span>Add To Cart</span>
             </button>
+
             <button
               type="button"
               class="button closeBtn"
@@ -259,8 +261,8 @@ export default {
         imageReference2: "",
         productname: "",
         productprice: "",
-        availabilitydate: "",
-        productavailability: "",
+        availabilitydate: null,
+        productavailability: null,
         productdesc: "",
         ownerandlocation: "",
         url: "",
@@ -299,12 +301,19 @@ export default {
             this.ownerandlocation = data.Owner;
             this.url = data.Url;
 
+            var available = data.Availability; // we need this so we can display yes/no and not true/false
+            // alert(available);
+            if (available != false) {
+              available = "Yes";
+            } else available = "No";
+            // alert(available);
+
             this.PDP.push({
               url: data.Url,
               Name: data.Name,
               Description: data.Description,
               Price: data.Price,
-              Availability: data.Availability,
+              Availability: available,
               Availabilitydate: data.Availabilitydate,
               OwnerAndLoc: data.Owner,
             });
