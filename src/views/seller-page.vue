@@ -134,8 +134,8 @@
               type="button"
               class="button cartbtn"
               @click="
-                saveProductChanges();
-                postImage();
+                checkProduct();
+                decideMethod();
               "
             >
               <span>Save Changes</span>
@@ -151,7 +151,7 @@
               type="button"
               class="button closeBtn"
               style="float: right;"
-              @click="closePopUp()"
+              @click="closePopUp();"
             >
               <span>Close</span>
             </button>
@@ -179,7 +179,8 @@ export default {
   data() {
     return {
       store,
-
+      namecount:'',
+      isExisting:true,
       Products,
       imageReference1: null,
       imageReference2: null,
@@ -206,11 +207,13 @@ export default {
       lastProduct: "",
       tempProduct: "",
       firstProduct: "",
+      newProd:"",
       isPopUpOpen: true,
       reRender: 0,
     };
   },
   mounted() {
+    this.namecount=0;
     this.getPDPs();
     this.getImages();
   },
@@ -234,53 +237,47 @@ export default {
                 Availabilitydate: data.Availabilitydate,
                 OwnerAndLoc: data.Owner,
               });
+              this.lastProduct=data.Name;
             }
             console.log(data);
           });
         });
     },
-    // refreshPDPs() {
-
-    //     firebase.firestore()
-    //     .collection('PRODUCTS')
-    //     .orderBy("Name")
-    //     .limit(1)
-    //     .get()
-    //     .then((query) => {
-    //         query.forEach((doc) => {
-
-    //             const data = doc.data();
-    //             this.firstProduct=data.Name;
-    //             //alert(this.firstProduct);
-
-    //         });
-    //     });
-    //     firebase.firestore()
-    //     .collection('PRODUCTS')
-    //     .orderBy("Name")
-    //     .startAt(this.firstProduct)
-    //     .limit(5)
-    //     .get()
-    //     .then((query) => {
-    //         query.forEach((doc) => {
-
-    //             const data = doc.data();
-    //             this.tempProduct=data.Name;
-    //             //alert(this.tempProduct);
-    //             if(data.Name != this.tempProduct){
-    //                 this.PDP.push({
-    //                     'url': data.Url,
-    //                     'caption': data.Name,
-    //                     'Description': data.Description,
-    //                     'Price': data.Price,
-    //                     'OwnerAndLoc': data.Owner,
-    //                 })
-    //             }
-    //            // this.tempProduct=data.Name;
-    //             console.log(data)
-    //         });
-    //     });
-    // },
+    checkProduct(){
+      this.newProd=this.productname;
+      let uid = firebase.auth().currentUser.uid;
+      firebase
+        .firestore()
+        .collection("PRODUCTS")
+        .orderBy("Name")
+        .get()
+        .then((query) => {
+          query.forEach((doc) => {
+            const data = doc.data();
+              if (data.CreatedBy == uid && data.Name==this.newProd) {
+               
+                this.isExisting=true;
+                // alert('aaa')
+              }
+              else this.isExisting=false;
+          });
+        });
+    },
+    decideMethod(){
+      if(this.isExisting==false){
+        this.saveProductChanges();
+         this.getImages()
+        this.postImage();
+         this.getImages()
+        // alert('proizvod ne postoji');
+        }
+    else{
+          // alert('proizvod postoji');
+          this.updateProduct();
+          this.getImages()
+          this.postImage();
+        }
+    },
     closePopUp() {
       this.isPopUpOpen = true;
       document.getElementById("PopUp").style.display = "none";
@@ -331,6 +328,7 @@ export default {
       this.imageReference1.remove();
       this.imageReference2.remove();
       document.getElementById("PopUp").style.display = "block";
+      this.isExisting=false;
     },
     saveProductChanges() {
       // 1. Sprema Novi Proizvod , kasnije cemo morat napravit separate fciju koja updatea samo proizvod
@@ -355,6 +353,40 @@ export default {
         )
         .then(() => {
           alert(`Product ${this.productname} added`);
+          this.newProd=this.productname;
+          this.updateProductList();
+        })
+        .catch((error) => {
+          console.log("Error in saving product", error);
+        });
+      //this.refreshPDPs();
+    },
+    updateProduct() {
+      // 1. Updatea Proizvod info
+      let user = firebase.auth().currentUser;
+
+      firebase
+        .firestore()
+        .collection("PRODUCTS")
+        .doc(this.productname) //Otvara lokaciju u firestoreu gdje ce se odviti spremanje novih info za taj product
+        .set(
+          {
+            Name: this.productname,
+            Description: this.productdesc,
+            Price: this.productprice,
+            Availability: this.productavailability,
+            Availabilitydate: this.availabilitydate,
+            Owner: this.ownerandlocation,
+            Url: this.url,
+            CreatedBy: user.uid,
+          },
+          { merge: true }
+        )
+        .then(() => {
+          alert(`Product ${this.productname} updated`);
+          this.newProd=this.productname;
+          this.isExisting=true;
+          // this.updateProductListforExisting();
         })
         .catch((error) => {
           console.log("Error in saving product", error);
@@ -388,7 +420,74 @@ export default {
           console.error("Error removing document: ", error);
         });
     },
-    updateProduct() {},
+    updateProductList() {
+      let uid = firebase.auth().currentUser.uid;
+      // alert('does the product exist?' + this.isExisting);
+      firebase
+        .firestore()
+        .collection("PRODUCTS")
+        .orderBy("Name")
+        // .startAt(this.lastProduct)
+        .get()
+        .then((query) => {
+          query.forEach((doc) => {
+            const data = doc.data();
+            //  if(data.Name==this.newProd){ 
+              // if(data.CreatedBy == uid && data.Name==this.newProd){
+              //   this.namecount++;
+              // }
+              if (data.CreatedBy == uid && data.Name==this.newProd) {
+               
+                this.PDP.push({
+                  url: data.Url,
+                  Name: data.Name,
+                  Description: data.Description,
+                  Price: data.Price,
+                  Availability: data.Availability,
+                  Availabilitydate: data.Availabilitydate,
+                  OwnerAndLoc: data.Owner,
+                });
+                this.lastProduct=data.Name;
+              }
+            console.log(data);
+            //  }
+          });
+        });
+    },
+    // updateProductListforExisting(){
+    //   let uid = firebase.auth().currentUser.uid;
+    //   // alert('does the product exist?' + this.isExisting);
+    //   firebase
+    //     .firestore()
+    //     .collection("PRODUCTS")
+    //     .orderBy("Name")
+    //     // .startAt(this.lastProduct)
+    //     .get()
+    //     .then((query) => {
+    //       query.forEach((doc) => {
+    //         const data = doc.data();
+    //         //  if(data.Name==this.newProd){ 
+    //           // if(data.CreatedBy == uid && data.Name==this.newProd){
+    //           //   this.namecount++;
+    //           // }
+    //           if (data.CreatedBy == uid && data.Name==this.newProd) {
+               
+    //             this.PDP.push({
+    //               url: data.Url,
+    //               Name: data.Name,
+    //               Description: data.Description,
+    //               Price: data.Price,
+    //               Availability: data.Availability,
+    //               Availabilitydate: data.Availabilitydate,
+    //               OwnerAndLoc: data.Owner,
+    //             });
+    //             this.lastProduct=data.Name;
+    //           }
+    //         console.log(data);
+    //         //  }
+    //       });
+    //     });
+    // },
     getImages() {
       // povlaci url slika koje su vec unesene na stranicu - kako bi se prikazale, mozda nepotrebna
       firebase
@@ -601,6 +700,7 @@ export default {
 }
 .delBtn {
   margin-left: 2%;
+  margin-bottom: 30px;
 }
 .button:hover {
   /*styiling for a hovered button*/

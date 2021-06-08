@@ -1,7 +1,7 @@
 <template>
   <!-- found this footer on Bootstrap -->
   <div class="mt-5 pt-5 pb-2 footer">
-    <div class="container">
+    <div class="container-fluid">
       <div class="row">
         <div class="about-company col-lg-5 col-xs-12 text-left">
           <h2>GrowOPG</h2>
@@ -89,6 +89,8 @@ li a {
 .footer {
   background: #2d2d2d;
   color: white;
+  padding-left: 50px;
+  padding-right: 50px;
 }
 .links {
   ul {
