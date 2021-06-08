@@ -269,7 +269,6 @@ export default {
       PDP: [],
       lastProduct: "",
       PrSearchArray: [],
-      searching: "0",
       store,
     };
   },
@@ -315,7 +314,6 @@ export default {
               OwnerAndLoc: data.Owner,
             });
             this.lastProduct = data.Name;
-            var searching = 0;
             console.log(data);
           });
         });
@@ -399,12 +397,19 @@ export default {
               this.ownerandlocation = data.Owner;
               this.url = data.Url;
 
+              var available = data.Availability; // we need this so we can display yes/no and not true/false
+              // alert(available);
+              if (available != false) {
+                available = "Yes";
+              } else available = "No";
+              // alert(available);
+
               this.PDP.push({
                 url: data.Url,
                 Name: data.Name,
                 Description: data.Description,
                 Price: data.Price,
-                Availability: data.Availability,
+                Availability: available,
                 Availabilitydate: data.Availabilitydate,
                 OwnerAndLoc: data.Owner,
               });
