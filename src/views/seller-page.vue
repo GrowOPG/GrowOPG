@@ -151,7 +151,7 @@
               type="button"
               class="button closeBtn"
               style="float: right;"
-              @click="closePopUp();"
+              @click="closePopUp()"
             >
               <span>Close</span>
             </button>
@@ -179,8 +179,8 @@ export default {
   data() {
     return {
       store,
-      namecount:'',
-      isExisting:true,
+      namecount: "",
+      isExisting: true,
       Products,
       imageReference1: null,
       imageReference2: null,
@@ -207,18 +207,19 @@ export default {
       lastProduct: "",
       tempProduct: "",
       firstProduct: "",
-      newProd:"",
+      newProd: "",
       isPopUpOpen: true,
       reRender: 0,
     };
   },
   mounted() {
-    this.namecount=0;
+    this.namecount = 0;
     this.getPDPs();
     this.getImages();
   },
   methods: {
     getPDPs() {
+      this.PDP = [];
       let uid = firebase.auth().currentUser.uid;
       firebase
         .firestore()
@@ -237,14 +238,14 @@ export default {
                 Availabilitydate: data.Availabilitydate,
                 OwnerAndLoc: data.Owner,
               });
-              this.lastProduct=data.Name;
+              this.lastProduct = data.Name;
             }
             console.log(data);
           });
         });
     },
-    checkProduct(){
-      this.newProd=this.productname;
+    checkProduct() {
+      this.newProd = this.productname;
       let uid = firebase.auth().currentUser.uid;
       firebase
         .firestore()
@@ -254,35 +255,31 @@ export default {
         .then((query) => {
           query.forEach((doc) => {
             const data = doc.data();
-              if (data.CreatedBy == uid && data.Name==this.newProd) {
-               
-                this.isExisting=true;
-                // alert('aaa')
-              }
-              else this.isExisting=false;
+            if (data.CreatedBy == uid && data.Name == this.newProd) {
+              this.isExisting = true;
+              // alert('aaa')
+            } else this.isExisting = false;
           });
         });
     },
-    decideMethod(){
-      if(this.isExisting==false){
+    decideMethod() {
+      if (this.isExisting == false) {
         this.saveProductChanges();
-         this.getImages()
+        this.getImages();
         this.postImage();
-         this.getImages()
-        // alert('proizvod ne postoji');
-        }
-    else{
-          // alert('proizvod postoji');
-          this.updateProduct();
-          this.getImages()
-          this.postImage();
-        }
+        this.getImages();
+        // alert("proizvod ne postoji");
+      } else {
+        // alert("proizvod postoji");
+        this.updateProduct();
+        this.getImages();
+        this.postImage();
+      }
     },
     closePopUp() {
       this.isPopUpOpen = true;
       document.getElementById("PopUp").style.display = "none";
-      // this.refreshPDPs();
-      //this.reRender += 1; // allegedly bi trebalo raditi -> https://michaelnthiessen.com/force-re-render/
+      this.getPDPs(); // ovdje moramo isto refreshati jer update ne dohvati
     },
     setSelectedProduct(product) {
       //Postavlja da se sve sljedece akcije izvode na odabranom proizvodu, ako v-model kako spada
@@ -328,7 +325,7 @@ export default {
       this.imageReference1.remove();
       this.imageReference2.remove();
       document.getElementById("PopUp").style.display = "block";
-      this.isExisting=false;
+      this.isExisting = false;
     },
     saveProductChanges() {
       // 1. Sprema Novi Proizvod , kasnije cemo morat napravit separate fciju koja updatea samo proizvod
@@ -353,49 +350,47 @@ export default {
         )
         .then(() => {
           alert(`Product ${this.productname} added`);
-          this.newProd=this.productname;
-          this.updateProductList();
+          this.newProd = this.productname;
         })
         .catch((error) => {
           console.log("Error in saving product", error);
         });
-      //this.refreshPDPs();
+      this.getPDPs();
     },
     updateProduct() {
       // 1. Updatea Proizvod info
-      let user = firebase.auth().currentUser;
-
-      firebase
-        .firestore()
-        .collection("PRODUCTS")
-        .doc(this.productname) //Otvara lokaciju u firestoreu gdje ce se odviti spremanje novih info za taj product
-        .set(
-          {
-            Name: this.productname,
-            Description: this.productdesc,
-            Price: this.productprice,
-            Availability: this.productavailability,
-            Availabilitydate: this.availabilitydate,
-            Owner: this.ownerandlocation,
-            Url: this.url,
-            CreatedBy: user.uid,
-          },
-          { merge: true }
-        )
-        .then(() => {
-          alert(`Product ${this.productname} updated`);
-          this.newProd=this.productname;
-          this.isExisting=true;
-          // this.updateProductListforExisting();
-        })
-        .catch((error) => {
-          console.log("Error in saving product", error);
-        });
+      // let user = firebase.auth().currentUser;
+      this.getPDPs();
+      // firebase
+      //   .firestore()
+      //   .collection("PRODUCTS")
+      //   .doc(this.productname) //Otvara lokaciju u firestoreu gdje ce se odviti spremanje novih info za taj product
+      //   .set(
+      //     {
+      //       Name: this.productname,
+      //       Description: this.productdesc,
+      //       Price: this.productprice,
+      //       Availability: this.productavailability,
+      //       Availabilitydate: this.availabilitydate,
+      //       Owner: this.ownerandlocation,
+      //       Url: this.url,
+      //       CreatedBy: user.uid,
+      //     },
+      //     { merge: true }
+      //   )
+      //   .then(() => {
+      //     alert(`Product ${this.productname} updated`);
+      //     this.newProd = this.productname;
+      //     this.isExisting = true;
+      //     // this.updateProductListforExisting();
+      //   })
+      //   .catch((error) => {
+      //     console.log("Error in saving product", error);
+      //   });
       //this.refreshPDPs();
     },
     deleteProduct(product) {
       // brisemo proizvod
-
       let uid = firebase.auth().currentUser.uid; // posto ne zelimo da se izbrise tudi proizvod treba nam uid usera
 
       firebase
@@ -419,6 +414,8 @@ export default {
         .catch((error) => {
           console.error("Error removing document: ", error);
         });
+
+      this.getPDPs();
     },
     updateProductList() {
       let uid = firebase.auth().currentUser.uid;
@@ -432,23 +429,22 @@ export default {
         .then((query) => {
           query.forEach((doc) => {
             const data = doc.data();
-            //  if(data.Name==this.newProd){ 
-              // if(data.CreatedBy == uid && data.Name==this.newProd){
-              //   this.namecount++;
-              // }
-              if (data.CreatedBy == uid && data.Name==this.newProd) {
-               
-                this.PDP.push({
-                  url: data.Url,
-                  Name: data.Name,
-                  Description: data.Description,
-                  Price: data.Price,
-                  Availability: data.Availability,
-                  Availabilitydate: data.Availabilitydate,
-                  OwnerAndLoc: data.Owner,
-                });
-                this.lastProduct=data.Name;
-              }
+            //  if(data.Name==this.newProd){
+            // if(data.CreatedBy == uid && data.Name==this.newProd){
+            //   this.namecount++;
+            // }
+            if (data.CreatedBy == uid && data.Name == this.newProd) {
+              this.PDP.push({
+                url: data.Url,
+                Name: data.Name,
+                Description: data.Description,
+                Price: data.Price,
+                Availability: data.Availability,
+                Availabilitydate: data.Availabilitydate,
+                OwnerAndLoc: data.Owner,
+              });
+              this.lastProduct = data.Name;
+            }
             console.log(data);
             //  }
           });
@@ -466,12 +462,12 @@ export default {
     //     .then((query) => {
     //       query.forEach((doc) => {
     //         const data = doc.data();
-    //         //  if(data.Name==this.newProd){ 
+    //         //  if(data.Name==this.newProd){
     //           // if(data.CreatedBy == uid && data.Name==this.newProd){
     //           //   this.namecount++;
     //           // }
     //           if (data.CreatedBy == uid && data.Name==this.newProd) {
-               
+
     //             this.PDP.push({
     //               url: data.Url,
     //               Name: data.Name,
@@ -570,40 +566,6 @@ export default {
           });
       });
     },
-    // showMore(){
-    //     let uid = firebase.auth().currentUser.uid;
-    //     firebase.firestore()
-    //     .collection('PRODUCTS')
-    //     .orderBy("Name")
-    //     .startAt(this.lastProduct)
-    //     .limit(5)
-    //     .get()
-    //     .then((query) => {
-    //         query.forEach((doc) => {
-
-    //             const data = doc.data();
-
-    //             if(data.Name != this.lastProduct && data.CreatedBy == uid){
-    //                 this.selectedProduct = data.Name;
-    //                 this.productname = data.Name;
-    //                 this.productdesc = data.Description;
-    //                 this.productprice = data.Price;
-    //                 this.ownerandlocation = data.Owner;
-    //                 this.url = data.Url;
-
-    //                 this.PDP.push({
-    //                     'url': data.Url,
-    //                     'caption': data.Name,
-    //                     'Description': data.Description,
-    //                     'Price': data.Price,
-    //                     'OwnerAndLoc': data.Owner,
-    //                 })
-    //             }
-    //             this.lastProduct=data.Name;
-    //             console.log(data)
-    //         });
-    //     });
-    // },
   },
   components: {
     MainHeader,
