@@ -177,6 +177,8 @@
 
   transition: all 0.5s; /*the transition to span lasts 0.5s*/
   cursor: pointer; /*sets our pointer as cursor to activate hover*/
+  margin-bottom: 30px;
+
 }
 .addbutton {
   width: 250px;

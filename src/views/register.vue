@@ -1,5 +1,5 @@
 <template>
-  <body class="d-flex flex-column min-vh-100">
+  <body class="flex-column">
     <div class="bg">
       <div class="signup">
         <div class="container">
