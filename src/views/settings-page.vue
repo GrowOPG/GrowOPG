@@ -2,361 +2,368 @@
   <div class="bg">
     <div class="container-fluid">
       <MainHeader />
-      <div>
-        <img
-          :src="require('@/assets/back.svg')"
-          class="backButton"
-          @click="backToMain()"
-        />
-        <p class="backButtonText" @click="backToMain()">Back to Main page</p>
-      </div>
-      <div class="row gutters-sm">
-        <div class="col-md-1" />
-        <div class="col-md-3 d-none d-md-block">
-          <div class="card">
-            <div class="card-body">
-              <nav class="nav flex-column nav-pills nav-gap-y-1">
-                <a
-                  href="#profile"
-                  data-toggle="tab"
-                  class="nav-item nav-link has-icon nav-link-faded active"
-                >
-                  Personal Information
-                </a>
-                <a
-                  href="#security"
-                  data-toggle="tab"
-                  class="nav-item nav-link has-icon nav-link-faded"
-                >
-                  Security
-                </a>
-                <a
-                  href="#UserType"
-                  data-toggle="tab"
-                  class="nav-item nav-link has-icon nav-link-faded"
-                >
-                  User Type
-                </a>
-                <a
-                  href="#account"
-                  data-toggle="tab"
-                  class="nav-item nav-link has-icon nav-link-faded"
-                >
-                  Delete Account
-                </a>
-              </nav>
-            </div>
-          </div>
+      <div class="section">
+        <div>
+          <img
+            :src="require('@/assets/back.svg')"
+            class="backButton"
+            @click="backToMain()"
+          />
+          <p class="backButtonText" @click="backToMain()">Back to Main page</p>
         </div>
-        <div class="col-md-7">
-          <div class="card">
-            <div class="card-header border-bottom mb-3 d-flex d-md-none">
-              <ul
-                class="nav nav-tabs card-header-tabs nav-gap-x-1"
-                role="tablist"
-              >
-                <li class="nav-item">
+        <div class="row gutters-sm">
+          <div class="col-md-1" />
+          <div class="col-md-3 d-none d-md-block">
+            <div class="card">
+              <div class="card-body">
+                <nav class="nav flex-column nav-pills nav-gap-y-1">
                   <a
                     href="#profile"
                     data-toggle="tab"
-                    class="nav-link has-icon active"
-                    ><svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="feather feather-user"
-                    >
-                      <path
-                        d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"
-                      ></path>
-                      <circle cx="12" cy="7" r="4"></circle></svg
-                  ></a>
-                </li>
-                <li class="nav-item">
-                  <a href="#account" data-toggle="tab" class="nav-link has-icon"
-                    ><svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="feather feather-settings"
-                    >
-                      <circle cx="12" cy="12" r="3"></circle>
-                      <path
-                        d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"
-                      ></path></svg
-                  ></a>
-                </li>
-                <li class="nav-item">
+                    class="nav-item nav-link has-icon nav-link-faded active"
+                  >
+                    Personal Information
+                  </a>
                   <a
                     href="#security"
                     data-toggle="tab"
-                    class="nav-link has-icon"
-                    ><svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="feather feather-shield"
-                    >
-                      <path
-                        d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"
-                      ></path></svg
-                  ></a>
-                </li>
-                <li class="nav-item">
+                    class="nav-item nav-link has-icon nav-link-faded"
+                  >
+                    Security
+                  </a>
                   <a
                     href="#UserType"
                     data-toggle="tab"
-                    class="nav-link has-icon"
-                    ><svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="feather feather-shield"
-                    >
-                      <path
-                        d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"
-                      ></path></svg
-                  ></a>
-                </li>
-              </ul>
-            </div>
-            <div class="card-body tab-content">
-              <div class="tab-pane active" id="profile">
-                <h6>CHANGE YOUR PERSONAL INFORMATION</h6>
-                <hr />
-                <form>
-                  <div class="form-group">
-                    <label for="fullName">Full Name</label>
-                    <input
-                      type="text"
-                      v-model="fullname"
-                      class="form-control"
-                      id="fullName"
-                      aria-describedby="fullNameHelp"
-                      required
-                      placeholder="eg. John Doe"
-                    />
-                    <!-- <div class="form-group small text-muted">Current: {{oldname}}</div> -->
-                  </div>
-                  <div class="form-group">
-                    <label for="email">Email</label>
-                    <input
-                      type="email"
-                      v-model="email"
-                      class="form-control"
-                      id="mail"
-                      required
-                      aria-describedby="emailHelp"
-                      placeholder="eg. tommylee@gmail.com"
-                    />
-                    <!-- <div class="form-group small text-muted">Current: {{oldmail}}</div> -->
-                  </div>
-                  <div v-if="store.userType == 'Seller'" class="form-group">
-                    <label for="OPGName">OPG Name</label>
-                    <input
-                      type="text"
-                      v-model="opgname"
-                      class="form-control"
-                      id="opgname"
-                      required
-                      placeholder="OPG Name"
-                    />
-                  </div>
-                  <div class="form-group">
-                    <label for="location">Adress</label>
-                    <input
-                      type="text"
-                      v-model="adress"
-                      class="form-control"
-                      id="adress"
-                      required
-                      placeholder="eg. Jeretova 46"
-                    />
-                    <!-- <div class="form-group small text-muted">Current: {{oldadress}}</div> -->
-                  </div>
-                  <div class="form-group">
-                    <label for="location">City</label>
-                    <input
-                      type="text"
-                      v-model="city"
-                      class="form-control"
-                      id="city"
-                      required
-                      placeholder="eg. Pula"
-                    />
-                    <!-- <div class="form-group small text-muted">Current: {{oldcity}}</div> -->
-                  </div>
-                  <div class="form-group">
-                    <label for="location">Zip Code</label>
-                    <input
-                      type="text"
-                      v-model="zip"
-                      class="form-control"
-                      id="zip"
-                      required
-                      placeholder="eg. 52100"
-                    />
-                    <!-- <div class="form-group small text-muted">Current: {{oldzip}}</div> -->
-                  </div>
-                  <div class="form-group">
-                    <label for="DoB" class="input">Date of birth</label>
-                    <input
-                      type="date"
-                      v-model="DoB"
-                      class="form-control"
-                      placeholder="mm-dd-yyyy"
-                      id="DoB"
-                    />
-                    <!-- <div class="form-group small text-muted">Current: {{oldDoB}}</div> -->
-                  </div>
-                  <!-- <div class="form-group small text-muted"></div> -->
-                  <button
-                    type="button"
-                    class="btn btn-primary"
-                    @click="saveNewUserInfo()"
+                    class="nav-item nav-link has-icon nav-link-faded"
                   >
-                    Update Profile
-                  </button>
-                  <button
-                    type="reset"
-                    class="btn btn-light"
-                    @click="resetUserInfo()"
-                  >
-                    Reset Changes
-                  </button>
-                </form>
-              </div>
-              <div class="tab-pane" id="account">
-                <h6>ACCOUNT DELETION</h6>
-                <form>
-                  <hr />
-                  <div class="form-group">
-                    <label class="d-block text-danger">Deleting Account:</label>
-                    <p class="text-muted font-size-sm">
-                      Once you delete your account, there is no going back.
-                      Please be certain before clicking the button.
-                    </p>
-                  </div>
-                  <br />
-                  <button
-                    class="btn btn-danger"
-                    type="button"
-                    @click="deleteUser()"
+                    User Type
+                  </a>
+                  <a
+                    href="#account"
+                    data-toggle="tab"
+                    class="nav-item nav-link has-icon nav-link-faded"
                   >
                     Delete Account
-                  </button>
-                </form>
+                  </a>
+                </nav>
               </div>
-              <div class="tab-pane" id="security">
-                <h6>CHANGE PASSWORD</h6>
-                <hr />
-                <form>
-                  <div class="form-group">
-                    <!-- <label class="d-block text-danger">Change Password</label> -->
-                    <label for="password">Old password</label>
-                    <input
-                      type="password"
-                      v-model="password"
-                      class="form-control mt-1"
-                      id="password"
-                      required
-                      placeholder="Enter your old password"
-                    />
-                  </div>
-                  <div class="form-group">
-                    <label for="password">NEW password</label>
-                    <input
-                      type="password"
-                      v-model="newpassword"
-                      class="form-control mt-1"
-                      id="newpassword"
-                      required
-                      placeholder="New password"
-                    />
-                    <div v-if="newpassword.length < 6" class="text-danger">
-                      Your password must be at least 6 characters long.
+            </div>
+          </div>
+          <div class="col-md-7">
+            <div class="card">
+              <div class="card-header border-bottom mb-3 d-flex d-md-none">
+                <ul
+                  class="nav nav-tabs card-header-tabs nav-gap-x-1"
+                  role="tablist"
+                >
+                  <li class="nav-item">
+                    <a
+                      href="#profile"
+                      data-toggle="tab"
+                      class="nav-link has-icon active"
+                      ><svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="feather feather-user"
+                      >
+                        <path
+                          d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"
+                        ></path>
+                        <circle cx="12" cy="7" r="4"></circle></svg
+                    ></a>
+                  </li>
+                  <li class="nav-item">
+                    <a
+                      href="#account"
+                      data-toggle="tab"
+                      class="nav-link has-icon"
+                      ><svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="feather feather-settings"
+                      >
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path
+                          d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"
+                        ></path></svg
+                    ></a>
+                  </li>
+                  <li class="nav-item">
+                    <a
+                      href="#security"
+                      data-toggle="tab"
+                      class="nav-link has-icon"
+                      ><svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="feather feather-shield"
+                      >
+                        <path
+                          d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"
+                        ></path></svg
+                    ></a>
+                  </li>
+                  <li class="nav-item">
+                    <a
+                      href="#UserType"
+                      data-toggle="tab"
+                      class="nav-link has-icon"
+                      ><svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="feather feather-shield"
+                      >
+                        <path
+                          d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"
+                        ></path></svg
+                    ></a>
+                  </li>
+                </ul>
+              </div>
+              <div class="card-body tab-content">
+                <div class="tab-pane active" id="profile">
+                  <h6>CHANGE YOUR PERSONAL INFORMATION</h6>
+                  <hr />
+                  <form>
+                    <div class="form-group">
+                      <label for="fullName">Full Name</label>
+                      <input
+                        type="text"
+                        v-model="fullname"
+                        class="form-control"
+                        id="fullName"
+                        aria-describedby="fullNameHelp"
+                        required
+                        placeholder="eg. John Doe"
+                      />
+                      <!-- <div class="form-group small text-muted">Current: {{oldname}}</div> -->
                     </div>
-                  </div>
-                  <div class="form-group">
-                    <input
-                      type="password"
-                      v-model="newpasswordrepeat"
-                      class="form-control mt-1"
-                      id="newpasswordrepeat"
-                      required
-                      placeholder="Confirm new password"
-                    />
-                    <div
-                      v-if="newpassword != newpasswordrepeat"
-                      class="text-danger"
+                    <div class="form-group">
+                      <label for="email">Email</label>
+                      <input
+                        type="email"
+                        v-model="email"
+                        class="form-control"
+                        id="mail"
+                        required
+                        aria-describedby="emailHelp"
+                        placeholder="eg. tommylee@gmail.com"
+                      />
+                      <!-- <div class="form-group small text-muted">Current: {{oldmail}}</div> -->
+                    </div>
+                    <div v-if="store.userType == 'Seller'" class="form-group">
+                      <label for="OPGName">OPG Name</label>
+                      <input
+                        type="text"
+                        v-model="opgname"
+                        class="form-control"
+                        id="opgname"
+                        required
+                        placeholder="OPG Name"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label for="location">Adress</label>
+                      <input
+                        type="text"
+                        v-model="adress"
+                        class="form-control"
+                        id="adress"
+                        required
+                        placeholder="eg. Jeretova 46"
+                      />
+                      <!-- <div class="form-group small text-muted">Current: {{oldadress}}</div> -->
+                    </div>
+                    <div class="form-group">
+                      <label for="location">City</label>
+                      <input
+                        type="text"
+                        v-model="city"
+                        class="form-control"
+                        id="city"
+                        required
+                        placeholder="eg. Pula"
+                      />
+                      <!-- <div class="form-group small text-muted">Current: {{oldcity}}</div> -->
+                    </div>
+                    <div class="form-group">
+                      <label for="location">Zip Code</label>
+                      <input
+                        type="text"
+                        v-model="zip"
+                        class="form-control"
+                        id="zip"
+                        required
+                        placeholder="eg. 52100"
+                      />
+                      <!-- <div class="form-group small text-muted">Current: {{oldzip}}</div> -->
+                    </div>
+                    <div class="form-group">
+                      <label for="DoB" class="input">Date of birth</label>
+                      <input
+                        type="date"
+                        v-model="DoB"
+                        class="form-control"
+                        placeholder="mm-dd-yyyy"
+                        id="DoB"
+                      />
+                      <!-- <div class="form-group small text-muted">Current: {{oldDoB}}</div> -->
+                    </div>
+                    <!-- <div class="form-group small text-muted"></div> -->
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      @click="saveNewUserInfo()"
                     >
-                      Passwords don't match!
+                      Update Profile
+                    </button>
+                    <button
+                      type="reset"
+                      class="btn btn-light"
+                      @click="resetUserInfo()"
+                    >
+                      Reset Changes
+                    </button>
+                  </form>
+                </div>
+                <div class="tab-pane" id="account">
+                  <h6>ACCOUNT DELETION</h6>
+                  <form>
+                    <hr />
+                    <div class="form-group">
+                      <label class="d-block text-danger"
+                        >Deleting Account:</label
+                      >
+                      <p class="text-muted font-size-sm">
+                        Once you delete your account, there is no going back.
+                        Please be certain before clicking the button.
+                      </p>
                     </div>
-                  </div>
-                  <div class="form-group small text-muted">
-                    By clicking on update password, your profile will be updated
-                    with a newly entered password.
-                  </div>
-                  <button
-                    type="button"
-                    class="btn btn-primary"
-                    @click="changeUserPass()"
-                  >
-                    Change Password
-                  </button>
-                </form>
-              </div>
-              <div class="tab-pane" id="UserType">
-                <h6>CHANGE USER TYPE</h6>
-                <hr />
-                <form>
-                  <div class="form-group">
-                    <p>
-                      Currenty, you're a <b>{{ store.userType }} </b>
-                    </p>
-                  </div>
-                  <div class="form-group"></div>
-                  <button
-                    v-if="store.userType == 'Buyer'"
-                    type="button"
-                    class="btn btn-primary"
-                    @click="changeToSeller()"
-                  >
-                    Change to Seller
-                  </button>
-                  <button
-                    v-if="store.userType == 'Seller'"
-                    type="button"
-                    class="btn btn-primary"
-                    @click="changeToBuyer()"
-                  >
-                    Change to Buyer
-                  </button>
-                </form>
+                    <br />
+                    <button
+                      class="btn btn-danger"
+                      type="button"
+                      @click="deleteUser()"
+                    >
+                      Delete Account
+                    </button>
+                  </form>
+                </div>
+                <div class="tab-pane" id="security">
+                  <h6>CHANGE PASSWORD</h6>
+                  <hr />
+                  <form>
+                    <div class="form-group">
+                      <!-- <label class="d-block text-danger">Change Password</label> -->
+                      <label for="password">Old password</label>
+                      <input
+                        type="password"
+                        v-model="password"
+                        class="form-control mt-1"
+                        id="password"
+                        required
+                        placeholder="Enter your old password"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label for="password">NEW password</label>
+                      <input
+                        type="password"
+                        v-model="newpassword"
+                        class="form-control mt-1"
+                        id="newpassword"
+                        required
+                        placeholder="New password"
+                      />
+                      <div v-if="newpassword.length < 6" class="text-danger">
+                        Your password must be at least 6 characters long.
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <input
+                        type="password"
+                        v-model="newpasswordrepeat"
+                        class="form-control mt-1"
+                        id="newpasswordrepeat"
+                        required
+                        placeholder="Confirm new password"
+                      />
+                      <div
+                        v-if="newpassword != newpasswordrepeat"
+                        class="text-danger"
+                      >
+                        Passwords don't match!
+                      </div>
+                    </div>
+                    <div class="form-group small text-muted">
+                      By clicking on update password, your profile will be
+                      updated with a newly entered password.
+                    </div>
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      @click="changeUserPass()"
+                    >
+                      Change Password
+                    </button>
+                  </form>
+                </div>
+                <div class="tab-pane" id="UserType">
+                  <h6>CHANGE USER TYPE</h6>
+                  <hr />
+                  <form>
+                    <div class="form-group">
+                      <p>
+                        Currenty, you're a <b>{{ store.userType }} </b>
+                      </p>
+                    </div>
+                    <div class="form-group"></div>
+                    <button
+                      v-if="store.userType == 'Buyer'"
+                      type="button"
+                      class="btn btn-primary"
+                      @click="changeToSeller()"
+                    >
+                      Change to Seller
+                    </button>
+                    <button
+                      v-if="store.userType == 'Seller'"
+                      type="button"
+                      class="btn btn-primary"
+                      @click="changeToBuyer()"
+                    >
+                      Change to Buyer
+                    </button>
+                  </form>
+                </div>
               </div>
             </div>
           </div>
@@ -374,6 +381,9 @@ body {
   margin: 0;
   /* padding-bottom: 100px; height of the footer */
   box-sizing: border-box;
+}
+.section {
+  min-height: 50vh;
 }
 
 .container {
