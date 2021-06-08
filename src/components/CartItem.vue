@@ -17,14 +17,7 @@
       <div class="col-2 fa">{{ item.prPrice }} HRK</div>
 
       <div class="col-1 fa">
-        <button
-          type="button"
-          class="RmvBtn"
-          @click="
-            removeFromCart(item);
-            refreshCart();
-          "
-        >
+        <button type="button" class="RmvBtn" @click="removeFromCart(item)">
           Remove Item
         </button>
       </div>
@@ -41,8 +34,8 @@
   margin-top: 2%;
 }
 .resize {
-  width: 75%;
-  height: 75%;
+  width: 58%;
+  height: 58%;
 }
 .fa {
   /* border: 1px solid red; */
