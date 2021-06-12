@@ -1,6 +1,12 @@
 <template>
     <span class="header col-12">
-        <strong>GrowOPG</strong>
+        <div class="header-n-logo">
+            <img
+              class="logo"
+              alt="logo"
+              src="@/assets/grow-opg-logo-reworked.png"
+            >
+        </div>
         <div class="dropdown-divider"></div>
     </span>
 </template>
@@ -16,6 +22,16 @@
     margin: .5rem 0;
     overflow: hidden;
     border-top: 2px solid #2D2D2D;
+}
+.header-n-logo {
+  position: inherit;
+  // text-align: center;
+  font-size: 50px;
+  color: black;
+}
+img.logo {
+  max-width: 60%;
+  max-height: 40px;
 }
 </style>
 
